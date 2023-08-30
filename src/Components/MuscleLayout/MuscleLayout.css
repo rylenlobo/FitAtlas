@@ -1,0 +1,14 @@
+.male,.female{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  padding-top: 20px;
+  width: 900px;
+  margin-left: 300px;
+}
+
+.body-map__muscle path:hover {
+  fill:rgb(76, 122, 187) !important;
+  cursor: pointer;
+}

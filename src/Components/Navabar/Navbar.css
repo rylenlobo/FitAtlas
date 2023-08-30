@@ -1,0 +1,109 @@
+.Navbar {
+  background-color: #1a1a1a;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  padding: 0 20px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  border-bottom: 3px solid #2b2b2b;
+}
+
+.logo-wrapper{
+margin-bottom: 22px;
+margin-left: -70px;
+}
+
+.search {
+  height: 35px;
+  width: 500px;
+  border-radius: 10px;
+  border-style: none;
+  border-color: black;
+  padding-left: 12px;
+  margin-right: 140px;
+  margin-right: 200px;
+  background-color: rgb(235, 232, 232);
+}
+
+.search::placeholder{
+  
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 15px;
+  color: black;
+}
+
+.search:focus {
+  outline: none;
+}
+
+.right-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 200px;
+  color: white;
+}
+
+.left-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 15%;
+  font-size: 20px;
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+  border-left: 3px solid #2b2b2b;
+  height: 70px;
+  padding-left: 23px;
+  font-size: 22px;
+}
+
+.profile img {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  margin-right: 4px;
+}
+
+.profile-log-signup {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 190px;
+  margin-right: 10px;
+  padding-right: 10px;
+}
+.profile-log-signup button {
+  font-family: "Space Grotesk", sans-serif;
+  background-color: rgb(76, 122, 187);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-size: 15px;
+  margin-right: 10px;
+  transition: all 0.3s ease;
+  height: 30px;
+  width: 80px;
+}
+.login {
+  margin-right: 20px;
+}
+
+.cart {
+  margin-right: 30px;
+}
+
+
+.left-wrapper div:hover{
+color:  rgb(76, 122, 187);
+
+}
