@@ -15,25 +15,12 @@ const spring = {
   damping: 30,
 }
 
-const ToggleSwitch = ({ dataisOn, handleToggle, left, right }) => {
+const ToggleSwitch = ({ sx, handleToggle, left, right }) => {
   return (
     <div className="toggle-switch-conatiner">
       {left}
       <Switch
-        sx={{
-          "& .MuiSwitch-thumb": {
-            backgroundColor: dataisOn ? "lightblue" : "pink",
-          },
-          "& .MuiSwitch-track": {
-            backgroundColor: "lightblue",
-          },
-          "& .MuiSwitch-switchBase.Mui-checked": {
-            color: "pink",
-          },
-          "& .MuiSwitch-switchBase.Mui-checked+.MuiSwitch-track": {
-            backgroundColor: "pink",
-          },
-        }}
+        sx={sx}
         size="large"
         onChange={handleToggle}
       />

@@ -8,6 +8,7 @@ import Home from "./Pages/Home/Home.jsx"
 import LoginPage from "./Pages/LoginPage.jsx"
 import ProductsPage from "./Pages/ProductsPage.jsx"
 import SignUppage from "./Pages/SignUppage.jsx"
+import ExercisesPage from "./Pages/ExercisesPage.jsx"
 
 function App() {
   return (
@@ -50,6 +51,10 @@ const router = createBrowserRouter([
       {
         path: "/signup",
         element: <SignUppage />,
+      },
+      {
+        path: "exercises",
+        element: <ExercisesPage />,
       },
     ],
   },

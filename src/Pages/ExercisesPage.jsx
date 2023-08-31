@@ -1,8 +1,15 @@
 // eslint-disable-next-line no-unused-vars
 import React from "react"
 
-const ExerciseList = () => {
-  return <div>ExerciseList</div>
+ 
+
+const ExercisesPage = () => {
+ 
+  return (
+    <h1 style={{color:"white"}}> 
+      
+    </h1>
+  )
 }
 
-export default ExerciseList
+export default ExercisesPage
