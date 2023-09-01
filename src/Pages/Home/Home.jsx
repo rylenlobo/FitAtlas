@@ -19,7 +19,7 @@ const Home = () => {
   }
 
   const handleClick = (e) => {
-    setMuscle(e.currentTarget.id);
+    setMuscle(e.currentTarget.getAttribute("data-muscle-type"));
     navigate("/exercises")
     console.log(muscle)
   }
@@ -45,12 +45,12 @@ const Home = () => {
         handleToggle={toggleSwitch}
         left={
           <div>
-            <MaleSharpIcon style={{ color: "lightblue", fontSize: "32px" }} />
+            <MaleSharpIcon style={{ color: isOn?"lightblue":"grey", fontSize: "32px" }} />
           </div>
         }
         right={
           <div>
-            <FemaleSharpIcon style={{ color: "pink", fontSize: "32px" }} />
+            <FemaleSharpIcon style={{ color: isOn?"grey":"pink", fontSize: "32px" }} />
           </div>
         }
       />
