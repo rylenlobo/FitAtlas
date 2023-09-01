@@ -10,6 +10,7 @@ import ProductsPage from "./Pages/ProductsPage.jsx"
 import SignUppage from "./Pages/SignUppage.jsx"
 import ExercisesPage from "./Pages/ExercisesPage.jsx"
 
+
 function App() {
   return (
     <>
