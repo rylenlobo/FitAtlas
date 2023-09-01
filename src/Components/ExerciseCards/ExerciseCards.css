@@ -1,0 +1,79 @@
+
+.card {
+  width: 320px;
+  height: 400px;
+  background: rgb(255, 255, 255);
+  box-shadow: rgba(17, 15, 15, 0.1) 0px 2px 8px;
+  border-radius: 8px;
+  text-decoration: none;
+  display: flex;
+  -webkit-box-pack: justify;
+  align-items: center;
+  justify-content: space-around;
+  flex-direction: column;
+  padding-bottom: 10px;
+  transition: all 0.5s ease 0s;
+  margin: 10px 40px;
+  font-family: Inter, sans-serif;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.card:hover {
+  transform: scale(1.08);
+}
+
+.ex-name {
+  margin-top: 12px;
+  padding: 12px;
+  text-align: center;
+  color: rgb(0, 0, 0);
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.ex-img {
+  margin-bottom: 12px;
+  padding: 0;
+  width: 70%;
+  overflow: clip;
+}
+
+.card-container {
+  display: flex;
+  margin-top: 150px;
+  flex-wrap: wrap;
+  justify-content: center;
+  column-gap: 70px;
+  row-gap: 50px;
+}
+
+.info-muscles {
+  display: flex;
+  gap: 100px;
+}
+
+.bodyPart {
+  margin-bottom: 12px;
+  padding: 8px;
+  border: none;
+  background-color: rgb(255, 49, 49);
+  text-transform: capitalize;
+  border-radius: 6px;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 8px;
+  color: rgb(255, 255, 255);
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.targetMuscles {
+  margin-bottom: 12px;
+  padding: 8px;
+  border: none;
+  text-transform: capitalize;
+  border-radius: 6px;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 8px;
+  color: rgb(0, 0, 0);
+  font-size: 16px;
+  font-weight: 500;
+}
