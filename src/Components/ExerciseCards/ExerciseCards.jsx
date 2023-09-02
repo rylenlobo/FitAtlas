@@ -1,19 +1,28 @@
-import React from 'react'
-import  "./ExerciseCards.css"
+import React from "react"
+import "./ExerciseCards.css"
 
-const ExerciseCards = ({key, bodyPart, equipment, gifUrl, id, name, target }) => {
+const ExerciseCards = ({
+  onClick,
+  key,
+  bodyPart,
+  equipment,
+  gifUrl,
+  id,
+  name,
+  target,
+}) => {
   return (
     <>
-      <div className="card" key={key}>
-        <p className="ex-name" id={id}>
+      <div className="card" key={key} onClick={onClick} id={id}>
+        <p className="ex-name" >
           {name}
         </p>
-        <img src={gifUrl} className="ex-img" id={id} />
-        <div className="info-muscles" id={id}>
-          <div className="bodyPart" id={id}>
+        <img src={gifUrl} className="ex-img" />
+        <div className="info-muscles" >
+          <div className="bodyPart" >
             {bodyPart}
           </div>
-          <div className="targetMuscles" id={id}>
+          <div className="targetMuscles" >
             {target}
           </div>
         </div>

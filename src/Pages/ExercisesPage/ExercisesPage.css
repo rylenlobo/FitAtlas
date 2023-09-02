@@ -18,3 +18,14 @@
 .title span {
     color: #4c7abb;
   }
+
+.progress-bar {
+  position: fixed;
+  top: 20;
+  left: 0;
+  right: 0;
+  height: 10px;
+  background:  #4c7abb;
+  transform-origin: 0%;
+  z-index: 1000;
+}

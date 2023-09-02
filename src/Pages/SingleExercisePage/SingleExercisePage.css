@@ -1,0 +1,97 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.left {
+  width: 30%;
+  height: min-content;
+  display: flex;
+  flex-direction: column;
+  border-right: 3px solid #2b2b2b;
+  justify-content: start;
+}
+
+.right {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+  margin-top: 10px;
+}
+
+.top {
+  display: flex;
+  flex-direction: row;
+  margin-top: 10px;
+}
+
+.top-left div {
+  position: relative;
+  width: 400px;
+  height: 400px;
+  background-color: #ebe8e8;
+  margin: 50px;
+  border-radius: 10px;
+}
+
+.top-left img {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  object-fit: contain;
+  border-radius: 20px;
+  border: #2b2b2b 3px solid;
+  right: 0;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+}
+
+.top-right {
+  display: flex;
+  flex-direction: column;
+ 
+}
+
+.bottom {
+}
+
+.exname {
+  font-size: 30px;
+  font-weight: bold;
+  margin-top: 50px;
+  color: #4c7abb;
+  margin-bottom: 20px;
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+.select-level{
+  font-size: 30px;
+  font-weight: bold;
+  color: #4c7abb;
+  margin-top: 25px;
+  margin-bottom: px;
+}
+
+.ex-bodyPart,
+.ex-equipment,
+.ex-target {
+  text-transform: uppercase;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: 25px;
+  color: white;
+  margin: 20px 15px;
+  gap: 20px;
+}
+
+.reps{
+  color: white;
+  list-style: none;
+  gap: 20px;
+  
+}
