@@ -1,8 +1,20 @@
 .card-container {
   display: flex;
-  margin-top: 150px;
+  margin-top: 50px;
   flex-wrap: wrap;
   justify-content: center;
-  column-gap: 70px;
-  row-gap: 50px;
+  column-gap: 5px;
+  row-gap: 60px;
 }
+
+.title {
+  font-size: 30px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  text-align: center;
+  word-spacing:15px
+}
+
+.title span {
+    color: #4c7abb;
+  }

@@ -1,10 +1,10 @@
 import React from 'react'
 import  "./ExerciseCards.css"
 
-const ExerciseCards = ({ bodyPart, equipment, gifUrl, id, name, target }) => {
+const ExerciseCards = ({key, bodyPart, equipment, gifUrl, id, name, target }) => {
   return (
     <>
-      <div className="card">
+      <div className="card" key={key}>
         <p className="ex-name" id={id}>
           {name}
         </p>

@@ -21,7 +21,6 @@ const Home = () => {
   const handleClick = (e) => {
     setMuscle(e.currentTarget.getAttribute("data-muscle-type"));
     navigate("/exercises")
-    console.log(muscle)
   }
 
   return (
