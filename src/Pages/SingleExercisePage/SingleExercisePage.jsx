@@ -134,7 +134,7 @@ const SingleExercisePage = () => {
     <>
       <div className="container">
         <div className="left">
-          <p>SUGGESTED PRODUCTS</p>
+          <p className="suggest-title">SUGGESTED PRODUCTS</p>
           {exercises.map((item) => {
             return (
               <ExerciseCards
