@@ -72,11 +72,12 @@ const exercises = [
   ]
 
 const SingleExercisePage = () => {
+  const id = useParams()
   const [level, setLevel] = React.useState("")
 
-  const [exData, setExData] = useState([])
+  const [exData, setExData] = useState({})
   const [error, setError] = useState({})
-
+  
   const { muscle, setMuscle } = useContext(GlobalStateContext)
 
   const [similarExData, similarsetExData] = useState([])
@@ -86,7 +87,6 @@ const SingleExercisePage = () => {
     setLevel(e.target.value)
   }
 
-  const id = useParams()
   const options1 = {
     method: "GET",
     url: `https://exercisedb.p.rapidapi.com/exercises/exercise/target/${muscle}`,
@@ -98,7 +98,7 @@ const SingleExercisePage = () => {
 
   const options2 = {
     method: "GET",
-    url: `https://exercisedb.p.rapidapi.com/exercises/exercise/${id.id}}`,
+    url: `https://exercisedb.p.rapidapi.com/exercises/exercise/${id.id}`,
     headers: {
       "X-RapidAPI-Key": "88b6918b40msh329f31200fccbc9p165531jsn929418cf75f8",
       "X-RapidAPI-Host": "exercisedb.p.rapidapi.com",
@@ -114,10 +114,10 @@ const SingleExercisePage = () => {
     }
   }
 
-  // useEffect(() => {
-  //   exerciseDbApi(options1,similarsetExData,similarsetExData)
-  //   exerciseDbApi(options2,setExData,setError)
-  // }, [])
+  useEffect(() => {
+    //   exerciseDbApi(options1,similarsetExData,similarsetExData)
+    exerciseDbApi(options2, setExData, setError)
+  }, [])
 
   const fetchedData = [
     {
@@ -129,7 +129,7 @@ const SingleExercisePage = () => {
       target: "biceps",
     },
   ]
-  console.log(level)
+
   return (
     <>
       <div className="container">
@@ -153,24 +153,24 @@ const SingleExercisePage = () => {
           <div className="top">
             <div className="top-left">
               <div className="img-container">
-                <img src={fetchedData[0].gifUrl} />
+                <img src={exData.gifUrl} />
               </div>
             </div>
             <div className="top-right">
               <div className="exname">
-                <div>{fetchedData[0].name.toUpperCase()}</div>
+                <div>{exData.name}</div>
               </div>
               <div className="ex-bodyPart">
                 <AccessibilityIcon sx={{ fontSize: 32, color: "grey" }} />
-                <div>{fetchedData[0].bodyPart}</div>
+                <div>{exData.bodyPart}</div>
               </div>
               <div className="ex-equipment">
                 <FitnessCenterIcon sx={{ fontSize: 32, color: "grey" }} />
-                <div>{fetchedData[0].equipment}</div>
+                <div>{exData.equipment}</div>
               </div>
               <div className="ex-target">
                 <TrackChangesIcon sx={{ fontSize: 32, color: "grey" }} />
-                <div>{fetchedData[0].target}</div>
+                <div>{exData.target}</div>
               </div>
               <div className="reps-info">
                 <p className="select-level">SELECT LEVEL</p>

@@ -53,22 +53,19 @@
 .top-right {
   display: flex;
   flex-direction: column;
- 
-}
-
-.bottom {
 }
 
 .exname {
+  text-transform: uppercase;
   font-size: 30px;
   font-weight: bold;
   margin-top: 50px;
   color: #4c7abb;
-  margin-bottom: 20px;
-  font-family: 'Space Grotesk', sans-serif;
+  margin-bottom: 10px;
+  font-family: "Space Grotesk", sans-serif;
 }
 
-.select-level{
+.select-level {
   font-size: 30px;
   font-weight: bold;
   color: #4c7abb;
@@ -85,13 +82,12 @@
   align-items: center;
   font-size: 25px;
   color: white;
-  margin: 20px 15px;
+  margin: 10px 15px;
   gap: 20px;
 }
 
-.reps{
+.reps {
   color: white;
   list-style: none;
   gap: 20px;
-  
 }
