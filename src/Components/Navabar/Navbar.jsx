@@ -13,14 +13,14 @@ import { Tooltip } from "@mui/material"
 
 const user = "Rylen"
 const decoartion = { paddingLeft: 13, textDecoration: "none", color: "white" }
-const isUserLoggedIn = true
+const isUserLoggedIn = false
 
 const Navbar = () => {
   return (
     <>
       <nav className="Navbar">
         <div className="logo-wrapper">
-          <Link to="/">
+          <Link to="/" style={{fontFamily:"Space Grotesk"}}>
             <img src={fitAtlas} alt="FitAtlas" />
           </Link>
         </div>

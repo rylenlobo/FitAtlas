@@ -69,6 +69,7 @@ const exercises = [
     name: "barbell drag curl",
     target: "biceps",
   },
+  
   ]
 
 const SingleExercisePage = () => {
@@ -77,7 +78,7 @@ const SingleExercisePage = () => {
 
   const [exData, setExData] = useState({})
   const [error, setError] = useState({})
-  
+
   const { muscle, setMuscle } = useContext(GlobalStateContext)
 
   const [similarExData, similarsetExData] = useState([])
@@ -91,7 +92,7 @@ const SingleExercisePage = () => {
     method: "GET",
     url: `https://exercisedb.p.rapidapi.com/exercises/exercise/target/${muscle}`,
     headers: {
-      "X-RapidAPI-Key": "88b6918b40msh329f31200fccbc9p165531jsn929418cf75f8",
+      "X-RapidAPI-Key": "9c62e74a38msh10d622a2b8dfc54p1d0b94jsn09660afc91bc",
       "X-RapidAPI-Host": "exercisedb.p.rapidapi.com",
     },
   }
@@ -100,7 +101,7 @@ const SingleExercisePage = () => {
     method: "GET",
     url: `https://exercisedb.p.rapidapi.com/exercises/exercise/${id.id}`,
     headers: {
-      "X-RapidAPI-Key": "88b6918b40msh329f31200fccbc9p165531jsn929418cf75f8",
+      "X-RapidAPI-Key": "9c62e74a38msh10d622a2b8dfc54p1d0b94jsn09660afc91bc",
       "X-RapidAPI-Host": "exercisedb.p.rapidapi.com",
     },
   }
@@ -119,21 +120,12 @@ const SingleExercisePage = () => {
     exerciseDbApi(options2, setExData, setError)
   }, [])
 
-  const fetchedData = [
-    {
-      bodyPart: "upper arms",
-      equipment: "band",
-      gifUrl: "https://api.exercisedb.io/image/irV8OHVBDHejkX",
-      id: "0968",
-      name: "band alternating biceps curl",
-      target: "biceps",
-    },
-  ]
+
 
   return (
     <>
       <div className="container">
-        <div className="left">
+        <div className="left-spx">
           <p className="suggest-title">SUGGESTED PRODUCTS</p>
           {exercises.map((item) => {
             return (
@@ -201,7 +193,7 @@ const SingleExercisePage = () => {
                     <div className="reps">
                       <ul>
                         <li>
-                          Aim for 8-12 repetitions per set: Beginners should
+                          Aim for (8-12) repetitions per set: Beginners should
                           start with a moderate rep range to build a foundation
                           of strength and muscle endurance.
                         </li>
@@ -211,7 +203,7 @@ const SingleExercisePage = () => {
                           and establish good habits.
                         </li>
                         <li>
-                          Perform 2-3 sets per exercise: Keep the volume
+                          Perform (2-3) sets per exercise: Keep the volume
                           manageable to avoid overexertion while still promoting
                           progress.
                         </li>
@@ -222,7 +214,7 @@ const SingleExercisePage = () => {
                     <div className="reps">
                       <ul>
                         <li>
-                          Utilize a range of 6-10 reps per set: Intermediate
+                          Utilize a range of (6-10) reps per set: Intermediate
                           individuals can vary rep ranges to target different
                           aspects of strength and hypertrophy.
                         </li>
@@ -232,7 +224,7 @@ const SingleExercisePage = () => {
                           continually challenge your muscles and avoid plateaus.
                         </li>
                         <li>
-                          Perform 3-4 sets per exercise: Increase the volume
+                          Perform (3-4) sets per exercise: Increase the volume
                           slightly to stimulate muscle growth and enhance
                           strength gains.
                         </li>
