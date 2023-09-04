@@ -12,12 +12,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles"
 
 function Copyright(props) {
   return (
-    <Typography
-      variant="body2"
-      color="white"
-      align="center"
-      {...props}
-    >
+    <Typography variant="body2" color="white" align="center" {...props}>
       {"Copyright © "}
       <Link color="inherit" href="/">
         FitAtlas
@@ -35,7 +30,7 @@ const defaultTheme = createTheme({
     background: {
       default: "#121212",
     },
-  }
+  },
 })
 
 export default function SignUpPage() {
@@ -51,7 +46,6 @@ export default function SignUpPage() {
   return (
     <ThemeProvider theme={defaultTheme}>
       <Container component="main" maxWidth="xs">
-        
         <Box
           sx={{
             marginTop: 8,
@@ -196,28 +190,26 @@ export default function SignUpPage() {
                   }}
                 />
               </Grid>
-              <Grid item xs={12}>
-                
-              </Grid>
+              <Grid item xs={12}></Grid>
             </Grid>
             <Button
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2, }}
+              sx={{ mt: 3, mb: 2 }}
             >
               Sign Up
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="/login" >
+                <Link href="/login" sx={{ fontFamily: "sans-serif" }}>
                   Already have an account? Login
                 </Link>
               </Grid>
             </Grid>
           </Box>
         </Box>
-        <Copyright sx={{ mt: 5,color:"white" }} />
+        <Copyright sx={{ mt: 5, color: "white" }} />
       </Container>
     </ThemeProvider>
   )
