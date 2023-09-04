@@ -33,8 +33,8 @@ const defaultTheme = createTheme({
     background: {
       default: "#121212",
     },
-  },
-});
+  }
+})
 
 export default function SignUpPage() {
   const [user, setUser] = React.useState({
@@ -229,7 +229,9 @@ export default function SignUpPage() {
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="/login">Already have an account? Login</Link>
+                <Link href="/login" >
+                  Already have an account? Login
+                </Link>
               </Grid>
             </Grid>
           </Box>
