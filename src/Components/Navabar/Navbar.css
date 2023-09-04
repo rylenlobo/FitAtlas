@@ -58,17 +58,16 @@ margin-left: -70px;
 .profile {
   display: flex;
   align-items: center;
+  gap: 2px;
   border-left: 3px solid #2b2b2b;
   height: 70px;
-  padding-left: 23px;
-  font-size: 22px;
+  padding-left: 10px;
 }
 
 .profile img {
-  height: 40px;
-  width: 40px;
+  height: 30px;
+  width: 30px;
   border-radius: 50%;
-  margin-right: 4px;
 }
 
 .profile-log-signup {
@@ -80,6 +79,7 @@ margin-left: -70px;
   margin-right: 10px;
   padding-right: 10px;
 }
+
 .profile-log-signup button {
   font-family: "Space Grotesk", sans-serif;
   background-color: rgb(76, 122, 187);
@@ -106,4 +106,12 @@ margin-left: -70px;
 .left-wrapper div:hover{
 color:  rgb(76, 122, 187);
 
+}
+
+.user{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-transform: capitalize;
+  font-size: 16px;
 }

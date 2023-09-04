@@ -1,23 +1,21 @@
-import * as React from "react"
-import Avatar from "@mui/material/Avatar"
-import Button from "@mui/material/Button"
-import TextField from "@mui/material/TextField"
-import Link from "@mui/material/Link"
-import Grid from "@mui/material/Grid"
-import Box from "@mui/material/Box"
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined"
-import Typography from "@mui/material/Typography"
-import Container from "@mui/material/Container"
-import { createTheme, ThemeProvider } from "@mui/material/styles"
+import * as React from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios"
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
+import Link from "@mui/material/Link";
+import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
+import { Alert } from "@mui/material";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 function Copyright(props) {
   return (
-    <Typography
-      variant="body2"
-      color="white"
-      align="center"
-      {...props}
-    >
+    <Typography variant="body2" color="white" align="center" {...props}>
       {"Copyright © "}
       <Link color="inherit" href="/">
         FitAtlas
@@ -25,7 +23,7 @@ function Copyright(props) {
       {new Date().getFullYear()}
       {"."}
     </Typography>
-  )
+  );
 }
 
 // TODO remove, this demo shouldn't need to reset the theme.
@@ -35,23 +33,41 @@ const defaultTheme = createTheme({
     background: {
       default: "#121212",
     },
-  }
-})
+  },
+});
 
 export default function SignUpPage() {
-  const handleSubmit = (event) => {
-    event.preventDefault()
-    const data = new FormData(event.currentTarget)
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    })
-  }
+  const [user, setUser] = React.useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+    isAdmin: false,
+  });
+
+  console.log(user);
+  const navigate = useNavigate();
+
+  const handleChange = (e) => {
+    setUser((prev) => {
+      return { ...prev, [e.target.name]: e.target.value };
+    });
+  };
+  
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      await axios.post("http://localhost:8800/api/auth/register", { ...user });
+      navigate("/login")
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <ThemeProvider theme={defaultTheme}>
       <Container component="main" maxWidth="xs">
-        
         <Box
           sx={{
             marginTop: 8,
@@ -66,6 +82,7 @@ export default function SignUpPage() {
           <Typography component="h1" variant="h5" sx={{ color: "#808080" }}>
             Sign up
           </Typography>
+
           <Box
             component="form"
             noValidate
@@ -80,6 +97,7 @@ export default function SignUpPage() {
                   required
                   fullWidth
                   id="firstName"
+                  onChange={handleChange}
                   label="First Name"
                   InputProps={{
                     sx: {
@@ -112,6 +130,7 @@ export default function SignUpPage() {
                   id="lastName"
                   label="Last Name"
                   name="lastName"
+                  onChange={handleChange}
                   InputProps={{
                     sx: {
                       color: "white",
@@ -141,6 +160,7 @@ export default function SignUpPage() {
                   fullWidth
                   id="email"
                   label="Email Address"
+                  onChange={handleChange}
                   name="email"
                   InputProps={{
                     sx: {
@@ -172,6 +192,7 @@ export default function SignUpPage() {
                   name="password"
                   label="Password"
                   type="password"
+                  onChange={handleChange}
                   id="password"
                   InputProps={{
                     sx: {
@@ -196,29 +217,25 @@ export default function SignUpPage() {
                   }}
                 />
               </Grid>
-              <Grid item xs={12}>
-                
-              </Grid>
+              <Grid item xs={12}></Grid>
             </Grid>
             <Button
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2, }}
+              sx={{ mt: 3, mb: 2 }}
             >
               Sign Up
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="/login" >
-                  Already have an account? Login
-                </Link>
+                <Link href="/login">Already have an account? Login</Link>
               </Grid>
             </Grid>
           </Box>
         </Box>
-        <Copyright sx={{ mt: 5,color:"white" }} />
+        <Copyright sx={{ mt: 5, color: "white" }} />
       </Container>
     </ThemeProvider>
-  )
+  );
 }

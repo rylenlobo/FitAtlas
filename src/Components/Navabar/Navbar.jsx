@@ -1,26 +1,43 @@
 // eslint-disable-next-line no-unused-vars
-import React from "react"
-import { useState } from "react"
-import { Link } from "react-router-dom"
-import "./Navbar.css"
-import cart from "./assets/cart.svg"
-import userIcon from "./assets//user.svg"
-import fitAtlas from "./assets/FitAtlas.svg"
-import { motion } from "framer-motion"
-import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout"
-import { grey, pink, red } from "@mui/material/colors"
-import { Tooltip } from "@mui/material"
-
-const user = "Rylen"
-const decoartion = { paddingLeft: 13, textDecoration: "none", color: "white" }
-const isUserLoggedIn = false
+import React from "react";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import "./Navbar.css";
+import cart from "./assets/cart.svg";
+import userIcon from "./assets//user.svg";
+import fitAtlas from "./assets/FitAtlas.svg";
+import { motion } from "framer-motion";
+import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
+import { grey, pink, red } from "@mui/material/colors";
+import { Tooltip } from "@mui/material";
 
 const Navbar = () => {
+  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+
+  const decoartion = {
+    paddingLeft: 13,
+    textDecoration: "none",
+    color: "white",
+  };
+
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    try {
+      await axios.post("http://localhost:8800/server/auth/logout");
+      localStorage.setItem("currentUser", null);
+      navigate("/");
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  console.log(currentUser);
   return (
     <>
       <nav className="Navbar">
         <div className="logo-wrapper">
-          <Link to="/" style={{fontFamily:"Space Grotesk"}}>
+          <Link to="/" style={{ fontFamily: "Space Grotesk" }}>
             <img src={fitAtlas} alt="FitAtlas" />
           </Link>
         </div>
@@ -48,11 +65,11 @@ const Navbar = () => {
           </div>
 
           <div>
-            {isUserLoggedIn ? (
+            { currentUser ? (
               <div className="profile">
                 <img className="dp" src={userIcon} alt="DP" />
                 <Link style={decoartion} to="profile">
-                  Hi,{user}
+                  <span className="user">Hi, {currentUser?.details.firstName}</span>
                 </Link>
               </div>
             ) : (
@@ -85,7 +102,7 @@ const Navbar = () => {
         </div>
       </nav>
     </>
-  )
-}
+  );
+};
 
-export default Navbar
+export default Navbar;
