@@ -14,6 +14,8 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import Toast from "../Components/Toast/Toast";
+
 
 function Copyright(props) {
   return (
@@ -37,6 +39,8 @@ export default function SignIn() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
+  const [open, setOpen] = useState(false)
+
   // console.log(error);
   const navigate = useNavigate();
 
@@ -48,14 +52,25 @@ export default function SignIn() {
         password,
       });
       localStorage.setItem("currentUser", JSON.stringify(res.data));
-      navigate("/");
+      navigate("/store");
     } catch (error) {
       setError(error.response.data);
+      console.log(error.response.data);
     }
   };
 
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return
+    }
+    setError("")
+  }
+
+
+
   return (
     <>
+      <Toast open={error} close={handleClose}/>
       <ThemeProvider theme={defaultTheme}>
         <Container component="main" maxWidth="xs">
           <Box
@@ -176,5 +191,5 @@ export default function SignIn() {
         </Container>
       </ThemeProvider>
     </>
-  );
+  )
 }
