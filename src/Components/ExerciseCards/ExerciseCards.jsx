@@ -3,7 +3,7 @@ import "./ExerciseCards.css"
 
 const ExerciseCards = ({
   onClick,
-  key,
+  key, 
   bodyPart,
   equipment,
   gifUrl,

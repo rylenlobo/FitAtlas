@@ -6,6 +6,7 @@
   border-radius: 15px;
   text-decoration: none;
   display: flex;
+  flex-shrink: 0;
   -webkit-box-pack: justify;
   align-items: center;
   justify-content: space-around;

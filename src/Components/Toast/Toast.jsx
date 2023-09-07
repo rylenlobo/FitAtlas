@@ -1,17 +1,17 @@
-import React from "react"
+import React, { Children } from "react"
 import Snackbar from "@mui/material/Snackbar"
 import Alert from "@mui/material/Alert"
 import Grow from "@mui/material/Grow"
 
 
-const Toast = ({ open, close }) => {
+const Toast = ({ open, close, children }) => {
   return (
     <div>
       <Snackbar
         open={open}
-        autoHideDuration={10000}
+        autoHideDuration={4000}
         onClose={close}
-        sx={{ mt: 7, width: "20%" }}
+        sx={{ mt: 7, width: "auto" }}
         anchorOrigin={{ vertical: "top", horizontal: "center" }}
         TransitionComponent={Grow}
       >
@@ -21,7 +21,7 @@ const Toast = ({ open, close }) => {
           sx={{ width: "100%" }}
           variant="filled"
         >
-          Invalid Credentials
+         {children}
         </Alert>
       </Snackbar>
     </div>

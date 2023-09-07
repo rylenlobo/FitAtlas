@@ -1,21 +1,20 @@
-import * as React from "react";
-import { useState } from "react";
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import Link from "@mui/material/Link";
-import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import Typography from "@mui/material/Typography";
-import Container from "@mui/material/Container";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import Toast from "../Components/Toast/Toast";
-
+import * as React from "react"
+import { useState } from "react"
+import Avatar from "@mui/material/Avatar"
+import Button from "@mui/material/Button"
+import TextField from "@mui/material/TextField"
+import FormControlLabel from "@mui/material/FormControlLabel"
+import Checkbox from "@mui/material/Checkbox"
+import Link from "@mui/material/Link"
+import Grid from "@mui/material/Grid"
+import Box from "@mui/material/Box"
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined"
+import Typography from "@mui/material/Typography"
+import Container from "@mui/material/Container"
+import { createTheme, ThemeProvider } from "@mui/material/styles"
+import { useNavigate } from "react-router-dom"
+import axios from "axios"
+import Toast from "../Components/Toast/Toast"
 
 function Copyright(props) {
   return (
@@ -27,37 +26,35 @@ function Copyright(props) {
       {new Date().getFullYear()}
       {"."}
     </Typography>
-  );
+  )
 }
 
 // TODO remove, this demo shouldn't need to reset the theme.
 
-const defaultTheme = createTheme();
+const defaultTheme = createTheme()
 
 export default function SignIn() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const [error, setError] = useState("")
 
   const [open, setOpen] = useState(false)
 
-  // console.log(error);
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   const handleSubmit = async (event) => {
-    event.preventDefault();
+    event.preventDefault()
     try {
       const res = await axios.post("http://localhost:8800/api/auth/login", {
         email,
         password,
-      });
-      localStorage.setItem("currentUser", JSON.stringify(res.data));
-      navigate("/store");
+      })
+      localStorage.setItem("currentUser", JSON.stringify(res.data))
+      navigate("/store")
     } catch (error) {
-      setError(error.response.data);
-      console.log(error.response.data);
+      setError(error.response.data)
     }
-  };
+  }
 
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
@@ -66,11 +63,12 @@ export default function SignIn() {
     setError("")
   }
 
-
-
   return (
     <>
-      <Toast open={error} close={handleClose}/>
+      <Toast open={error} close={handleClose}>
+        {"Invalid Credentials or Account doesn't exist. Please try again!"}
+      </Toast>
+
       <ThemeProvider theme={defaultTheme}>
         <Container component="main" maxWidth="xs">
           <Box
@@ -98,7 +96,7 @@ export default function SignIn() {
                 required
                 fullWidth
                 id="email"
-                label="Email Address"
+                label={"Email Address"}
                 name="email"
                 onChange={(e) => setEmail(e.target.value)}
                 autoFocus

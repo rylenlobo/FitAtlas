@@ -9,6 +9,7 @@ import { SvgIcon } from "@mui/material"
 import FitnessCenterIcon from "@mui/icons-material/FitnessCenter"
 import TrackChangesIcon from "@mui/icons-material/TrackChanges"
 import AccessibilityIcon from "@mui/icons-material/Accessibility"
+import { useNavigate } from "react-router-dom"
 
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material"
 //prettier-ignore
@@ -73,26 +74,26 @@ const exercises = [
   ]
 
 const SingleExercisePage = () => {
-  const id = useParams()
-  const [level, setLevel] = React.useState("")
-
   const [exData, setExData] = useState({})
   const [error, setError] = useState({})
-
-  const { muscle, setMuscle } = useContext(GlobalStateContext)
 
   const [similarExData, similarsetExData] = useState([])
   const [similarError, similarsetError] = useState({})
 
+  const id = useParams()
+  const navigate = useNavigate()
+  const [level, setLevel] = React.useState("Beginner")
+
+  const { muscle, setMuscle } = useContext(GlobalStateContext)
+
   const handleChange = (e) => {
     setLevel(e.target.value)
   }
-
   const options1 = {
     method: "GET",
-    url: `https://exercisedb.p.rapidapi.com/exercises/exercise/target/${muscle}`,
+    url: `https://exercisedb.p.rapidapi.com/exercises/target/${muscle}`,
     headers: {
-      "X-RapidAPI-Key": "9c62e74a38msh10d622a2b8dfc54p1d0b94jsn09660afc91bc",
+      "X-RapidAPI-Key": "60c18c4f8bmsh66130765ceaa869p1dea0djsna6eb7819039b",
       "X-RapidAPI-Host": "exercisedb.p.rapidapi.com",
     },
   }
@@ -101,7 +102,7 @@ const SingleExercisePage = () => {
     method: "GET",
     url: `https://exercisedb.p.rapidapi.com/exercises/exercise/${id.id}`,
     headers: {
-      "X-RapidAPI-Key": "9c62e74a38msh10d622a2b8dfc54p1d0b94jsn09660afc91bc",
+      "X-RapidAPI-Key": "60c18c4f8bmsh66130765ceaa869p1dea0djsna6eb7819039b",
       "X-RapidAPI-Host": "exercisedb.p.rapidapi.com",
     },
   }
@@ -116,30 +117,37 @@ const SingleExercisePage = () => {
   }
 
   useEffect(() => {
-    //   exerciseDbApi(options1,similarsetExData,similarsetExData)
     exerciseDbApi(options2, setExData, setError)
-  }, [])
-
-
+    exerciseDbApi(options1, similarsetExData, similarsetError)
+  }, [id ])
 
   return (
     <>
       <div className="container">
-        <div className="left-spx">
-          <p className="suggest-title">SUGGESTED PRODUCTS</p>
-          {exercises.map((item) => {
-            return (
-              <ExerciseCards
-                key={item.id}
-                bodyPart={item.bodyPart}
-                equipment={item.equipment}
-                gifUrl={item.gifUrl}
-                id={item.id}
-                name={item.name}
-                target={item.target}
-              />
-            )
-          })}
+        <div>
+          <p className="suggest-title">SIMILAR EXERCISES</p>
+          <div className="left-spx">
+            {similarExData.map((item) => {
+              return (
+                <ExerciseCards
+                  onClick={() => {
+                    navigate(`/exercises/${item.id}`)
+                    window.scrollTo({
+                      top: 0,
+                      behavior: "smooth", // This adds smooth scrolling animation
+                    })
+                  }}
+                  key={item.id}
+                  bodyPart={item.bodyPart}
+                  equipment={item.equipment}
+                  gifUrl={item.gifUrl}
+                  id={item.id}
+                  name={item.name}
+                  target={item.target}
+                />
+              )
+            })}
+          </div>
         </div>
         <div className="right">
           <div className="top">
@@ -169,6 +177,7 @@ const SingleExercisePage = () => {
                 <FormControl fullWidth>
                   <InputLabel id="demo-simple-select-label"></InputLabel>
                   <Select
+                    defaultValue="Beginner"
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
                     value={level}
@@ -256,8 +265,6 @@ const SingleExercisePage = () => {
               </div>
             </div>
           </div>
-
-          <div className="bottom">bottom</div>
         </div>
       </div>
     </>
