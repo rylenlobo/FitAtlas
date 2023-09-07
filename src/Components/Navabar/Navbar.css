@@ -56,19 +56,19 @@ margin-left: -70px;
 }
 
 .profile {
+  position: relative;
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 2px;
   border-left: 3px solid #2b2b2b;
   height: 70px;
-  padding-left: 10px;
+  padding-left: 20px;
 }
 
-.profile img {
-  height: 30px;
-  width: 30px;
-  border-radius: 50%;
-}
+
+
+
 
 .profile-log-signup {
   display: flex;
@@ -113,5 +113,5 @@ color:  rgb(76, 122, 187);
   align-items: center;
   justify-content: center;
   text-transform: capitalize;
-  font-size: 16px;
+  font-size: 20px;
 }
