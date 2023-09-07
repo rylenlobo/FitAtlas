@@ -230,13 +230,9 @@ export default function SignUpPage() {
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-<<<<<<< HEAD
-                <Link href="/login">Already have an account? Login</Link>
-=======
                 <Link href="/login" sx={{fontFamily:"sans-serif"}} >
                   Already have an account? Login
                 </Link>
->>>>>>> 794dc5650847f4e319df25e66b103dcb8fc421eb
               </Grid>
             </Grid>
           </Box>

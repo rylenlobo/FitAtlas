@@ -59,7 +59,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-<<<<<<< HEAD
   gap: 10px;
   border-left: 3px solid #2b2b2b;
   height: 70px;
@@ -68,17 +67,6 @@
   cursor: pointer;
   position: relative;
 }
-=======
-  gap: 2px;
-  border-left: 3px solid #2b2b2b;
-  height: 70px;
-  padding-left: 20px;
-}
-
-
-
-
->>>>>>> 794dc5650847f4e319df25e66b103dcb8fc421eb
 
 .profile-log-signup {
   display: flex;
@@ -121,7 +109,6 @@
   align-items: center;
   justify-content: center;
   text-transform: capitalize;
-<<<<<<< HEAD
   font-size: 18px;
   font-weight: normal;
 }
@@ -149,7 +136,3 @@
   gap: 10px;
   width: 150px;
 }
-=======
-  font-size: 20px;
-}
->>>>>>> 794dc5650847f4e319df25e66b103dcb8fc421eb

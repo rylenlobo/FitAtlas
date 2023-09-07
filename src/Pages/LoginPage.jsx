@@ -1,21 +1,3 @@
-<<<<<<< HEAD
-import * as React from "react";
-import { useState, useEffect } from "react";
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import Link from "@mui/material/Link";
-import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import Typography from "@mui/material/Typography";
-import Container from "@mui/material/Container";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
-=======
 import * as React from "react"
 import { useState } from "react"
 import Avatar from "@mui/material/Avatar"
@@ -33,7 +15,6 @@ import { createTheme, ThemeProvider } from "@mui/material/styles"
 import { useNavigate } from "react-router-dom"
 import axios from "axios"
 import Toast from "../Components/Toast/Toast"
->>>>>>> 794dc5650847f4e319df25e66b103dcb8fc421eb
 
 function Copyright(props) {
   return (
@@ -57,14 +38,9 @@ export default function SignIn() {
   const [password, setPassword] = useState("")
   const [error, setError] = useState("")
 
-<<<<<<< HEAD
-  // console.log(error.message);
-  const navigate = useNavigate();
-=======
   const [open, setOpen] = useState(false)
 
   const navigate = useNavigate()
->>>>>>> 794dc5650847f4e319df25e66b103dcb8fc421eb
 
   const handleSubmit = async (event) => {
     event.preventDefault()
@@ -89,8 +65,8 @@ export default function SignIn() {
 
   return (
     <>
-      <Toast open={error} close={handleClose}>
-        {"Invalid Credentials or Account doesn't exist. Please try again!"}
+      <Toast open={error} close={handleClose} type="error">
+        {error.message}
       </Toast>
 
       <ThemeProvider theme={defaultTheme}>
