@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
@@ -37,7 +37,7 @@ export default function SignIn() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  // console.log(error);
+  // console.log(error.message);
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
@@ -87,6 +87,7 @@ export default function SignIn() {
                 name="email"
                 onChange={(e) => setEmail(e.target.value)}
                 autoFocus
+                autoComplete="off"
                 InputProps={{
                   sx: {
                     color: "white",
@@ -116,6 +117,7 @@ export default function SignIn() {
                 name="password"
                 label="Password"
                 type="password"
+                autoComplete="off"
                 id="password"
                 onChange={(e) => setPassword(e.target.value)}
                 InputProps={{

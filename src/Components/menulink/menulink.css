@@ -1,0 +1,20 @@
+.menulink {
+  font-size: 15px;
+  padding: 10px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.menulink:hover {
+  background-color: rgb(240, 238, 238);
+  color:rgb(76, 122, 187)
+}
+
+.menuLinkText {
+  margin-left: 10px;
+  margin-right: 5px;
+}
+

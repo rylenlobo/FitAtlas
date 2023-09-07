@@ -3,15 +3,19 @@ import React from "react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./Navbar.css";
-import cart from "./assets/cart.svg";
-import userIcon from "./assets//user.svg";
 import fitAtlas from "./assets/FitAtlas.svg";
 import { motion } from "framer-motion";
 import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
-import { grey, pink, red } from "@mui/material/colors";
-import { Tooltip } from "@mui/material";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import MenuLink from '../menulink/MenuLink.jsx';
+import LogoutIcon from '@mui/icons-material/Logout';
+import { Add } from "@mui/icons-material";
+import LocalMallIcon from '@mui/icons-material/LocalMall';
+import InsightsIcon from '@mui/icons-material/Insights';
+import axios from "axios";
 
 const Navbar = () => {
+  const [open, setOpen] = useState(false);
   const currentUser = JSON.parse(localStorage.getItem("currentUser"));
 
   const decoartion = {
@@ -24,7 +28,7 @@ const Navbar = () => {
 
   const handleLogout = async () => {
     try {
-      await axios.post("http://localhost:8800/server/auth/logout");
+      await axios.post("http://localhost:8800/api/auth/logout");
       localStorage.setItem("currentUser", null);
       navigate("/");
     } catch (e) {
@@ -56,21 +60,51 @@ const Navbar = () => {
         </div>
 
         <div className="right-wrapper">
-          <div className="cart">
+          {/* <div className="cart">
             <Tooltip title="Cart">
               <ShoppingCartCheckoutIcon
                 style={{ color: "grey", fontSize: "32px" }}
               />
             </Tooltip>
-          </div>
+          </div> */}
 
           <div>
-            { currentUser ? (
-              <div className="profile">
-                <img className="dp" src={userIcon} alt="DP" />
-                <Link style={decoartion} to="profile">
-                  <span className="user">Hi, {currentUser?.details.firstName}</span>
-                </Link>
+            {currentUser ? (
+              <div className="profile" onClick={() => setOpen(!open)}>
+                <AccountCircleIcon sx={{ fontSize: "25px" }} />
+                <span className="user">
+                  Hi, {currentUser?.details.firstName}
+                </span>
+
+                {open && (
+              <>
+                <div className="options ">
+                  {currentUser?.isAdmin ? (
+                    <>
+                      <Link className="link" to="/add">
+                        <MenuLink text="Add Item" icon={<Add/>}/>
+                      </Link>
+                      <Link className="link" to="/">
+                       <MenuLink text="Orders" icon={<LocalMallIcon/>}/>
+                      </Link>
+                    </>
+                  ) : (
+                    <>
+                    <Link className="link" to="/order">
+                       <MenuLink text="Track" icon={<InsightsIcon/>}/>
+                      </Link>
+                      <Link className="link" to="/cart">
+                       <MenuLink text="Cart" icon={<ShoppingCartCheckoutIcon/>}/>
+                      </Link>
+                    </>
+                  )
+                }
+                  <Link className="link" to="/" onClick={handleLogout}>
+                  <MenuLink text="Logout" icon={<LogoutIcon/>}/>
+                  </Link>
+                </div>
+              </>
+            )}
               </div>
             ) : (
               //prettier-ignore

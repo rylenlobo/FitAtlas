@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios"
+import axios from "axios";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
@@ -33,8 +33,8 @@ const defaultTheme = createTheme({
     background: {
       default: "#121212",
     },
-  }
-})
+  },
+});
 
 export default function SignUpPage() {
   const [user, setUser] = React.useState({
@@ -53,13 +53,12 @@ export default function SignUpPage() {
       return { ...prev, [e.target.name]: e.target.value };
     });
   };
-  
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
       await axios.post("http://localhost:8800/api/auth/register", { ...user });
-      navigate("/login")
+      navigate("/login");
     } catch (error) {
       console.log(error);
     }
@@ -92,7 +91,7 @@ export default function SignUpPage() {
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
                 <TextField
-                  autoComplete="given-name"
+                  autoComplete="off"
                   name="firstName"
                   required
                   fullWidth
@@ -130,6 +129,7 @@ export default function SignUpPage() {
                   id="lastName"
                   label="Last Name"
                   name="lastName"
+                  autoComplete="off"
                   onChange={handleChange}
                   InputProps={{
                     sx: {
@@ -158,6 +158,7 @@ export default function SignUpPage() {
                 <TextField
                   required
                   fullWidth
+                  autoComplete="off"
                   id="email"
                   label="Email Address"
                   onChange={handleChange}
@@ -229,9 +230,7 @@ export default function SignUpPage() {
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="/login" >
-                  Already have an account? Login
-                </Link>
+                <Link href="/login">Already have an account? Login</Link>
               </Grid>
             </Grid>
           </Box>
