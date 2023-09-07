@@ -25,7 +25,7 @@ const ExercisesPage = () => {
     method: "GET",
     url: `https://exercisedb.p.rapidapi.com/exercises/target/${muscle}`,
     headers: {
-      "X-RapidAPI-Key": "9c62e74a38msh10d622a2b8dfc54p1d0b94jsn09660afc91bc",
+      "X-RapidAPI-Key": "60c18c4f8bmsh66130765ceaa869p1dea0djsna6eb7819039b",
       "X-RapidAPI-Host": "exercisedb.p.rapidapi.com",
     },
   }
@@ -55,7 +55,10 @@ const ExercisesPage = () => {
             {exData.map((item) => {
               return (
                 <ExerciseCards
-                  onClick={() => navigate(`/exercises/${item.id}`)}
+                  onClick={() => {
+                    
+                    navigate(`/exercises/${item.id}`)
+                  }}
                   key={item.id}
                   bodyPart={item.bodyPart}
                   equipment={item.equipment}

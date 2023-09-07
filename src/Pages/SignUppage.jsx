@@ -78,7 +78,7 @@ export default function SignUpPage() {
           <Avatar sx={{ m: 1, bgcolor: "#4c7abb" }}>
             <LockOutlinedIcon />
           </Avatar>
-          <Typography component="h1" variant="h5" sx={{ color: "#808080" }}>
+          <Typography component="h1" variant="h5" >
             Sign up
           </Typography>
 
@@ -230,7 +230,13 @@ export default function SignUpPage() {
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
+<<<<<<< HEAD
                 <Link href="/login">Already have an account? Login</Link>
+=======
+                <Link href="/login" sx={{fontFamily:"sans-serif"}} >
+                  Already have an account? Login
+                </Link>
+>>>>>>> 794dc5650847f4e319df25e66b103dcb8fc421eb
               </Grid>
             </Grid>
           </Box>

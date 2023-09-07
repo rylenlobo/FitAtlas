@@ -1,4 +1,5 @@
 // eslint-disable-next-line no-unused-vars
+<<<<<<< HEAD
 import React from "react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -17,26 +18,58 @@ import axios from "axios";
 const Navbar = () => {
   const [open, setOpen] = useState(false);
   const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+=======
+import React from "react"
+import { useState } from "react"
+import { Link, useNavigate } from "react-router-dom"
+import "./Navbar.css"
+import cart from "./assets/cart.svg"
+import userIcon from "./assets//user.svg"
+import fitAtlas from "./assets/FitAtlas.svg"
+import { motion } from "framer-motion"
+import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout"
+import { grey, pink, red } from "@mui/material/colors"
+import { Tooltip } from "@mui/material"
+import axios from "axios"
+import PersonIcon from "@mui/icons-material/Person"
+import Box from "@mui/material/Box"
+import List from "@mui/material/List"
+import ListItem from "@mui/material/ListItem"
+import ListItemButton from "@mui/material/ListItemButton"
+import ListItemText from "@mui/material/ListItemText"
+import ListItemIcon from "@mui/material/ListItemIcon"
+import LogoutIcon from "@mui/icons-material/Logout"
+
+const Navbar = () => {
+  const currentUser = true
+  // JSON.parse(localStorage.getItem("currentUser"))
+>>>>>>> 794dc5650847f4e319df25e66b103dcb8fc421eb
 
   const decoartion = {
     paddingLeft: 13,
     textDecoration: "none",
     color: "white",
-  };
+  }
 
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   const handleLogout = async () => {
     try {
+<<<<<<< HEAD
       await axios.post("http://localhost:8800/api/auth/logout");
       localStorage.setItem("currentUser", null);
       navigate("/");
+=======
+      await axios.post("http://localhost:8800/server/auth/logout")
+      localStorage.setItem("currentUser", null)
+      navigate("/store")
+>>>>>>> 794dc5650847f4e319df25e66b103dcb8fc421eb
     } catch (e) {
-      console.log(e);
+      console.log(e)
     }
-  };
+  }
 
-  console.log(currentUser);
+  console.log(currentUser)
   return (
     <>
       <nav className="Navbar">
@@ -70,6 +103,7 @@ const Navbar = () => {
 
           <div>
             {currentUser ? (
+<<<<<<< HEAD
               <div className="profile" onClick={() => setOpen(!open)}>
                 <AccountCircleIcon sx={{ fontSize: "25px" }} />
                 <span className="user">
@@ -106,6 +140,29 @@ const Navbar = () => {
               </>
             )}
               </div>
+=======
+              <Tooltip
+                sx={{ marginLeft: "50px !important" }}
+                title={
+                  <List>
+                    <ListItem disablePadding>
+                      <ListItemButton onClick={handleLogout}>
+                        <ListItemIcon>
+                          <LogoutIcon sx={{ color: "red" }} />
+                        </ListItemIcon>
+                        <ListItemText primary="Logout" />
+                      </ListItemButton>
+                    </ListItem>
+                  </List>
+                }
+              >
+                <div className="profile">
+                  <PersonIcon style={{ color: "grey", fontSize: "32px" }} />
+                  <span className="user">Hi,Rylen </span>
+                  {/* {currentUser?.details.firstName} */}
+                </div>
+              </Tooltip>
+>>>>>>> 794dc5650847f4e319df25e66b103dcb8fc421eb
             ) : (
               //prettier-ignore
               <div className="profile-log-signup">
@@ -136,7 +193,7 @@ const Navbar = () => {
         </div>
       </nav>
     </>
-  );
-};
+  )
+}
 
-export default Navbar;
+export default Navbar
