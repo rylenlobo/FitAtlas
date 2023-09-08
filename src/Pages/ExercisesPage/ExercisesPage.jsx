@@ -7,6 +7,8 @@ import "./ExercisesPage.css"
 import axios from "axios"
 import { useNavigate } from "react-router-dom"
 import { motion, useScroll, useSpring } from "framer-motion"
+import { Skeleton } from "@mui/material"
+import Box from "@mui/material/Box"
 
 const ExercisesPage = () => {
   const { muscle, setMuscle } = useContext(GlobalStateContext)
@@ -25,7 +27,7 @@ const ExercisesPage = () => {
     method: "GET",
     url: `https://exercisedb.p.rapidapi.com/exercises/target/${muscle}`,
     headers: {
-      "X-RapidAPI-Key": "60c18c4f8bmsh66130765ceaa869p1dea0djsna6eb7819039b",
+      "X-RapidAPI-Key": "2c1b97d08fmsh8bbdf7bf499fac5p1b77ddjsnc172ed5ac8b6",
       "X-RapidAPI-Host": "exercisedb.p.rapidapi.com",
     },
   }
@@ -56,7 +58,6 @@ const ExercisesPage = () => {
               return (
                 <ExerciseCards
                   onClick={() => {
-                    
                     navigate(`/exercises/${item.id}`)
                   }}
                   key={item.id}
@@ -72,7 +73,36 @@ const ExercisesPage = () => {
           </div>
         </>
       ) : (
-        <h1 className="title">{error.error}</h1>
+        <>
+          <Skeleton
+            variant="rectangular"
+            animation="wave"
+            width={40}
+            height={40}
+            sx={{ backgroundColor: "#fff" }}
+          />
+          <Skeleton
+            variant="rectangular"
+            animation="wave"
+            width={40}
+            height={40}
+            sx={{ backgroundColor: "#fff" }}
+          />
+          <Skeleton
+            variant="rectangular"
+            animation="wave"
+            width={40}
+            height={40}
+            sx={{ backgroundColor: "#fff" }}
+          />
+          <Skeleton
+            variant="rectangular"
+            animation="wave"
+            width={40}
+            height={40}
+            sx={{ backgroundColor: "#fff" }}
+          />
+        </>
       )}
     </>
   )

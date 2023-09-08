@@ -140,7 +140,7 @@ const Navbar = () => {
                   transition={{ type: "spring", stiffness: 400, damping: 17 }}
                 >
                   <Link to="login" style={decoartion}>
-                    <button className="login">LOGIN</button>
+                    <button className="login">SIGN IN</button>
                   </Link>
                 </motion.div>
               </div>

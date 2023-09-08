@@ -1,7 +1,7 @@
 import React from "react"
 import "./SingleExercisePage.css"
 import ExerciseCards from "../../Components/ExerciseCards/ExerciseCards.jsx"
-import { useEffect, useState, useContext } from "react"
+import { useEffect, useState, useContext, useRef } from "react"
 import { useParams } from "react-router-dom"
 import { GlobalStateContext } from "../../Context/ExercisesContext.jsx"
 import axios from "axios"
@@ -10,70 +10,17 @@ import FitnessCenterIcon from "@mui/icons-material/FitnessCenter"
 import TrackChangesIcon from "@mui/icons-material/TrackChanges"
 import AccessibilityIcon from "@mui/icons-material/Accessibility"
 import { useNavigate } from "react-router-dom"
-
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft"
+import ChevronRightIcon from "@mui/icons-material/ChevronRight"
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material"
-//prettier-ignore
-const exercises = [
-  {
-    bodyPart: "upper arms",
-    equipment: "band",
-    gifUrl: "https://api.exercisedb.io/image/irV8OHVBDHejkX",
-    id: "0968",
-    name: "band alternating biceps curl",
-    target: "biceps",
-  },
-  {
-    bodyPart: "upper arms",
-    equipment: "band",
-    gifUrl: "https://api.exercisedb.io/image/XX1QJqF4wWrinn",
-    id: "0976",
-    name: "band concentration curl",
-    target: "biceps",
-  },
-  {
-    bodyPart: "upper arms",
-    equipment: "band",
-    gifUrl: "https://api.exercisedb.io/image/rSlhjv-NdBvobt",
-    id: "0986",
-    name: "band one arm overhead biceps curl",
-    target: "biceps",
-  },
-  {
-    bodyPart: "upper arms",
-    equipment: "barbell",
-    gifUrl: "https://api.exercisedb.io/image/kzSCYGziJdguSc",
-    id: "0023",
-    name: "barbell alternate biceps curl",
-    target: "biceps",
-  },
-  {
-    bodyPart: "upper arms",
-    equipment: "barbell",
-    gifUrl: "https://api.exercisedb.io/image/xV2riaw0JhQYBM",
-    id: "2407",
-    name: "barbell biceps curl (with arm blaster)",
-    target: "biceps",
-  },
-  {
-    bodyPart: "upper arms",
-    equipment: "barbell",
-    gifUrl: "https://api.exercisedb.io/image/TKi5emCkKOWkvu",
-    id: "0031",
-    name: "barbell curl",
-    target: "biceps",
-  },
-  {
-    bodyPart: "upper arms",
-    equipment: "barbell",
-    gifUrl: "https://api.exercisedb.io/image/il3frtINqLpV8Q",
-    id: "0038",
-    name: "barbell drag curl",
-    target: "biceps",
-  },
-  
-  ]
+import { ScrollMenu, VisibilityContext } from "react-horizontal-scrolling-menu"
+import "react-horizontal-scrolling-menu/dist/styles.css"
+
+
 
 const SingleExercisePage = () => {
+  const { muscle, setMuscle } = useContext(GlobalStateContext)
+
   const [exData, setExData] = useState({})
   const [error, setError] = useState({})
 
@@ -82,9 +29,38 @@ const SingleExercisePage = () => {
 
   const id = useParams()
   const navigate = useNavigate()
+
   const [level, setLevel] = React.useState("Beginner")
 
-  const { muscle, setMuscle } = useContext(GlobalStateContext)
+  function LeftArrow() {
+    const { isFirstItemVisible, scrollPrev } =
+      React.useContext(VisibilityContext)
+
+    return (
+      <div
+        className="button-scroll"
+        disabled={isFirstItemVisible}
+        onClick={() => scrollPrev()}
+      >
+        <ChevronLeftIcon sx={{ fontSize: "32px", color: "#121212" }} />
+      </div>
+    )
+  }
+
+  function RightArrow() {
+    const { isLastItemVisible, scrollNext } =
+      React.useContext(VisibilityContext)
+
+    return (
+      <div
+        className="button-scroll"
+        disabled={isLastItemVisible}
+        onClick={() => scrollNext()}
+      >
+        <ChevronRightIcon sx={{ fontSize: "32px", color: "#121212" }} />
+      </div>
+    )
+  }
 
   const handleChange = (e) => {
     setLevel(e.target.value)
@@ -93,7 +69,7 @@ const SingleExercisePage = () => {
     method: "GET",
     url: `https://exercisedb.p.rapidapi.com/exercises/target/${muscle}`,
     headers: {
-      "X-RapidAPI-Key": "60c18c4f8bmsh66130765ceaa869p1dea0djsna6eb7819039b",
+      "X-RapidAPI-Key": "2c1b97d08fmsh8bbdf7bf499fac5p1b77ddjsnc172ed5ac8b6",
       "X-RapidAPI-Host": "exercisedb.p.rapidapi.com",
     },
   }
@@ -102,7 +78,7 @@ const SingleExercisePage = () => {
     method: "GET",
     url: `https://exercisedb.p.rapidapi.com/exercises/exercise/${id.id}`,
     headers: {
-      "X-RapidAPI-Key": "60c18c4f8bmsh66130765ceaa869p1dea0djsna6eb7819039b",
+      "X-RapidAPI-Key": "2c1b97d08fmsh8bbdf7bf499fac5p1b77ddjsnc172ed5ac8b6",
       "X-RapidAPI-Host": "exercisedb.p.rapidapi.com",
     },
   }
@@ -119,34 +95,42 @@ const SingleExercisePage = () => {
   useEffect(() => {
     exerciseDbApi(options2, setExData, setError)
     exerciseDbApi(options1, similarsetExData, similarsetError)
-  }, [id ])
+  }, [id])
 
   return (
     <>
       <div className="container">
         <div>
-          <p className="suggest-title">SIMILAR EXERCISES</p>
-          <div className="left-spx">
-            {similarExData.map((item) => {
-              return (
-                <ExerciseCards
-                  onClick={() => {
-                    navigate(`/exercises/${item.id}`)
-                    window.scrollTo({
-                      top: 0,
-                      behavior: "smooth", // This adds smooth scrolling animation
-                    })
-                  }}
-                  key={item.id}
-                  bodyPart={item.bodyPart}
-                  equipment={item.equipment}
-                  gifUrl={item.gifUrl}
-                  id={item.id}
-                  name={item.name}
-                  target={item.target}
-                />
-              )
-            })}
+          <p className="suggest-title" >SIMILAR EXERCISES</p>
+          <div className="similar-ex-conatiner">
+            <div className="left-spx">
+              <ScrollMenu
+                style={{}}
+                LeftArrow={LeftArrow}
+                RightArrow={RightArrow}
+              >
+                {similarExData.map((item) => {
+                  return (
+                    <ExerciseCards
+                      onClick={() => {
+                        navigate(`/exercises/${item.id}`)
+                        window.scrollTo({
+                          top: 0,
+                          behavior: "smooth", // This adds smooth scrolling animation
+                        })
+                      }}
+                      key={item.id}
+                      bodyPart={item.bodyPart}
+                      equipment={item.equipment}
+                      gifUrl={item.gifUrl}
+                      id={item.id}
+                      name={item.name}
+                      target={item.target}
+                    />
+                  )
+                })}
+              </ScrollMenu>
+            </div>
           </div>
         </div>
         <div className="right">
