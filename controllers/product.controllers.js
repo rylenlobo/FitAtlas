@@ -46,8 +46,11 @@ export const getProduct = async (req, res, next) => {
 };
 
 export const getProducts = async (req, res, next) => {
+  const {min,max} = req.query;
   try {
-    const products = await Product.find();
+    const products = await Product.find({
+      price: { $gte: min || 1, $lte: max || 1999 },
+    }).limit(req.query.limit);
     res.status(200).json(products);
   } catch (error) {
     next(error);
@@ -56,13 +59,14 @@ export const getProducts = async (req, res, next) => {
 
 
 export const ByCategory = async (req,res,next)=>{
-  const { category, type} = req.query;
+  // const { category, type} = req.query;
   try {
-    const hotels = await Product.find({
-      type:type,
-      category:category
-    }).limit(req.query.limit);
-    res.status(200).json(hotels);
+    // const hotels = await Product.find({
+    //   type:type,
+    //   category:category
+    // }).limit(req.query.limit);
+    const products = await Product.find(req.query.type);
+    res.status(200).json(products);
   } catch (err) {
     next(err);
   }
