@@ -6,11 +6,13 @@
   align-items: center;
   font-weight: 500;
   cursor: pointer;
+  transition: all 0.1s ;
 }
 
 .menulink:hover {
   background-color: rgb(240, 238, 238);
-  color:rgb(76, 122, 187)
+  color:rgb(76, 122, 187);
+  transition: all 0.1s ;
 }
 
 .menuLinkText {
