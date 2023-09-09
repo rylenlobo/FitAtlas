@@ -1,43 +1,45 @@
 // eslint-disable-next-line no-unused-vars
-import React from "react";
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import "./Navbar.css";
-import fitAtlas from "./assets/FitAtlas.svg";
-import { motion } from "framer-motion";
-import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import MenuLink from "../menulink/MenuLink.jsx";
-import LogoutIcon from "@mui/icons-material/Logout";
-import { Add } from "@mui/icons-material";
-import LocalMallIcon from "@mui/icons-material/LocalMall";
-import InsightsIcon from "@mui/icons-material/Insights";
-import axios from "axios";
-import Toast from "../Toast/Toast";
+import React from "react"
+import { useState } from "react"
+import { Link, useNavigate } from "react-router-dom"
+import "./Navbar.css"
+import fitAtlas from "./assets/FitAtlas.svg"
+import { motion,AnimatePresence  } from "framer-motion"
+import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout"
+import AccountCircleIcon from "@mui/icons-material/AccountCircle"
+import MenuLink from "../menulink/MenuLink.jsx"
+import LogoutIcon from "@mui/icons-material/Logout"
+import { Add } from "@mui/icons-material"
+import LocalMallIcon from "@mui/icons-material/LocalMall"
+import InsightsIcon from "@mui/icons-material/Insights"
+import axios from "axios"
+import Toast from "../Toast/Toast"
 
 const Navbar = () => {
-  const [open, setOpen] = useState(false);
-  const [message, setMessage] = useState("");
-  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+  const [open, setOpen] = useState(false)
+  const [message, setMessage] = useState("")
+
+  const currentUser = true
+  // JSON.parse(localStorage.getItem("currentUser"))
 
   const decoartion = {
     paddingLeft: 13,
     textDecoration: "none",
     color: "white",
-  };
+  }
 
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   const handleLogout = async () => {
     try {
-      const res = await axios.post("http://localhost:8800/api/auth/logout");
-      setMessage(res.data);
-      localStorage.setItem("currentUser", null);
-      navigate("/");
+      const res = await axios.post("http://localhost:8800/api/auth/logout")
+      setMessage(res.data)
+      localStorage.setItem("currentUser", null)
+      navigate("/")
     } catch (e) {
-      console.log(e);
+      console.log(e)
     }
-  };
+  }
 
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
@@ -84,40 +86,51 @@ const Navbar = () => {
               <div className="profile" onClick={() => setOpen(!open)}>
                 <AccountCircleIcon sx={{ fontSize: "25px" }} />
                 <span className="user">
-                  Hi, {currentUser?.details.firstName}
+                  Hi,Rylen
+                  {/* {currentUser?.details.firstName} */}
                 </span>
-
-                {open && (
-                  <>
-                    <div className="options ">
-                      {currentUser?.isAdmin ? (
-                        <>
-                          <Link className="link" to="/add">
-                            <MenuLink text="Add Item" icon={<Add />} />
-                          </Link>
-                          <Link className="link" to="/">
-                            <MenuLink text="Orders" icon={<LocalMallIcon />} />
-                          </Link>
-                        </>
-                      ) : (
-                        <>
-                          <Link className="link" to="/order">
-                            <MenuLink text="Track" icon={<InsightsIcon />} />
-                          </Link>
-                          <Link className="link" to="/cart">
-                            <MenuLink
-                              text="Cart"
-                              icon={<ShoppingCartCheckoutIcon />}
-                            />
-                          </Link>
-                        </>
-                      )}
-                      <Link className="link" to="/" onClick={handleLogout}>
-                        <MenuLink text="Logout" icon={<LogoutIcon />} />
-                      </Link>
-                    </div>
-                  </>
-                )}
+                <AnimatePresence>
+                  {open && (
+                    <>
+                      <motion.div
+                        className="options"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        {currentUser?.isAdmin ? (
+                          <>
+                            <Link className="link" to="/add">
+                              <MenuLink text="Add Item" icon={<Add />} />
+                            </Link>
+                            <Link className="link" to="/">
+                              <MenuLink
+                                text="Orders"
+                                icon={<LocalMallIcon />}
+                              />
+                            </Link>
+                          </>
+                        ) : (
+                          <>
+                            <Link className="link" to="/order">
+                              <MenuLink text="Track" icon={<InsightsIcon />} />
+                            </Link>
+                            <Link className="link" to="/cart">
+                              <MenuLink
+                                text="Cart"
+                                icon={<ShoppingCartCheckoutIcon />}
+                              />
+                            </Link>
+                          </>
+                        )}
+                        <Link className="link" to="/" onClick={handleLogout}>
+                          <MenuLink text="Logout" icon={<LogoutIcon />} />
+                        </Link>
+                      </motion.div>
+                    </>
+                  )}
+                </AnimatePresence>
               </div>
             ) : (
               //prettier-ignore
@@ -140,7 +153,7 @@ const Navbar = () => {
                   transition={{ type: "spring", stiffness: 400, damping: 17 }}
                 >
                   <Link to="login" style={decoartion}>
-                    <button className="login">LOGIN</button>
+                    <button className="login">SIGN IN</button>
                   </Link>
                 </motion.div>
               </div>
@@ -149,7 +162,7 @@ const Navbar = () => {
         </div>
       </nav>
     </>
-  );
-};
+  )
+}
 
-export default Navbar;
+export default Navbar

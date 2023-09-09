@@ -10,7 +10,9 @@ const products = [
     name: "Product 1",
     price: 19.99,
     category: "Electronics",
-    desc:"Lorem ipsum is placeholder text commonly used in the graphic, mockups..."
+    desc:"Lorem ipsum is placeholder text commonly used in the graphic, mockups...",
+    category: "Dumbells",
+    weight: "1.5kg",
   },
   {
     id:2,
