@@ -7,6 +7,7 @@ import { useContext } from "react"
 import MaleSharpIcon from "@mui/icons-material/MaleSharp"
 import FemaleSharpIcon from "@mui/icons-material/FemaleSharp"
 import {GlobalStateContext} from "../../Context/ExercisesContext.jsx"
+import { Tooltip } from "@mui/material"
 
 
 const Home = () => {
@@ -44,19 +45,25 @@ const Home = () => {
         handleToggle={toggleSwitch}
         left={
           <div>
-            <MaleSharpIcon style={{ color: isOn?"lightblue":"grey", fontSize: "32px" }} />
+            <Tooltip title="Male">
+              <MaleSharpIcon
+                style={{ color: isOn ? "lightblue" : "grey", fontSize: "32px" }}
+              />
+            </Tooltip>
           </div>
         }
         right={
           <div>
-            <FemaleSharpIcon style={{ color: isOn?"grey":"pink", fontSize: "32px" }} />
+            <Tooltip title="Female">
+              <FemaleSharpIcon
+                style={{ color: isOn ? "grey" : "pink", fontSize: "32px" }}
+              />
+            </Tooltip>
           </div>
         }
       />
 
       <MuscleLayout condition={isOn} onClick={handleClick} />
-
-      
     </>
   )
 }

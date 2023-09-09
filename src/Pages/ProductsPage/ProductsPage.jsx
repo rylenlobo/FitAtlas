@@ -11,7 +11,6 @@ const products = [
     price: 19.99,
     category: "Electronics",
     desc:"Lorem ipsum is placeholder text commonly used in the graphic, mockups...",
-    category: "Dumbells",
     weight: "1.5kg",
   },
   {

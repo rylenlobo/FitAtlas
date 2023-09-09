@@ -9,6 +9,7 @@
   top: 0;
   z-index: 100;
   border-bottom: 3px solid #2b2b2b;
+  box-sizing: border-box;
 }
 
 .logo-wrapper {
@@ -60,12 +61,16 @@
   align-items: center;
   justify-content: center;
   gap: 10px;
-  border-left: 3px solid #2b2b2b;
   height: 70px;
-  padding-left: 10px;
+  margin-left: 50px;
   width: 150px;
   cursor: pointer;
-  position: relative;
+   transition: all 0.3s ;
+}
+
+.profile:hover {
+  background-color: rgba(221, 224, 227, 0.103);
+ 
 }
 
 .profile-log-signup {
@@ -119,11 +124,10 @@
 
 .options {
   position: absolute;
-  top: 73px;
-  right: -20%;
+  top: 72px;
+  right: -16%;
   padding: 20px;
   background: #1a1a1a;
-  box-shadow: 0 8px 32px 0 rgba(47, 53, 142, 0.37);
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
   border-radius: 10px;

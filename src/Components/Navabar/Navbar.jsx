@@ -14,6 +14,8 @@ import LocalMallIcon from "@mui/icons-material/LocalMall"
 import InsightsIcon from "@mui/icons-material/Insights"
 import axios from "axios"
 import Toast from "../Toast/Toast"
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown"
+import Badge from "@mui/material/Badge"
 
 const Navbar = () => {
   const [open, setOpen] = useState(false)
@@ -86,9 +88,10 @@ const Navbar = () => {
               <div className="profile" onClick={() => setOpen(!open)}>
                 <AccountCircleIcon sx={{ fontSize: "25px" }} />
                 <span className="user">
-                  Hi,Rylen
+                  Hi, Rylen
                   {/* {currentUser?.details.firstName} */}
                 </span>
+                <ArrowDropDownIcon sx={{ fontSize: "20px" }} />
                 <AnimatePresence>
                   {open && (
                     <>
@@ -101,7 +104,11 @@ const Navbar = () => {
                       >
                         {currentUser?.isAdmin ? (
                           <>
-                            <Link className="link" to="/add">
+                            <Link
+                              className="link"
+                              to="/add"
+                              style={{ textDecoration: "none" }}
+                            >
                               <MenuLink text="Add Item" icon={<Add />} />
                             </Link>
                             <Link className="link" to="/">
@@ -113,18 +120,44 @@ const Navbar = () => {
                           </>
                         ) : (
                           <>
-                            <Link className="link" to="/order">
+                            <Link
+                              className="link"
+                              to="/order"
+                              style={{ textDecoration: "none" }}
+                            >
                               <MenuLink text="Track" icon={<InsightsIcon />} />
                             </Link>
-                            <Link className="link" to="/cart">
+                            <Link
+                              className="link"
+                              to="/cart"
+                              style={{ textDecoration: "none" }}
+                            >
                               <MenuLink
                                 text="Cart"
-                                icon={<ShoppingCartCheckoutIcon />}
+                                icon={
+                                  <Badge
+                                    badgeContent={1}
+                                    color="primary"
+                                    sx={{
+                                      "& .MuiBadge-badge": {
+                                        right: 26,
+                                       
+                                      },
+                                    }}
+                                  >
+                                    <ShoppingCartCheckoutIcon />
+                                  </Badge>
+                                }
                               />
                             </Link>
                           </>
                         )}
-                        <Link className="link" to="/" onClick={handleLogout}>
+                        <Link
+                          className="link"
+                          to="/"
+                          onClick={handleLogout}
+                          style={{ textDecoration: "none" }}
+                        >
                           <MenuLink text="Logout" icon={<LogoutIcon />} />
                         </Link>
                       </motion.div>
