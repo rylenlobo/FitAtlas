@@ -12,46 +12,43 @@
   justify-content: flex-start;
 }
 
-.similar-ex-conatiner{
+.similar-ex-conatiner {
   display: flex;
   justify-content: center;
   align-items: center;
   margin-top: 15px;
 }
 
-.button-scroll{
-margin-top: 230px;
-background-color: white;
-display: flex;
-align-items: center;
-justify-content: center;
-border-radius: 50%;
-width: 50px;
-height: 50px;
-cursor: pointer;
- transition: 0.2s;
+.button-scroll {
+  margin-top: 230px;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+  transition: 0.2s;
 }
 
-.button-scroll:hover{
+.button-scroll:hover {
   background-color: #4c7abb;
   transition: 0.2s;
 }
 
 .left-spx {
   width: 91.5%;
-  
 }
 
-
-
-/* .right {
+.right {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: start;
   margin-top: 10px;
   margin-right: 20px;
-} */
+}
 
 .top {
   display: flex;
@@ -119,12 +116,10 @@ cursor: pointer;
   gap: 20px;
 }
 
-
 .reps {
-  
   position: absolute;
-  top:170px;
-  right:100px ;
+  top: 170px;
+  right: 100px;
   color: white;
   list-style: none;
   gap: 20px;

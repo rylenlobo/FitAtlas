@@ -101,7 +101,7 @@ const SingleExercisePage = () => {
     <>
       <div className="container">
         <div>
-          <p className="suggest-title" >SIMILAR EXERCISES</p>
+          <p className="suggest-title" >EXERCISES THAT TRAIN THE SAME MUSCLE</p>
           <div className="similar-ex-conatiner">
             <div className="left-spx">
               <ScrollMenu
