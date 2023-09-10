@@ -16,8 +16,6 @@ import { FormControl, InputLabel, MenuItem, Select } from "@mui/material"
 import { ScrollMenu, VisibilityContext } from "react-horizontal-scrolling-menu"
 import "react-horizontal-scrolling-menu/dist/styles.css"
 
-
-
 const SingleExercisePage = () => {
   const { muscle, setMuscle } = useContext(GlobalStateContext)
 
@@ -101,7 +99,7 @@ const SingleExercisePage = () => {
     <>
       <div className="container">
         <div>
-          <p className="suggest-title" >EXERCISES THAT TRAIN THE SAME MUSCLE</p>
+          <p className="suggest-title">EXERCISES THAT TRAIN THE SAME MUSCLE</p>
           <div className="similar-ex-conatiner">
             <div className="left-spx">
               <ScrollMenu
@@ -133,7 +131,7 @@ const SingleExercisePage = () => {
             </div>
           </div>
         </div>
-        <div className="right">
+        <div className=".right-ex-cont">
           <div className="top">
             <div className="top-left">
               <div className="img-container">
