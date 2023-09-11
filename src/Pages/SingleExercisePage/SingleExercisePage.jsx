@@ -131,7 +131,7 @@ const SingleExercisePage = () => {
             </div>
           </div>
         </div>
-        <div className=".right-ex-cont">
+        <div className="right-ex-cont">
           <div className="top">
             <div className="top-left">
               <div className="img-container">
