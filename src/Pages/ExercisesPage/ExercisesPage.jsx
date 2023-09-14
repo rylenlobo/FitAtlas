@@ -73,14 +73,14 @@ const ExercisesPage = () => {
           //prettier-ignore
           <>
           
-            <Skeleton variant="rectangular" width={360} height={480} animation="wave" sx={{ bgcolor: '#3b3b3b', borderRadius:"15px" ,margin: "10px 40px"}}    />
-            <Skeleton variant="rectangular" width={360} height={480} animation="wave" sx={{ bgcolor: '#3b3b3b', borderRadius:"15px" ,margin: "10px 40px"}}    />
-            <Skeleton variant="rectangular" width={360} height={480} animation="wave" sx={{ bgcolor: '#3b3b3b', borderRadius:"15px" ,margin: "10px 40px"}}    />
-            <Skeleton variant="rectangular" width={360} height={480} animation="wave" sx={{ bgcolor: '#3b3b3b', borderRadius:"15px" ,margin: "10px 40px"}}    />
-            <Skeleton variant="rectangular" width={360} height={480} animation="wave" sx={{ bgcolor: '#3b3b3b', borderRadius:"15px" ,margin: "10px 40px"}}    />
-            <Skeleton variant="rectangular" width={360} height={480} animation="wave" sx={{ bgcolor: '#3b3b3b', borderRadius:"15px" ,margin: "10px 40px"}}    />
-            <Skeleton variant="rectangular" width={360} height={480} animation="wave" sx={{ bgcolor: '#3b3b3b', borderRadius:"15px" ,margin: "10px 40px"}}    />
-            <Skeleton variant="rectangular" width={360} height={480} animation="wave" sx={{ bgcolor: '#3b3b3b', borderRadius:"15px" ,margin: "10px 40px"}}    />
+            <Skeleton variant="rectangular" width={360} height={480} animation="pulse" sx={{ bgcolor: '#3b3b3b', borderRadius:"15px" ,margin: "10px 40px"}}    />
+            <Skeleton variant="rectangular" width={360} height={480} animation="pulse" sx={{ bgcolor: '#3b3b3b', borderRadius:"15px" ,margin: "10px 40px"}}    />
+            <Skeleton variant="rectangular" width={360} height={480} animation="pulse" sx={{ bgcolor: '#3b3b3b', borderRadius:"15px" ,margin: "10px 40px"}}    />
+            <Skeleton variant="rectangular" width={360} height={480} animation="pulse" sx={{ bgcolor: '#3b3b3b', borderRadius:"15px" ,margin: "10px 40px"}}    />
+            <Skeleton variant="rectangular" width={360} height={480} animation="pulse" sx={{ bgcolor: '#3b3b3b', borderRadius:"15px" ,margin: "10px 40px"}}    />
+            <Skeleton variant="rectangular" width={360} height={480} animation="pulse" sx={{ bgcolor: '#3b3b3b', borderRadius:"15px" ,margin: "10px 40px"}}    />
+            <Skeleton variant="rectangular" width={360} height={480} animation="pulse" sx={{ bgcolor: '#3b3b3b', borderRadius:"15px" ,margin: "10px 40px"}}    />
+            <Skeleton variant="rectangular" width={360} height={480} animation="pulse" sx={{ bgcolor: '#3b3b3b', borderRadius:"15px" ,margin: "10px 40px"}}    />
 
           </>
         )}
