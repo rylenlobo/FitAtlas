@@ -78,7 +78,7 @@ export default function SignUpPage() {
           <Avatar sx={{ m: 1, bgcolor: "#4c7abb" }}>
             <LockOutlinedIcon />
           </Avatar>
-          <Typography component="h1" variant="h5" >
+          <Typography component="h1" variant="h5">
             Sign up
           </Typography>
 
@@ -230,7 +230,10 @@ export default function SignUpPage() {
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="/login" sx={{fontFamily:"sans-serif"}} >
+                <Link
+                  href="/login"
+                  sx={{ fontFamily: "sans-serif", fontSize: " 0.875rem" }}
+                >
                   Already have an account? Login
                 </Link>
               </Grid>
@@ -240,5 +243,5 @@ export default function SignUpPage() {
         <Copyright sx={{ mt: 5, color: "white" }} />
       </Container>
     </ThemeProvider>
-  );
+  )
 }

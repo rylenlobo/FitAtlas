@@ -21,8 +21,8 @@ const Navbar = () => {
   const [open, setOpen] = useState(false)
   const [message, setMessage] = useState("")
 
-  const currentUser = true
-  // JSON.parse(localStorage.getItem("currentUser"))
+  const currentUser = JSON.parse(localStorage.getItem("currentUser"))
+ 
 
   const decoartion = {
     paddingLeft: 13,
@@ -54,7 +54,7 @@ const Navbar = () => {
       <Toast open={message} close={handleClose} type="success">
         {message}
       </Toast>
-      <nav className="Navbar">
+      <div className="Navbar">
         <div className="logo-wrapper">
           <Link to="/" style={{ fontFamily: "Space Grotesk" }}>
             <img src={fitAtlas} alt="FitAtlas" />
@@ -88,8 +88,7 @@ const Navbar = () => {
               <div className="profile" onClick={() => setOpen(!open)}>
                 <AccountCircleIcon sx={{ fontSize: "25px" }} />
                 <span className="user">
-                  Hi, Rylen
-                  {/* {currentUser?.details.firstName} */}
+                  Hi, {currentUser?.details.firstName}
                 </span>
                 <ArrowDropDownIcon sx={{ fontSize: "20px" }} />
                 <AnimatePresence>
@@ -141,7 +140,6 @@ const Navbar = () => {
                                     sx={{
                                       "& .MuiBadge-badge": {
                                         right: 26,
-                                       
                                       },
                                     }}
                                   >
@@ -193,7 +191,7 @@ const Navbar = () => {
             )}
           </div>
         </div>
-      </nav>
+      </div>
     </>
   )
 }

@@ -13,7 +13,7 @@ import Box from "@mui/material/Box"
 const ExercisesPage = () => {
   const { muscle, setMuscle } = useContext(GlobalStateContext)
   const navigate = useNavigate()
-  const [exData, setExData] = useState([])
+  const [exData, setExData] = useState(null)
   const [error, setError] = useState({})
 
   const { scrollYProgress } = useScroll()
@@ -48,62 +48,43 @@ const ExercisesPage = () => {
   return (
     <>
       <motion.div className="progress-bar" style={{ scaleX }} />
-      {exData ? (
-        <>
-          <h3 className="title">
-            EXERCISES FOR <span>{muscle.toUpperCase()}</span>
-          </h3>
-          <div className="card-container">
-            {exData.map((item) => {
-              return (
-                <ExerciseCards
-                  onClick={() => {
-                    navigate(`/exercises/${item.id}`)
-                  }}
-                  key={item.id}
-                  bodyPart={item.bodyPart}
-                  equipment={item.equipment}
-                  gifUrl={item.gifUrl}
-                  id={item.id}
-                  name={item.name}
-                  target={item.target}
-                />
-              )
-            })}
-          </div>
-        </>
-      ) : (
-        <>
-          <Skeleton
-            variant="rectangular"
-            animation="wave"
-            width={40}
-            height={40}
-            sx={{ backgroundColor: "#fff" }}
-          />
-          <Skeleton
-            variant="rectangular"
-            animation="wave"
-            width={40}
-            height={40}
-            sx={{ backgroundColor: "#fff" }}
-          />
-          <Skeleton
-            variant="rectangular"
-            animation="wave"
-            width={40}
-            height={40}
-            sx={{ backgroundColor: "#fff" }}
-          />
-          <Skeleton
-            variant="rectangular"
-            animation="wave"
-            width={40}
-            height={40}
-            sx={{ backgroundColor: "#fff" }}
-          />
-        </>
-      )}
+      <h3 className="title">
+        EXERCISES FOR <span>{muscle.toUpperCase()}</span>
+      </h3>
+      <div className="card-container">
+        {exData ? (
+          exData.map((item) => {
+            return (
+              <ExerciseCards
+                onClick={() => {
+                  navigate(`/exercises/${item.id}`)
+                }}
+                key={item.id}
+                bodyPart={item.bodyPart}
+                equipment={item.equipment}
+                gifUrl={item.gifUrl}
+                id={item.id}
+                name={item.name}
+                target={item.target}
+              />
+            )
+          })
+        ) : (
+          //prettier-ignore
+          <>
+          
+            <Skeleton variant="rectangular" width={360} height={480} animation="wave" sx={{ bgcolor: '#3b3b3b', borderRadius:"15px" ,margin: "10px 40px"}}    />
+            <Skeleton variant="rectangular" width={360} height={480} animation="wave" sx={{ bgcolor: '#3b3b3b', borderRadius:"15px" ,margin: "10px 40px"}}    />
+            <Skeleton variant="rectangular" width={360} height={480} animation="wave" sx={{ bgcolor: '#3b3b3b', borderRadius:"15px" ,margin: "10px 40px"}}    />
+            <Skeleton variant="rectangular" width={360} height={480} animation="wave" sx={{ bgcolor: '#3b3b3b', borderRadius:"15px" ,margin: "10px 40px"}}    />
+            <Skeleton variant="rectangular" width={360} height={480} animation="wave" sx={{ bgcolor: '#3b3b3b', borderRadius:"15px" ,margin: "10px 40px"}}    />
+            <Skeleton variant="rectangular" width={360} height={480} animation="wave" sx={{ bgcolor: '#3b3b3b', borderRadius:"15px" ,margin: "10px 40px"}}    />
+            <Skeleton variant="rectangular" width={360} height={480} animation="wave" sx={{ bgcolor: '#3b3b3b', borderRadius:"15px" ,margin: "10px 40px"}}    />
+            <Skeleton variant="rectangular" width={360} height={480} animation="wave" sx={{ bgcolor: '#3b3b3b', borderRadius:"15px" ,margin: "10px 40px"}}    />
+
+          </>
+        )}
+      </div>
     </>
   )
 }

@@ -60,17 +60,17 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 0 5px;
   gap: 10px;
   height: 70px;
   margin-left: 50px;
-  width: 150px;
+  width: max-content;
   cursor: pointer;
-   transition: all 0.3s ;
+  transition: all 0.3s;
 }
 
 .profile:hover {
   background-color: rgba(221, 224, 227, 0.103);
- 
 }
 
 .profile-log-signup {
@@ -118,14 +118,14 @@
   font-weight: normal;
 }
 
-.link{
+.link {
   color: inherit;
 }
 
 .options {
   position: absolute;
   top: 72px;
-  right: -16%;
+  right: -10%;
   padding: 20px;
   background: #1a1a1a;
   backdrop-filter: blur(6px);
@@ -137,7 +137,7 @@
   flex-direction: column;
   border-top-style: hidden;
   border-top-left-radius: 0;
-  border-top-right-radius:0 ;
+  border-top-right-radius: 0;
   gap: 10px;
   width: 150px;
 }

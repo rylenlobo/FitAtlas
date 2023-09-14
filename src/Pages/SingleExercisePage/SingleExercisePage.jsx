@@ -81,18 +81,25 @@ const SingleExercisePage = () => {
     },
   }
 
-  async function exerciseDbApi(options, exdata, exerror) {
+  async function exerciseDbApi(options, exdata, exerror, val) {
     try {
       const res = await axios.request(options)
       exdata(res.data)
+      console.log(`called ${val}`)
     } catch (err) {
       exerror(err)
+      console.log(err)
     }
   }
 
   useEffect(() => {
-    exerciseDbApi(options2, setExData, setError)
-    exerciseDbApi(options1, similarsetExData, similarsetError)
+    exerciseDbApi(options2, setExData, setError, "exercises")
+    exerciseDbApi(
+      options1,
+      similarsetExData,
+      similarsetError,
+      " similar  exercise"
+    )
   }, [id])
 
   return (
