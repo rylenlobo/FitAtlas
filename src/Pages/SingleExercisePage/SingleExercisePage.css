@@ -132,3 +132,10 @@
   padding: 20px;
   box-sizing: border-box;
 }
+
+.load-container{
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 1920/800;
+}

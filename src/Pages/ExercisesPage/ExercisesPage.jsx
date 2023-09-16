@@ -1,7 +1,7 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useEffect, useState } from "react"
 import { useContext } from "react"
-import { GlobalStateContext } from "../../Context/ExercisesContext.jsx"
+import { GlobalStateContext } from "../../Context/Context.jsx"
 import ExerciseCards from "../../Components/ExerciseCards/ExerciseCards.jsx"
 import "./ExercisesPage.css"
 import axios from "axios"

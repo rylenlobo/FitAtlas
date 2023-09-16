@@ -6,12 +6,11 @@ import { useNavigate } from "react-router-dom"
 import { useContext } from "react"
 import MaleSharpIcon from "@mui/icons-material/MaleSharp"
 import FemaleSharpIcon from "@mui/icons-material/FemaleSharp"
-import {GlobalStateContext} from "../../Context/ExercisesContext.jsx"
+import { GlobalStateContext } from "../../Context/Context.jsx"
 import { Tooltip } from "@mui/material"
 
-
 const Home = () => {
-  const {muscle, setMuscle} = useContext(GlobalStateContext);
+  const { muscle, setMuscle } = useContext(GlobalStateContext)
   const navigate = useNavigate()
 
   const [isOn, setIsOn] = useState(true)
@@ -20,7 +19,7 @@ const Home = () => {
   }
 
   const handleClick = (e) => {
-    setMuscle(e.currentTarget.getAttribute("data-muscle-type"));
+    setMuscle(e.currentTarget.getAttribute("data-muscle-type"))
     navigate("/exercises")
   }
 
