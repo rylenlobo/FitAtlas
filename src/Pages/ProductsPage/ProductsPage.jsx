@@ -19,11 +19,6 @@ const ProductsPage = () => {
     Autoplay({ delay: 5000, stopOnInteraction: false }),
   ])
 
-  const scrollTo = useCallback(
-    (index) => emblaApi && emblaApi.scrollTo(index),
-    [emblaApi]
-  )
-
   // const [maxPrice, setMaxPrice] = useState(1500)
 
   // const { data, loading, error, reFetch } = useFetch(
@@ -126,46 +121,79 @@ const ProductsPage = () => {
             </div>
           </div>
         </div>
-        <h1 className="categories">CATEGORIES</h1>
-        {/* <p>whey protein,preworkout,supplements&vitamins,accsesories,equipments</p> */}
-        <div className="catergory-container">
-          <div className="catergory-container-top">
-            <div className="catergory-container-top-left">
-              <div className="wp">
-                <img src="../../../public/RYSE_Protein_1000x.jpg" alt="" />
+        <div>
+          <div className="categories">
+            <h1>CATEGORIES</h1>
+          </div>
+          <div className="catergory-container">
+            <div className="catergory-container-top">
+              <div className="catergory-container-top-left">
+                <div className="wp">
+                  <button className="btn">Protein</button>
+                  <img src="../../../public/RYSE_Protein_1000x.jpg" alt="" />
+                </div>
+                <div className="pw">
+                  <button className="btn">Pre-workout</button>
+                  <img src="../../../public/pre-grid_1000x.jpg" alt="" />
+                </div>
               </div>
-              <div className="pw">
-                <img src="../../../public/pre-grid_1000x.jpg" alt="" />
+              <div className="category-container-top-right">
+                <div className="sv">
+                  <button className="btn">Supplements & Vitamins</button>
+                  <img
+                    src="../../../public/pexels-photo-15120890.webp"
+                    alt=""
+                  />
+                </div>
+                <div className="acc">
+                  <button className="btn">Accerssories</button>
+                  <img
+                    src="../../../public/TxcPGpjU63shVW3myUE3b8.jpg"
+                    alt=""
+                  />
+                </div>
               </div>
             </div>
-            <div className="category-container-top-right">
-              <div className="sv">
-                <img src="../../../public/pexels-photo-15120890.webp" alt="" />
+            <div className="catergory-conatiner-bottom">
+              <div className="all-eq">
+                <div>
+                  <button className="btn">ALL EQUIPMENTS</button>
+                  <img
+                    src="../../../public/workout-equipment-for-home-gym-checklist-4619-1653930236466.jpg"
+                    alt=""
+                  />
+                </div>
               </div>
-              <div className="acc">
-                <img src="../../../public/TxcPGpjU63shVW3myUE3b8.jpg" alt="" />
+              <div className="eq">
+                <div className="a">
+                  <button className="btn">kettlebells</button>
+                  <img src="../../../public/1.jpg" alt="" />
+                </div>
+                <div
+                  className="b"
+                  style={{ marginLeft: "30px", marginRight: "30px" }}
+                >
+                  <button className="btn">DUmbells</button>
+                  <img src="../../../public/2.jpg" alt="" />
+                </div>
+                <div className="c">
+                  <button className="btn">resistant bands</button>
+                  <img src="../../../public/3.jpg" alt="" />
+                </div>
               </div>
             </div>
           </div>
-          <div className="catergory-conatiner-bottom">
-            <div className="all-eq">
-              <div>
-                <img
-                  src="../../../public/workout-equipment-for-home-gym-checklist-4619-1653930236466.jpg"
-                  alt=""
-                />
-              </div>
+        </div>
+        <div>
+          <div className="trending">
+            <h1>TRENDING NOW</h1>
+          </div>
+          <div className="trending-container">
+            <div className="trending-supplements">
+              Supplememts
             </div>
-            <div className="eq">
-              <div>
-                <img src="../../../public/1.jpg" alt="" />
-              </div>
-              <div style={{ marginLeft: "30px", marginRight: "30px" }}>
-                <img src="../../../public/2.jpg" alt="" />
-              </div>
-              <div>
-                <img src="../../../public/3.jpg" alt="" />
-              </div>
+            <div className="trending-equipments">
+              Equipments
             </div>
           </div>
         </div>

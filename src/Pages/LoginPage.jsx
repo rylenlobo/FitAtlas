@@ -38,7 +38,7 @@ export default function SignIn() {
   const [password, setPassword] = useState("")
   const [error, setError] = useState("")
 
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(null)
 
   const navigate = useNavigate()
 
@@ -53,6 +53,7 @@ export default function SignIn() {
       navigate("/store")
     } catch (error) {
       setError(error.response.data)
+      setOpen(true)
     }
   }
 
@@ -60,12 +61,12 @@ export default function SignIn() {
     if (reason === "clickaway") {
       return
     }
-    setError("")
+    setOpen(false)
   }
 
   return (
     <>
-      <Toast open={error} close={handleClose} type="error">
+      <Toast open={open} close={handleClose} type="error">
         {error.message}
       </Toast>
 

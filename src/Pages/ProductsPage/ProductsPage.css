@@ -111,6 +111,14 @@ label {
   left: 0;
 }
 
+.categories,.trending{
+  display: flex;
+  align-items: center;
+  font-size: 30px;
+  justify-content:center ;
+  color: #4c7abb;
+}
+
 .catergory-container {
   display: flex;
   flex-direction: column;
@@ -133,6 +141,8 @@ label {
 
 .wp,
 .pw {
+  cursor: pointer;
+  position: relative;
   width: 400px;
   height: 400px;
   margin-right: 30px;
@@ -160,6 +170,7 @@ label {
 
 .sv,
 .acc {
+  cursor: pointer;
   position: relative;
   width: 400px;
   height: 184px;
@@ -188,11 +199,13 @@ label {
   justify-content: center;
 }
 
-.all-eq div{
+.all-eq div {
+  cursor: pointer;
   height: 300px;
   width: 1260px;
   margin-bottom: 30px;
   overflow: hidden;
+  position: relative;
 }
 
 .all-eq img {
@@ -213,6 +226,8 @@ label {
 }
 
 .eq div {
+  cursor: pointer;
+  position: relative;
   width: 400px;
   height: 184px;
   overflow: hidden;
@@ -228,4 +243,83 @@ label {
 .eq img:hover {
   transform: scale(1.1);
   transition: all 0.5s;
+}
+
+
+
+.btn{
+  backdrop-filter: blur(10px);
+  border: 2px solid #fff;
+  border-radius: 120px;
+  padding-left: 28px;
+  padding-right: 6px;
+  z-index: 98;
+  bottom: 20px;
+  left: 20px;
+  position: absolute;
+  color: #fff;
+  text-align: center;
+  letter-spacing: 0.2px;
+  text-transform: uppercase;
+  cursor: pointer;
+  background-color: #ffffff00;
+  border: 2px solid #fff;
+  border-radius: 90px;
+  padding: 12px 33px 8px;
+  font-family: Helveticaneue, sans-serif;
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 24px;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.7s;
+}
+
+.all-eq:hover .btn,
+.a:hover .btn,
+.b:hover .btn,
+.c:hover .btn,
+.wp:hover .btn,
+.pw:hover .btn,
+.sv:hover .btn,
+.acc:hover .btn {
+  background-color: #fff;
+  color: #000;
+  transition: all 0.7s;
+}
+
+.all-eq:hover img,
+.a:hover img,
+.b:hover img,
+.c:hover img,
+.wp:hover img,
+.pw:hover img,
+.sv:hover img,
+.acc:hover img{
+  transform: scale(1.1);
+  transition: all 0.7s;
+}
+
+.trending-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: fit-content;  
+}
+
+.trending-supplements{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  height: fit-content;
+}
+
+.trending-equipments{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  height: fit-content;
 }

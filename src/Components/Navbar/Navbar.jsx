@@ -4,7 +4,7 @@ import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import "./Navbar.css"
 import fitAtlas from "./assets/FitAtlas.svg"
-import { motion,AnimatePresence  } from "framer-motion"
+import { motion, AnimatePresence } from "framer-motion"
 import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout"
 import AccountCircleIcon from "@mui/icons-material/AccountCircle"
 import MenuLink from "../menulink/MenuLink.jsx"
@@ -18,11 +18,12 @@ import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown"
 import Badge from "@mui/material/Badge"
 
 const Navbar = () => {
-  const [open, setOpen] = useState(false)
+  const [openOptions, setopenOptions] = useState(null)
   const [message, setMessage] = useState("")
 
+  const [open, setOpen] = useState(false)
+
   const currentUser = JSON.parse(localStorage.getItem("currentUser"))
- 
 
   const decoartion = {
     paddingLeft: 13,
@@ -36,6 +37,7 @@ const Navbar = () => {
     try {
       const res = await axios.post("http://localhost:8800/api/auth/logout")
       setMessage(res.data)
+      setOpen(true)
       localStorage.setItem("currentUser", null)
       navigate("/")
     } catch (e) {
@@ -47,11 +49,12 @@ const Navbar = () => {
     if (reason === "clickaway") {
       return
     }
-    setMessage("")
+    setOpen(false)
   }
+
   return (
     <>
-      <Toast open={message} close={handleClose} type="success">
+      <Toast open={open} close={handleClose} type="success">
         {message}
       </Toast>
       <div className="Navbar">
@@ -85,14 +88,17 @@ const Navbar = () => {
 
           <div>
             {currentUser ? (
-              <div className="profile" onClick={() => setOpen(!open)}>
+              <div
+                className="profile"
+                onClick={() => setopenOptions(!openOptions)}
+              >
                 <AccountCircleIcon sx={{ fontSize: "25px" }} />
                 <span className="user">
                   Hi, {currentUser?.details.firstName}
                 </span>
                 <ArrowDropDownIcon sx={{ fontSize: "20px" }} />
                 <AnimatePresence>
-                  {open && (
+                  {openOptions && (
                     <>
                       <motion.div
                         className="options"
