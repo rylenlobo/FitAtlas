@@ -12,6 +12,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>FitAtlas</title>
     <style>
+      *{
+        box-sizing: border-box;
+      }
+
       body {
         font-family: "Space Grotesk", "sans-serif" !important;
         margin: 0;
@@ -22,6 +26,8 @@
       }
 
       html {
+        -webkit-tap-highlight-color: transparent;
+        box-sizing: border-box;
         margin: 0;
         padding: 0;
         .react-horizontal-scrolling-menu--scroll-container::-webkit-scrollbar {
@@ -30,7 +36,8 @@
        .react-horizontal-scrolling-menu--item{
           padding: 20px 0px;
           
-       }
+       };
+       
       }
       body::-webkit-scrollbar {
         display: none;

@@ -1,6 +1,7 @@
 // eslint-disable-next-line no-unused-vars
 import React from "react"
-import { useState } from "react"
+import { useState, useContext } from "react"
+// import { GlobalStateContext } from "../../Context/Context.jsx"
 import { Link, useNavigate } from "react-router-dom"
 import "./Navbar.css"
 import fitAtlas from "./assets/FitAtlas.svg"
@@ -16,11 +17,12 @@ import axios from "axios"
 import Toast from "../Toast/Toast"
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown"
 import Badge from "@mui/material/Badge"
+import { GlobalStateContext } from "../../Context/Context"
 
 const Navbar = () => {
   const [openOptions, setopenOptions] = useState(null)
   const [message, setMessage] = useState("")
-
+  const { state } = useContext(GlobalStateContext)
   const [open, setOpen] = useState(false)
 
   const currentUser = JSON.parse(localStorage.getItem("currentUser"))
@@ -141,7 +143,7 @@ const Navbar = () => {
                                 text="Cart"
                                 icon={
                                   <Badge
-                                    badgeContent={1}
+                                    badgeContent={state.items.length}
                                     color="primary"
                                     sx={{
                                       "& .MuiBadge-badge": {

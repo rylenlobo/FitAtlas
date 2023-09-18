@@ -189,12 +189,8 @@ const ProductsPage = () => {
             <h1>TRENDING NOW</h1>
           </div>
           <div className="trending-container">
-            <div className="trending-supplements">
-              Supplememts
-            </div>
-            <div className="trending-equipments">
-              Equipments
-            </div>
+            <div className="trending-supplements">Supplememts</div>
+            <div className="trending-equipments">Equipments</div>
           </div>
         </div>
       </div>

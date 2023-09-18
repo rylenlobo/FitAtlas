@@ -124,8 +124,8 @@
 
 .options {
   position: absolute;
-  top: 72px;
-  right: -10%;
+  top: 71px;
+  right: -20%;
   padding: 20px;
   background: #1a1a1a;
   backdrop-filter: blur(6px);
@@ -139,5 +139,5 @@
   border-top-left-radius: 0;
   border-top-right-radius: 0;
   gap: 10px;
-  width: 150px;
+  width: 200px;
 }

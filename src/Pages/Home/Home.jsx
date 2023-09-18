@@ -7,6 +7,7 @@ import { useContext } from "react"
 import MaleSharpIcon from "@mui/icons-material/MaleSharp"
 import FemaleSharpIcon from "@mui/icons-material/FemaleSharp"
 import { GlobalStateContext } from "../../Context/Context.jsx"
+
 import { Tooltip } from "@mui/material"
 
 const Home = () => {
