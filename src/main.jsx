@@ -5,8 +5,6 @@ import { GlobalStateProvider } from "./Context/Context.jsx"
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <GlobalStateProvider>
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>
+    <App />
   </GlobalStateProvider>
 )

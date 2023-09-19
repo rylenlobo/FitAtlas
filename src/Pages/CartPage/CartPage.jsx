@@ -15,6 +15,11 @@ import Badge from "@mui/material/Badge"
 import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee"
 import { phcartItems } from "../../Context/Context.jsx"
 import Typography from "@mui/material/Typography"
+import Box from "@mui/material/Box"
+import InputLabel from "@mui/material/InputLabel"
+import MenuItem from "@mui/material/MenuItem"
+import FormControl from "@mui/material/FormControl"
+import Select from "@mui/material/Select"
 
 const CartCounter = ({ count, id }) => {
   const { state, removeEl, incrementItem, decrementItem } =
@@ -72,8 +77,14 @@ const CartCounter = ({ count, id }) => {
 }
 
 const CartItem = (props) => {
-  const { state, removeEl, incrementItem, decrementItem } =
-    useContext(GlobalStateContext)
+  const { state, removeEl, selectFlavour } = useContext(GlobalStateContext)
+  const [flavour, setFlavour] = React.useState("")
+
+  const handleChange = (event) => {
+    setFlavour(event.target.value)
+    selectFlavour(props.id, [event.target.value])
+  }
+
   return (
     <>
       <Stack
@@ -97,8 +108,44 @@ const CartItem = (props) => {
           width="100%"
         >
           <div className="cart-items-details">
-            <h2>{props.name.toUpperCase()}</h2>
-            <p>{props.flaviur}</p>
+            <h2>{props.name}</h2>
+            <p>
+              {props.flavour?.[0] == "Unflavoured" ? (
+                "Unflavoured"
+              ) : props.flavour ? (
+                <Box sx={{ minWidth: 120 }}>
+                  <FormControl fullWidth>
+                    <InputLabel id="demo-simple-select-label"></InputLabel>
+                    <Select
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      value={flavour}
+                      onChange={(e) => {
+                        handleChange(e, props.id)
+                      }}
+                      sx={{
+                        color: "white",
+                        border: "1px solid grey",
+                        marginTop: "0",
+                        marginBottom: "10px",
+                        "& .MuiSvgIcon-root": {
+                          color: "white",
+                        },
+                      }}
+                    >
+                      {props.flavour?.map((item, index) => (
+                        <MenuItem key={index} value={item}>
+                          {item}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
+                </Box>
+              ) : (
+                " "
+              )}
+            </p>
+
             <p>{props.weight}</p>
           </div>
           <Stack
@@ -109,7 +156,7 @@ const CartItem = (props) => {
           >
             <div>
               <p className="price-cart">
-                <CurrencyRupeeIcon  />
+                <CurrencyRupeeIcon />
                 {props.price}
               </p>
             </div>
@@ -121,7 +168,7 @@ const CartItem = (props) => {
             </div>
           </Stack>
           <div className="total-price">
-            <CurrencyRupeeIcon  />
+            <CurrencyRupeeIcon />
             {props.subtotal}
           </div>
           <div style={{ margin: "0px" }} onClick={props.onClick}>
@@ -138,7 +185,8 @@ const CartPage = () => {
   //   const newList = item.filter((item) => item.id !== id)
   //   setItems(newList)
   // }
-  const { state, removeEl, incrementItem } = useContext(GlobalStateContext)
+  const { state, removeEl } = useContext(GlobalStateContext)
+
   return (
     <div className="cart-page-container">
       {state.items.length !== 0 ? (
@@ -146,7 +194,6 @@ const CartPage = () => {
           <Stack
             spacing={5}
             sx={{
-              borderRadius: "12px",
               width: "1000px",
               height: "600px",
               border: "2px solid #2b2b2b",
@@ -198,7 +245,8 @@ const CartPage = () => {
                   name={val.name}
                   weight={val.weight}
                   img={val.img}
-                  flaviur={val.flaviur}
+                  flavour={val.flavour}
+                  colour={val.colour}
                   price={val.price}
                   quantity={val.quantity}
                   subtotal={val.subtotal}
@@ -215,7 +263,6 @@ const CartPage = () => {
               height: "600px",
               border: "2px solid #2b2b2b",
               marginLeft: "20px",
-              borderRadius: "12px",
             }}
           >
             <div
@@ -226,14 +273,16 @@ const CartPage = () => {
                 borderBottom: "1px solid #2b2b2b",
               }}
             >
-              CART TOTAL 
+              CART TOTAL
             </div>
             <div className="final-amt">
               <div style={{ display: "flex", alignItems: "center" }}>
                 <CurrencyRupeeIcon sx={{ fontSize: "40px" }} />
                 {state.totalAmount}
               </div>
-              <Typography sx={{mt:"10px",fontFamily:"Gr"}}>*Shipping applied at checkout</Typography>
+              <Typography sx={{ mt: "10px", fontFamily: "Gr" }}>
+                *Shipping applied at checkout
+              </Typography>
               <Button
                 variant="contained"
                 sx={{ width: "400px", height: "50px", marginTop: "40px" }}

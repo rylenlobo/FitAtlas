@@ -157,7 +157,7 @@ const ProductsPage = () => {
                 </div>
                 <div
                   className="pw"
-                  onClick={() => navigate("/store/pre-workout")}
+                  onClick={() => navigate("/store/preworkout")}
                 >
                   <button className="btn">Pre-workout</button>
                   <img src="../../../public/pre-grid_1000x.jpg" alt="" />

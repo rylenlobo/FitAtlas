@@ -33,7 +33,7 @@ const SingleExercisePage = () => {
   const [level, setLevel] = React.useState("Beginner")
 
   const [emblaRef, emblaApi] = useEmblaCarousel({
-    loop: true,
+    loop: false,
     dragFree: true,
   })
 
