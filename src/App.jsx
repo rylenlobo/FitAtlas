@@ -1,4 +1,3 @@
-// eslint-disable-next-line no-unused-vars
 import React from "react"
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom"
 import Navbar from "./Components/Navbar/Navbar.jsx"
@@ -7,6 +6,7 @@ import LandingPage from "./Pages/LandingPage/LandingPage.jsx"
 import Home from "./Pages/Home/Home.jsx"
 import LoginPage from "./Pages/LoginPage.jsx"
 import ProductsPage from "./Pages/ProductsPage/ProductsPage.jsx"
+import SingleProductPage from "./Pages/SingleProductPage.jsx"
 import SignUppage from "./Pages/SignUppage.jsx"
 import ExercisesPage from "./Pages/ExercisesPage/ExercisesPage.jsx"
 import SingleExercisePage from "./Pages/SingleExercisePage/SingleExercisePage.jsx"
@@ -45,6 +45,10 @@ const router = createBrowserRouter([
       {
         path: "/store",
         element: <ProductsPage />,
+      },
+      {
+        path: "/store/:category",
+        element: <SingleProductPage />,
       },
       {
         path: "/login",

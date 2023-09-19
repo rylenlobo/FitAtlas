@@ -226,14 +226,14 @@ const CartPage = () => {
                 borderBottom: "1px solid #2b2b2b",
               }}
             >
-              TOTAL AMOUNT
+              CART TOTAL 
             </div>
             <div className="final-amt">
               <div style={{ display: "flex", alignItems: "center" }}>
                 <CurrencyRupeeIcon sx={{ fontSize: "40px" }} />
                 {state.totalAmount}
               </div>
-              <Typography sx={{mt:"10px"}}>*Shipping applied at checkout</Typography>
+              <Typography sx={{mt:"10px",fontFamily:"Gr"}}>*Shipping applied at checkout</Typography>
               <Button
                 variant="contained"
                 sx={{ width: "400px", height: "50px", marginTop: "40px" }}

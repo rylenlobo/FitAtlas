@@ -88,6 +88,16 @@ label {
   border-radius: 12px;
   box-sizing: border-box;
 }
+.left {
+  left: 0px;
+  position: absolute;
+  z-index: 99;
+}
+
+.right {
+  position: absolute;
+  right: 0;
+}
 
 .embla {
   overflow: hidden;
@@ -111,11 +121,12 @@ label {
   left: 0;
 }
 
-.categories,.trending{
+.categories,
+.trending {
   display: flex;
   align-items: center;
   font-size: 30px;
-  justify-content:center ;
+  justify-content: center;
   color: #4c7abb;
 }
 
@@ -245,9 +256,7 @@ label {
   transition: all 0.5s;
 }
 
-
-
-.btn{
+.btn {
   backdrop-filter: blur(10px);
   border: 2px solid #fff;
   border-radius: 120px;
@@ -295,20 +304,20 @@ label {
 .wp:hover img,
 .pw:hover img,
 .sv:hover img,
-.acc:hover img{
+.acc:hover img {
   transform: scale(1.1);
   transition: all 0.7s;
 }
 
-.trending-container{
+.trending-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
-  height: fit-content;  
+  height: fit-content;
 }
 
-.trending-supplements{
+.trending-supplements {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -316,7 +325,7 @@ label {
   height: fit-content;
 }
 
-.trending-equipments{
+.trending-equipments {
   display: flex;
   flex-direction: row;
   align-items: center;

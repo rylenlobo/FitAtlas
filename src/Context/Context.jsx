@@ -121,7 +121,7 @@ const reducer = (state, action) => {
     }
   }
 
-  if(action.type === "SUB_TOTAL"){
+  if (action.type === "SUB_TOTAL") {
     return {
       ...state,
       items: state.items.map((item) => {
@@ -134,7 +134,7 @@ const reducer = (state, action) => {
   }
 }
 
-const initialState = {
+let initialState = {
   items: phcartItems,
   totalAmount: 0,
   totalItems: 0,
@@ -162,7 +162,7 @@ export const GlobalStateProvider = ({ children }) => {
   useEffect(() => {
     dispatch({ type: "SUB_TOTAL" })
     dispatch({ type: "TOTAL" })
-  }, [state.items])
+  },[state])
 
   return (
     <GlobalStateContext.Provider

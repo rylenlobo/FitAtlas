@@ -2,7 +2,7 @@ import React from "react"
 import "./SingleExercisePage.css"
 import "./loader.css"
 import ExerciseCards from "../../Components/ExerciseCards/ExerciseCards.jsx"
-import { useEffect, useState, useContext, useRef } from "react"
+import { useEffect, useState, useContext, useRef, useCallback } from "react"
 import { useParams } from "react-router-dom"
 import { GlobalStateContext } from "../../Context/Context.jsx"
 import axios from "axios"
@@ -14,8 +14,9 @@ import { useNavigate } from "react-router-dom"
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft"
 import ChevronRightIcon from "@mui/icons-material/ChevronRight"
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material"
-import { ScrollMenu, VisibilityContext } from "react-horizontal-scrolling-menu"
-import "react-horizontal-scrolling-menu/dist/styles.css"
+import useEmblaCarousel from "embla-carousel-react"
+import Autoplay from "embla-carousel-autoplay"
+import CircularProgress from "@mui/material/CircularProgress"
 
 const SingleExercisePage = () => {
   const { muscle, setMuscle } = useContext(GlobalStateContext)
@@ -31,44 +32,25 @@ const SingleExercisePage = () => {
 
   const [level, setLevel] = React.useState("Beginner")
 
-  function LeftArrow() {
-    const { isFirstItemVisible, scrollPrev } =
-      React.useContext(VisibilityContext)
+  const [emblaRef, emblaApi] = useEmblaCarousel({
+    loop: true,
+    dragFree: true,
+  })
 
-    return (
-      <div
-        className="button-scroll"
-        disabled={isFirstItemVisible}
-        onClick={() => scrollPrev()}
-      >
-        <ChevronLeftIcon sx={{ fontSize: "32px", color: "#121212" }} />
-      </div>
-    )
-  }
+  const scrollPrev = useCallback(
+    () => emblaApi && emblaApi.scrollPrev(),
+    [emblaApi]
+  )
+  const scrollNext = useCallback(
+    () => emblaApi && emblaApi.scrollNext(),
+    [emblaApi]
+  )
 
-  function RightArrow() {
-    const { isLastItemVisible, scrollNext } =
-      React.useContext(VisibilityContext)
-
-    return (
-      <div
-        className="button-scroll"
-        disabled={isLastItemVisible}
-        onClick={() => scrollNext()}
-      >
-        <ChevronRightIcon sx={{ fontSize: "32px", color: "#121212" }} />
-      </div>
-    )
-  }
-
-  const handleChange = (e) => {
-    setLevel(e.target.value)
-  }
   const options1 = {
     method: "GET",
     url: `https://exercisedb.p.rapidapi.com/exercises/target/${muscle}`,
     headers: {
-      "X-RapidAPI-Key": "2c1b97d08fmsh8bbdf7bf499fac5p1b77ddjsnc172ed5ac8b6",
+      "X-RapidAPI-Key": "9942d116d8msh2f911ae9e9e8b31p1b8232jsn065cbf72ed02",
       "X-RapidAPI-Host": "exercisedb.p.rapidapi.com",
     },
   }
@@ -77,7 +59,7 @@ const SingleExercisePage = () => {
     method: "GET",
     url: `https://exercisedb.p.rapidapi.com/exercises/exercise/${id.id}`,
     headers: {
-      "X-RapidAPI-Key": "2c1b97d08fmsh8bbdf7bf499fac5p1b77ddjsnc172ed5ac8b6",
+      "X-RapidAPI-Key": "9942d116d8msh2f911ae9e9e8b31p1b8232jsn065cbf72ed02",
       "X-RapidAPI-Host": "exercisedb.p.rapidapi.com",
     },
   }
@@ -94,13 +76,8 @@ const SingleExercisePage = () => {
   }
 
   useEffect(() => {
-    exerciseDbApi(options2, setExData, setError, "exercises")
-    exerciseDbApi(
-      options1,
-      similarsetExData,
-      similarsetError,
-      " similar  exercise"
-    )
+    exerciseDbApi(options2, setExData, setError)
+    exerciseDbApi(options1, similarsetExData, similarsetError)
   }, [id])
 
   return (
@@ -112,33 +89,46 @@ const SingleExercisePage = () => {
               EXERCISES THAT TRAIN THE SAME MUSCLE
             </p>
             <div className="similar-ex-conatiner">
+              <div
+                className="buttonLeft"
+                onClick={() => {
+                  scrollPrev()
+                }}
+              >
+                <ChevronLeftIcon sx={{ fontSize: "32px", color: "black" }} />
+              </div>
               <div className="left-spx">
-                <ScrollMenu
-                  style={{}}
-                  LeftArrow={LeftArrow}
-                  RightArrow={RightArrow}
-                >
-                  {similarExData.map((item) => {
-                    return (
-                      <ExerciseCards
-                        onClick={() => {
-                          navigate(`/exercises/${item.id}`)
-                          window.scrollTo({
-                            top: 0,
-                            behavior: "smooth", // This adds smooth scrolling animation
-                          })
-                        }}
-                        key={item.id}
-                        bodyPart={item.bodyPart}
-                        equipment={item.equipment}
-                        gifUrl={item.gifUrl}
-                        id={item.id}
-                        name={item.name}
-                        target={item.target}
-                      />
-                    )
-                  })}
-                </ScrollMenu>
+                <div className="embla-exercise" ref={emblaRef}>
+                  <div className="embla__container-exercise">
+                    {similarExData.map((item) => {
+                      return (
+                        <div className="embla__slide-exercise" key={item.id}>
+                          <ExerciseCards
+                            onClick={() => {
+                              window.scroll({ top: 0, behavior: "smooth" })
+                              navigate(`/exercises/${item.id}`)
+                            }}
+                            key={item.id}
+                            bodyPart={item.bodyPart}
+                            equipment={item.equipment}
+                            gifUrl={item.gifUrl}
+                            id={item.id}
+                            name={item.name}
+                            target={item.target}
+                          />
+                        </div>
+                      )
+                    })}
+                  </div>
+                </div>
+              </div>
+              <div
+                className="buttonLeft"
+                onClick={() => {
+                  scrollNext()
+                }}
+              >
+                <ChevronRightIcon sx={{ fontSize: "32px", color: "black" }} />
               </div>
             </div>
           </div>
@@ -174,7 +164,9 @@ const SingleExercisePage = () => {
                       labelId="demo-simple-select-label"
                       id="demo-simple-select"
                       value={level}
-                      onChange={handleChange}
+                      onChange={(e) => {
+                        setLevel(e.target.value)
+                      }}
                       sx={{
                         width: 300,
                         color: "white",
@@ -263,7 +255,7 @@ const SingleExercisePage = () => {
         </div>
       ) : (
         <div className="load-container">
-          <span className="loader"></span>
+          <CircularProgress color="inherit" />
         </div>
       )}
     </>

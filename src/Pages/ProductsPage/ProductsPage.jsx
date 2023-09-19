@@ -12,27 +12,31 @@ import Autoplay from "embla-carousel-autoplay"
 import HeroBanner from "../../Components/HeroBanner/HeroBanner"
 import OffersHeroBanner from "../../Components/OffersHeroBanner/OffersHeroBanner"
 import ChevronRightIcon from "@mui/icons-material/ChevronRight"
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft"
 import Button from "@mui/material-next/Button"
+import { useNavigate } from "react-router-dom"
 
 const ProductsPage = () => {
+  const navigate = useNavigate()
+
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true }, [
-    Autoplay({ delay: 5000, stopOnInteraction: false }),
+    Autoplay({ delay: 10000, stopOnInteraction: false }),
   ])
+
+  const scrollPrev = useCallback(
+    () => emblaApi && emblaApi.scrollPrev(),
+    [emblaApi]
+  )
+  const scrollNext = useCallback(
+    () => emblaApi && emblaApi.scrollNext(),
+    [emblaApi]
+  )
 
   // const [maxPrice, setMaxPrice] = useState(1500)
 
   // const { data, loading, error, reFetch } = useFetch(
   //   "http://localhost:8800/api/product/"
   // )
-
-  const Prev = useCallback(() => {
-    if (emblaApi) emblaApi.scrollPrev()
-  }, [emblaApi])
-
-  const Next = useCallback(() => {
-    if (emblaApi) emblaApi.scrollNext()
-  }, [emblaApi])
-  // console.log(data);
 
   // const handleRange = (e) => {
   //   setMaxPrice(e.target.value)
@@ -44,6 +48,14 @@ const ProductsPage = () => {
     <>
       <div className="product-page-container">
         <div className="banner-container">
+          <div
+            className="left"
+            onClick={() => {
+              scrollPrev()
+            }}
+          >
+            <ChevronLeftIcon fontSize="large" />
+          </div>
           <div className="embla" ref={emblaRef}>
             <div className="embla__container">
               <div className="embla__slide">
@@ -92,7 +104,7 @@ const ProductsPage = () => {
                 <HeroBanner
                   title={"STIM DADDY & PUMP DADDY®"}
                   description={
-                    "Ryse presents the follow up to Noel Deyzel’s Signature Series with Stim Daddy High-Stimulant Pre-Workout. The father of stims has arrived and packs a punch like never before with 21+ grams of active ingredients designed specifically for intense energy, lasered in focus, and euphoric mood. If you’re a stimulant junkie, look no further, but don’t say we didn’t warn you first."
+                    "Ryse presents the follow up to Noel Deyzel’s Signature Series STIM DADDY & PUMP DADDY High-Stimulant Pre-Workout. The father of stims has arrived and packs a punch like never before with 21+ grams of active ingredients designed specifically for intense energy, lasered in focus, and euphoric mood. If you’re a stimulant junkie, look no further, but don’t say we didn’t warn you first."
                   }
                   img={img2}
                   component={"Available in 2 Flavors"}
@@ -120,6 +132,14 @@ const ProductsPage = () => {
               </div>
             </div>
           </div>
+          <div
+            className="right"
+            onClick={() => {
+              scrollNext()
+            }}
+          >
+            <ChevronRightIcon fontSize="large" />
+          </div>
         </div>
         <div>
           <div className="categories">
@@ -128,24 +148,36 @@ const ProductsPage = () => {
           <div className="catergory-container">
             <div className="catergory-container-top">
               <div className="catergory-container-top-left">
-                <div className="wp">
+                <div
+                  className="wp"
+                  onClick={() => navigate("/store/whey-protein")}
+                >
                   <button className="btn">Protein</button>
                   <img src="../../../public/RYSE_Protein_1000x.jpg" alt="" />
                 </div>
-                <div className="pw">
+                <div
+                  className="pw"
+                  onClick={() => navigate("/store/pre-workout")}
+                >
                   <button className="btn">Pre-workout</button>
                   <img src="../../../public/pre-grid_1000x.jpg" alt="" />
                 </div>
               </div>
               <div className="category-container-top-right">
-                <div className="sv">
+                <div
+                  className="sv"
+                  onClick={() => navigate("/store/supplements-vitamins")}
+                >
                   <button className="btn">Supplements & Vitamins</button>
                   <img
                     src="../../../public/pexels-photo-15120890.webp"
                     alt=""
                   />
                 </div>
-                <div className="acc">
+                <div
+                  className="acc"
+                  onClick={() => navigate("/store/accessories")}
+                >
                   <button className="btn">Accerssories</button>
                   <img
                     src="../../../public/TxcPGpjU63shVW3myUE3b8.jpg"
@@ -155,7 +187,10 @@ const ProductsPage = () => {
               </div>
             </div>
             <div className="catergory-conatiner-bottom">
-              <div className="all-eq">
+              <div
+                className="all-eq"
+                onClick={() => navigate("/store/equipments")}
+              >
                 <div>
                   <button className="btn">ALL EQUIPMENTS</button>
                   <img
@@ -165,18 +200,25 @@ const ProductsPage = () => {
                 </div>
               </div>
               <div className="eq">
-                <div className="a">
+                <div
+                  className="a"
+                  onClick={() => navigate("/store/kettlebells")}
+                >
                   <button className="btn">kettlebells</button>
                   <img src="../../../public/1.jpg" alt="" />
                 </div>
                 <div
                   className="b"
                   style={{ marginLeft: "30px", marginRight: "30px" }}
+                  onClick={() => navigate("/store/dumbells")}
                 >
-                  <button className="btn">DUmbells</button>
+                  <button className="btn">Dumbells</button>
                   <img src="../../../public/2.jpg" alt="" />
                 </div>
-                <div className="c">
+                <div
+                  className="c"
+                  onClick={() => navigate("/store/resistant-bands")}
+                >
                   <button className="btn">resistant bands</button>
                   <img src="../../../public/3.jpg" alt="" />
                 </div>
