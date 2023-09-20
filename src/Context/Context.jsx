@@ -3,6 +3,7 @@ import { uid } from "uid"
 import img0100 from "../../public/btl_creatine_1_400x400.png"
 import { reducer } from "../utils/Reducer"
 export const GlobalStateContext = React.createContext()
+import cloneDeep from "lodash/cloneDeep"
 
 //prettier-ignore
 export const phcartItems = [
@@ -70,19 +71,19 @@ export const phcartItems = [
   },
 ]
 
-let initialState = {
-  items: [],
-  totalAmount: 0,
-  totalItems: 0,
-}
-
 export const GlobalStateProvider = ({ children }) => {
   const [muscle, setMuscle] = useState(" ")
 
+  let initialState = {
+    items: [],
+    readOnly: [],
+    totalAmount: 0,
+    totalItems: 0,
+  }
   //reducer for cart
   const [state, dispatch] = useReducer(reducer, initialState)
 
-  //add item to cart
+  // add item to cart
   const addToCart = (item) => {
     dispatch({ type: "ADD_ITEM", payload: item })
   }
@@ -106,9 +107,15 @@ export const GlobalStateProvider = ({ children }) => {
     dispatch({ type: "SELECT_FLAVOUR", payload: { id, flavour } })
   }
 
+  const selectWeight = (id, weight, price) => {
+    dispatch({ type: "SELECT_WEIGHT", payload: { id, weight, price } })
+  }
+
   useEffect(() => {
-    console.log(state.items)
+    
     dispatch({ type: "TOTAL" })
+    console.log(state.items)
+    console.log(state.readOnly)
   }, [state.items])
 
   return (
@@ -120,8 +127,9 @@ export const GlobalStateProvider = ({ children }) => {
         removeEl,
         incrementItem,
         decrementItem,
-        addToCart,
         selectFlavour,
+        selectWeight,
+        addToCart,
       }}
     >
       {children}

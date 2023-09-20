@@ -11,6 +11,16 @@ export const reducer = (state, action) => {
             return {
               ...item,
               quantity: item.quantity < 5 ? item.quantity + 1 : item.quantity,
+              subtotal: item.price[0] * item.quantity
+            }
+          }
+          return item
+        }),
+        readOnly: state.readOnly.map((item) => {
+          if (item.id === action.payload.id) {
+            return {
+              ...item,
+              quantity: item.quantity < 5 ? item.quantity + 1 : item.quantity,
             }
           }
           return item
@@ -21,8 +31,10 @@ export const reducer = (state, action) => {
     return {
       ...state,
       items: [...state.items, action.payload],
+      readOnly: [...state.readOnly, action.payload],
     }
   }
+
   if (action.type === "SELECT_FLAVOUR") {
     return {
       ...state,
@@ -30,7 +42,24 @@ export const reducer = (state, action) => {
         if (item.id === action.payload.id) {
           return {
             ...item,
-            userSelected: action.payload.flavour,
+            flavour: action.payload.flavour,
+          }
+        }
+
+        return item
+      }),
+    }
+  }
+
+  if (action.type === "SELECT_WEIGHT") {
+    return {
+      ...state,
+      items: state.items.map((item) => {
+        if (item.id === action.payload.id) {
+          return {
+            ...item,
+            weight: [action.payload.weight],
+            price: [action.payload.price],
           }
         }
 
@@ -43,12 +72,23 @@ export const reducer = (state, action) => {
     return {
       ...state,
       items: state.items.filter((item) => item.id !== action.payload),
+      readOnly: state.readOnly.filter((item) => item.id !== action.payload),
     }
   }
   if (action.type === "INCREMENT_ITEM") {
     return {
       ...state,
       items: state.items.map((item) => {
+        if (item.id === action.payload) {
+          return {
+            ...item,
+            quantity: item.quantity + 1,
+            subtotal: item.price[0] * item.quantity,
+          }
+        }
+        return item
+      }),
+      readOnly: state.readOnly.map((item) => {
         if (item.id === action.payload) {
           return {
             ...item,
@@ -67,6 +107,16 @@ export const reducer = (state, action) => {
           return {
             ...item,
             quantity: item.quantity - 1,
+            subtotal: item.price[0] * item.quantity,
+          }
+        }
+        return item
+      }),
+      readOnly: state.readOnly.map((item) => {
+        if (item.id === action.payload) {
+          return {
+            ...item,
+            quantity: item.quantity - 1,
           }
         }
         return item
@@ -77,7 +127,10 @@ export const reducer = (state, action) => {
   if (action.type === "TOTAL") {
     return {
       ...state,
-      totalAmount: state.items.reduce((acc, curr) => acc + curr.subtotal, 0),
+      totalAmount: state.items.reduce(
+        (acc, curr) => acc + parseInt(curr.price[0]) * curr.quantity,
+        0
+      ),
       totalItems: state.items.reduce((acc, curr) => acc + curr.quantity, 0),
     }
   }
@@ -88,7 +141,7 @@ export const reducer = (state, action) => {
       items: state.items.map((item) => {
         return {
           ...item,
-          subtotal: item.price * item.quantity,
+          total: item.price[0] * item.quantity,
         }
       }),
     }

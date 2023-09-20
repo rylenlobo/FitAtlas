@@ -20,172 +20,14 @@ import InputLabel from "@mui/material/InputLabel"
 import MenuItem from "@mui/material/MenuItem"
 import FormControl from "@mui/material/FormControl"
 import Select from "@mui/material/Select"
-
-const CartCounter = ({ count, id }) => {
-  const { state, removeEl, incrementItem, decrementItem } =
-    useContext(GlobalStateContext)
-  return (
-    <>
-      <ButtonGroup
-        size="small"
-        variant="contained"
-        aria-label="outlined primary button group"
-      >
-        <Button
-          onClick={() => {
-            decrementItem(id)
-          }}
-          disabled={count === 1}
-          sx={{
-            borderRadius: "5px",
-            "&.Mui-disabled": {
-              backgroundColor: "grey",
-            },
-          }}
-        >
-          <RemoveIcon sx={{ fontSize: "20px" }} />
-        </Button>
-        <div
-          style={{
-            width: "40px",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            borderTop: "2px solid grey",
-            borderBottom: "2px solid grey",
-          }}
-        >
-          {count}
-        </div>
-        <Button
-          onClick={() => {
-            incrementItem(id)
-          }}
-          sx={{
-            borderRadius: "5px",
-            "&.Mui-disabled": {
-              backgroundColor: "grey",
-            },
-          }}
-          disabled={count === 5}
-        >
-          <AddIcon sx={{ fontSize: "20px" }} />
-        </Button>
-      </ButtonGroup>
-    </>
-  )
-}
-
-const CartItem = (props) => {
-  const { state, removeEl, selectFlavour } = useContext(GlobalStateContext)
-  const [flavour, setFlavour] = React.useState("")
-
-  const handleChange = (event) => {
-    setFlavour(event.target.value)
-    selectFlavour(props.id, [event.target.value])
-  }
-
-  return (
-    <>
-      <Stack
-        direction="row"
-        alignItems="center"
-        spacing={3}
-        sx={{
-          boxSizing: "border-box",
-          flex: "0 0 0",
-          borderBottom: "1px solid #2b2b2b",
-          padding: "0 50px 50px 50px",
-        }}
-      >
-        <div className="cart-img">
-          <img src={props.img} />
-        </div>
-        <Stack
-          direction="row"
-          alignItems="start"
-          justifyContent="space-between"
-          width="100%"
-        >
-          <div className="cart-items-details">
-            <h2>{props.name}</h2>
-            <p>
-              {props.flavour?.[0] == "Unflavoured" ? (
-                "Unflavoured"
-              ) : props.flavour ? (
-                <Box sx={{ minWidth: 120 }}>
-                  <FormControl fullWidth>
-                    <InputLabel id="demo-simple-select-label"></InputLabel>
-                    <Select
-                      labelId="demo-simple-select-label"
-                      id="demo-simple-select"
-                      value={flavour}
-                      onChange={(e) => {
-                        handleChange(e, props.id)
-                      }}
-                      sx={{
-                        color: "white",
-                        border: "1px solid grey",
-                        marginTop: "0",
-                        marginBottom: "10px",
-                        "& .MuiSvgIcon-root": {
-                          color: "white",
-                        },
-                      }}
-                    >
-                      {props.flavour?.map((item, index) => (
-                        <MenuItem key={index} value={item}>
-                          {item}
-                        </MenuItem>
-                      ))}
-                    </Select>
-                  </FormControl>
-                </Box>
-              ) : (
-                " "
-              )}
-            </p>
-
-            <p>{props.weight}</p>
-          </div>
-          <Stack
-            direction="row"
-            alignItems="start"
-            justifyContent="space-between"
-            sx={{ width: "300px" }}
-          >
-            <div>
-              <p className="price-cart">
-                <CurrencyRupeeIcon />
-                {props.price}
-              </p>
-            </div>
-            <div>
-              <CloseIcon />
-            </div>
-            <div>
-              <CartCounter count={props.quantity} id={props.id} />
-            </div>
-          </Stack>
-          <div className="total-price">
-            <CurrencyRupeeIcon />
-            {props.subtotal}
-          </div>
-          <div style={{ margin: "0px" }} onClick={props.onClick}>
-            <DeleteIcon color="error" />
-          </div>
-        </Stack>
-      </Stack>
-    </>
-  )
-}
+import { CartItem } from "../../Components/CartItem.jsx/CartItem.jsx"
 
 const CartPage = () => {
   // const removeEl = (id) => {
   //   const newList = item.filter((item) => item.id !== id)
   //   setItems(newList)
   // }
-  const { state, removeEl } = useContext(GlobalStateContext)
+  const { state, removeEl, staticState } = useContext(GlobalStateContext)
 
   return (
     <div className="cart-page-container">
@@ -237,7 +79,7 @@ const CartPage = () => {
               <div>Quantity</div>
               <div>Subtotal</div>
             </Stack>
-            {state.items.map((val) => {
+            {state.readOnly.map((val) => {
               return (
                 <CartItem
                   id={val.id}
@@ -249,7 +91,6 @@ const CartPage = () => {
                   colour={val.colour}
                   price={val.price}
                   quantity={val.quantity}
-                  subtotal={val.subtotal}
                   onClick={() => {
                     removeEl(val.id)
                   }}

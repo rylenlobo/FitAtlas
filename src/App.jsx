@@ -6,7 +6,7 @@ import LandingPage from "./Pages/LandingPage/LandingPage.jsx"
 import Home from "./Pages/Home/Home.jsx"
 import LoginPage from "./Pages/LoginPage.jsx"
 import ProductsPage from "./Pages/ProductsPage/ProductsPage.jsx"
-import SingleProductPage from "./Pages/SingleProductPage/SingleProductPage.jsx"
+import Store from "./Pages/Store/Store.jsx"
 import SignUppage from "./Pages/SignUppage.jsx"
 import ExercisesPage from "./Pages/ExercisesPage/ExercisesPage.jsx"
 import SingleExercisePage from "./Pages/SingleExercisePage/SingleExercisePage.jsx"
@@ -44,11 +44,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/store",
-        element: <ProductsPage />,
+        element: <Store />,
       },
       {
         path: "/store/:category",
-        element: <SingleProductPage />,
+        element: <ProductsPage />,
       },
       {
         path: "/login",
