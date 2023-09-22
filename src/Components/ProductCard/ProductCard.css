@@ -27,7 +27,7 @@
   width: 100%;
   height: 250px;
   overflow: hidden;
-  background-color: #fff;
+  background-color: #ebe8e8;
 }
 
 .product-image img {
@@ -84,9 +84,7 @@
 .embla__container-pc {
   display: flex;
   flex-direction: row;
- 
 }
 .embla__slide-pc {
   flex: 0 0 100%;
- 
 }

@@ -27,7 +27,8 @@ const CartPage = () => {
   //   const newList = item.filter((item) => item.id !== id)
   //   setItems(newList)
   // }
-  const { state, removeEl, staticState } = useContext(GlobalStateContext)
+  const { state, removeEl, } =
+    useContext(GlobalStateContext)
 
   return (
     <div className="cart-page-container">
@@ -55,7 +56,7 @@ const CartPage = () => {
                 position: "sticky",
                 backgroundColor: "#121212",
                 padding: "20px 0px ",
-
+                width: "100%",
                 fontSize: "20px",
                 fontWeight: "bold",
                 textTransform: "uppercase",
@@ -73,13 +74,12 @@ const CartPage = () => {
                   },
                 }}
               >
-                <div style={{ marginLeft: "20px" }}>PRODUCTS</div>
+                <div>PRODUCTS</div>
               </Badge>
               <div style={{ marginLeft: "80px" }}>PRICE</div>
               <div>Quantity</div>
-              <div>Subtotal</div>
             </Stack>
-            {state.readOnly.map((val) => {
+            {state.items.map((val) => {
               return (
                 <CartItem
                   id={val.id}

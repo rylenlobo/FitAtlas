@@ -7,13 +7,14 @@ import Autoplay from "embla-carousel-autoplay"
 import { useCallback } from "react"
 import { GlobalStateContext } from "../../Context/Context"
 import { useContext } from "react"
+import { useParams } from "react-router-dom"
 
 const ProductCard = ({ props, onClick }) => {
-  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false }, [
-    
-  ])
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false }, [])
 
-  const {stateforCart,setStateforCart}=useContext(GlobalStateContext)
+  const param = useParams()
+
+  const { stateforCart, setStateforCart } = useContext(GlobalStateContext)
 
   const scrollPrev = useCallback(
     () => emblaApi && emblaApi.scrollPrev(),
@@ -22,7 +23,7 @@ const ProductCard = ({ props, onClick }) => {
   const scrollNext = useCallback(() => emblaApi && emblaApi.scrollNext())
 
   return (
-    <Link to="" className="link">
+    <Link to={`/store/${param.category}/${props.id}`} className="link">
       <div className="product-card">
         {props.img.length > 1 ? (
           <div className="embla-pc" ref={emblaRef}>
@@ -58,7 +59,7 @@ const ProductCard = ({ props, onClick }) => {
           <div className="info">
             <p className="product-price">${props.price[0]}</p>
             <button className="add-to-cart-button" onClick={onClick}>
-              Add to Cart
+              View now
             </button>
           </div>
         </div>

@@ -1,22 +1,9 @@
-import { GlobalStateContext } from "../Context/Context"
-import cart from "../Pages/CartPage/CartPage"
-
 export const reducer = (state, action) => {
   if (action.type === "ADD_ITEM") {
     if (state.items.find((item) => item.id === action.payload.id)) {
       return {
         ...state,
         items: state.items.map((item) => {
-          if (item.id === action.payload.id) {
-            return {
-              ...item,
-              quantity: item.quantity < 5 ? item.quantity + 1 : item.quantity,
-              subtotal: item.price[0] * item.quantity
-            }
-          }
-          return item
-        }),
-        readOnly: state.readOnly.map((item) => {
           if (item.id === action.payload.id) {
             return {
               ...item,
@@ -42,7 +29,7 @@ export const reducer = (state, action) => {
         if (item.id === action.payload.id) {
           return {
             ...item,
-            flavour: action.payload.flavour,
+            flavour: [action.payload.flavour],
           }
         }
 
@@ -107,7 +94,6 @@ export const reducer = (state, action) => {
           return {
             ...item,
             quantity: item.quantity - 1,
-            subtotal: item.price[0] * item.quantity,
           }
         }
         return item

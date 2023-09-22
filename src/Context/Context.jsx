@@ -95,12 +95,10 @@ export const GlobalStateProvider = ({ children }) => {
 
   const incrementItem = (id) => {
     dispatch({ type: "INCREMENT_ITEM", payload: id })
-    dispatch({ type: "SUB_TOTAL" })
   }
 
   const decrementItem = (id) => {
     dispatch({ type: "DECREMENT_ITEM", payload: id })
-    dispatch({ type: "SUB_TOTAL" })
   }
 
   const selectFlavour = (id, flavour) => {
@@ -112,7 +110,6 @@ export const GlobalStateProvider = ({ children }) => {
   }
 
   useEffect(() => {
-    
     dispatch({ type: "TOTAL" })
     console.log(state.items)
     console.log(state.readOnly)

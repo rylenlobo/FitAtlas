@@ -2,7 +2,7 @@ import React from "react"
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom"
 import Navbar from "./Components/Navbar/Navbar.jsx"
 import Footer from "./Components/Footer/Footer.jsx"
-import LandingPage from "./Pages/LandingPage/LandingPage.jsx"
+import SingleProductPage from "./Pages/SingleProductPage/SingleProductPage.jsx"
 import Home from "./Pages/Home/Home.jsx"
 import LoginPage from "./Pages/LoginPage.jsx"
 import ProductsPage from "./Pages/ProductsPage/ProductsPage.jsx"
@@ -36,7 +36,11 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <LandingPage />,
+        element: <Store />,
+      },
+      {
+        path: "/store/:category/:id",
+        element: <SingleProductPage />,
       },
       {
         path: "/home",

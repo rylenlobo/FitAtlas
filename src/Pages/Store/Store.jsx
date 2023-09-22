@@ -56,9 +56,9 @@ const Store = () => {
           >
             <ChevronLeftIcon fontSize="large" />
           </div>
-          <div className="embla" ref={emblaRef}>
-            <div className="embla__container">
-              <div className="embla__slide">
+          <div className="embla-b" ref={emblaRef}>
+            <div className="embla__container-b">
+              <div className="embla__slide-b">
                 <OffersHeroBanner
                   title={" Welcome to FitAtlas!🚀".toUpperCase()}
                   description={
@@ -90,7 +90,7 @@ const Store = () => {
                   }
                 />
               </div>
-              <div className="embla__slide">
+              <div className="embla__slide-b">
                 <HeroBanner
                   title={"GHOST LEGEND®"}
                   description={
@@ -100,7 +100,7 @@ const Store = () => {
                   component={"Limited Series"}
                 />
               </div>
-              <div className="embla__slide">
+              <div className="embla__slide-b">
                 <HeroBanner
                   title={"STIM DADDY & PUMP DADDY®"}
                   description={
@@ -110,7 +110,7 @@ const Store = () => {
                   component={"Available in 2 Flavors"}
                 />
               </div>
-              <div className="embla__slide">
+              <div className="embla__slide-b">
                 <HeroBanner
                   title={"BLACKMARKET PRE-WORKOUT"}
                   description={
@@ -120,7 +120,7 @@ const Store = () => {
                   component={"Available now"}
                 />
               </div>
-              <div className="embla__slide">
+              <div className="embla__slide-b">
                 <HeroBanner
                   title={"CREATINE MONOHYDRATE"}
                   description={

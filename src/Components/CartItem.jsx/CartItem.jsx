@@ -22,23 +22,7 @@ import FormControl from "@mui/material/FormControl"
 import Select from "@mui/material/Select"
 
 export const CartItem = (props) => {
-  const { state, removeEl, selectFlavour, selectWeight } =
-    useContext(GlobalStateContext)
-
-  const initFlavour = props.flavour ? props.flavour[0] : ""
-  const [flavour, setFlavour] = React.useState(initFlavour)
-  const [weight, setWeight] = React.useState(props.weight[0])
-
-  const handleChange = (event) => {
-    setFlavour(event.target.value)
-    selectFlavour(props.id, [event.target.value])
-  }
-
-  const handleChangeWeight = (event) => {
-    setWeight(event.target.value)
-
-    selectWeight(props.id,event.target.value,props.price[props.weight.indexOf(event.target.value)])
-  }
+  const { incrementItem, decrementItem } = useContext(GlobalStateContext)
 
   return (
     <>
@@ -54,9 +38,7 @@ export const CartItem = (props) => {
         }}
       >
         <div className="cart-img">
-          <img
-            src={props.img[props.flavour ? props.flavour.indexOf(flavour) : 0]}
-          />
+          <img src={props.img[0]} />
         </div>
         <Stack
           direction="row"
@@ -66,81 +48,8 @@ export const CartItem = (props) => {
         >
           <div className="cart-items-details">
             <h2 style={{ width: "50px" }}>{props.name}</h2>
-            <p>
-              {props.flavour?.[0] == "Unflavoured" ? (
-                "Unflavoured"
-              ) : props.flavour ? (
-                <Box sx={{ minWidth: 120 }}>
-                  <FormControl fullWidth>
-                    <InputLabel id="demo-simple-select-label"></InputLabel>
-                    <Select
-                      labelId="demo-simple-select-label"
-                      id="demo-simple-select"
-                      value={flavour}
-                      onChange={(e) => {
-                        handleChange(e, props.id)
-                      }}
-                      sx={{
-                        width: "180px",
-                        height: "25px",
-                        color: "white",
-                        border: "1px solid grey",
-                        marginTop: "0",
-                        marginBottom: "10px",
-                        "& .MuiSvgIcon-root": {
-                          color: "white",
-                        },
-                      }}
-                    >
-                      {props.flavour?.map((item, index) => (
-                        <MenuItem key={index} value={item}>
-                          {item}
-                        </MenuItem>
-                      ))}
-                    </Select>
-                  </FormControl>
-                </Box>
-              ) : (
-                " "
-              )}
-            </p>
-
-            <p>
-              {props.weight.length === 1 ? (
-                props.weight[0]
-              ) : (
-                <Box sx={{ minWidth: 120 }}>
-                  <FormControl fullWidth>
-                    <InputLabel id="demo-simple-select-label"></InputLabel>
-                    <Select
-                      labelId="demo-simple-select-label"
-                      id="demo-simple-select"
-                      value={weight}
-                      onChange={(e) => {
-                        handleChangeWeight(e, props.id)
-                      }}
-                      sx={{
-                        width: "100px",
-                        height: "25px",
-                        color: "white",
-                        border: "1px solid grey",
-                        marginTop: "0",
-                        marginBottom: "10px",
-                        "& .MuiSvgIcon-root": {
-                          color: "white",
-                        },
-                      }}
-                    >
-                      {props.weight?.map((item, index) => (
-                        <MenuItem key={index} value={item}>
-                          {item}
-                        </MenuItem>
-                      ))}
-                    </Select>
-                  </FormControl>
-                </Box>
-              )}
-            </p>
+            <p>{props.flavour[0]}</p>
+            <p>{props.weight[0]}</p>
           </div>
           <Stack
             direction="row"
@@ -151,20 +60,27 @@ export const CartItem = (props) => {
             <div>
               <p className="price-cart">
                 <CurrencyRupeeIcon />
-                {props.price[props.weight.indexOf(weight)]}
+                {props.price[0]}
               </p>
             </div>
+
             <div>
-              <CloseIcon />
-            </div>
-            <div>
-              <CartCounter count={props.quantity} id={props.id} />
+              <CartCounter
+                count={props.quantity}
+                id={props.id}
+                incrementItem={() => {
+                  incrementItem(props.id)
+                }}
+                decrementItem={() => {
+                  decrementItem(props.id)
+                }}
+              />
             </div>
           </Stack>
-          <div className="total-price">
+          {/* <div className="total-price">
             <CurrencyRupeeIcon />
             {props.price[props.weight.indexOf(weight)]*props.quantity}
-          </div>
+          </div> */}
           <div style={{ margin: "0px" }} onClick={props.onClick}>
             <DeleteIcon color="error" />
           </div>
@@ -174,21 +90,13 @@ export const CartItem = (props) => {
   )
 }
 
-const CartCounter = ({ count, id }) => {
-  const { state, removeEl, incrementItem, decrementItem } =
-    useContext(GlobalStateContext)
+export const CartCounter = (props) => {
   return (
     <>
-      <ButtonGroup
-        size="small"
-        variant="contained"
-        aria-label="outlined primary button group"
-      >
+      <ButtonGroup size="small" variant="contained" sx={{ boxShadow: "none" }}>
         <Button
-          onClick={() => {
-            decrementItem(id)
-          }}
-          disabled={count === 1}
+          onClick={props.decrementItem}
+          disabled={props.count === 1}
           sx={{
             borderRadius: "5px",
             "&.Mui-disabled": {
@@ -208,19 +116,17 @@ const CartCounter = ({ count, id }) => {
             borderBottom: "2px solid grey",
           }}
         >
-          {count}
+          {props.count}
         </div>
         <Button
-          onClick={() => {
-            incrementItem(id)
-          }}
+          onClick={props.incrementItem}
           sx={{
             borderRadius: "5px",
             "&.Mui-disabled": {
               backgroundColor: "grey",
             },
           }}
-          disabled={count === 5}
+          disabled={props.count === 5}
         >
           <AddIcon sx={{ fontSize: "20px" }} />
         </Button>

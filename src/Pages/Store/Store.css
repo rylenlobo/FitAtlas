@@ -99,15 +99,15 @@ label {
   right: 0;
 }
 
-.embla {
+.embla-b {
   overflow: hidden;
 }
-.embla__container {
+.embla__container-b {
   display: flex;
   flex-direction: row;
   gap: 10px;
 }
-.embla__slide {
+.embla__slide-b {
   flex: 0 0 100%;
 }
 

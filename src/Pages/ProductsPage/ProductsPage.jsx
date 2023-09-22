@@ -43,9 +43,7 @@ const ProductsPage = () => {
                 <ProductCard
                   key={item.id}
                   props={item}
-                  onClick={() => {
-                    addToCart(item)
-                  }}
+                 
                 />
               ))
           : category.category === "equipment"
@@ -55,9 +53,7 @@ const ProductsPage = () => {
                 <ProductCard
                   key={item.id}
                   props={item}
-                  onClick={() => {
-                    addToCart(item)
-                  }}
+                  
                 />
               ))
           : category.category === "Supplement"
@@ -67,9 +63,6 @@ const ProductsPage = () => {
                 <ProductCard
                   key={item.id}
                   props={item}
-                  onClick={() => {
-                    addToCart(item)
-                  }}
                 />
               ))
           : null}
