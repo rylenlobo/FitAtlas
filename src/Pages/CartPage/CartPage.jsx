@@ -23,10 +23,7 @@ import Select from "@mui/material/Select"
 import { CartItem } from "../../Components/CartItem.jsx/CartItem.jsx"
 
 const CartPage = () => {
-  // const removeEl = (id) => {
-  //   const newList = item.filter((item) => item.id !== id)
-  //   setItems(newList)
-  // }
+  
   const { state, removeEl, } =
     useContext(GlobalStateContext)
 

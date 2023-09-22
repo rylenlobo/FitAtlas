@@ -1,10 +1,25 @@
 export const reducer = (state, action) => {
   if (action.type === "ADD_ITEM") {
-    if (state.items.find((item) => item.id === action.payload.id)) {
+    let { id, name, img, flavour, price, quantity, weight, type, supplement } =
+      action.payload
+
+    let cartProduct = {
+      id: id + flavour + weight,
+      name: name,
+      img: img,
+      flavour: flavour,
+      price: price,
+      quantity: quantity,
+      weight: weight,
+      type: type,
+      supplement: supplement,
+    }
+    
+    if (state.items.find((item) => item.id === cartProduct.id)) {
       return {
         ...state,
         items: state.items.map((item) => {
-          if (item.id === action.payload.id) {
+          if (item.id === cartProduct.id) {
             return {
               ...item,
               quantity: item.quantity < 5 ? item.quantity + 1 : item.quantity,
@@ -17,8 +32,7 @@ export const reducer = (state, action) => {
 
     return {
       ...state,
-      items: [...state.items, action.payload],
-      readOnly: [...state.readOnly, action.payload],
+      items: [...state.items, cartProduct],
     }
   }
 
@@ -70,7 +84,7 @@ export const reducer = (state, action) => {
           return {
             ...item,
             quantity: item.quantity + 1,
-            subtotal: item.price[0] * item.quantity,
+            subtotal: item.price * item.quantity,
           }
         }
         return item
@@ -114,7 +128,7 @@ export const reducer = (state, action) => {
     return {
       ...state,
       totalAmount: state.items.reduce(
-        (acc, curr) => acc + parseInt(curr.price[0]) * curr.quantity,
+        (acc, curr) => acc + parseInt(curr.price) * curr.quantity,
         0
       ),
       totalItems: state.items.reduce((acc, curr) => acc + curr.quantity, 0),

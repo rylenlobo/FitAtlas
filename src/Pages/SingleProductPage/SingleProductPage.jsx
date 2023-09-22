@@ -17,30 +17,32 @@ import Button from "@mui/material/Button"
 import { SpReducer } from "../../utils/SpPageReducer.jsx"
 import { uid } from "uid"
 
+
+
 const phData = {
   id: uid(),
-  name: "Godzilla Pre-Workout",
+  name: "Blackout: Pre-Workout",
   img: [
-    "https://rysesupps.com/cdn/shop/files/pbo_pp_1_500x.png?v=1693970696",
-    "https://rysesupps.com/cdn/shop/files/pbo_1_500x.png?v=1693970696",
-    "https://rysesupps.com/cdn/shop/files/blackberrylemonade_1_0a448f9c-3bd7-4789-be0c-a39df92d8b20_500x.png?v=1693970696",
-    "https://rysesupps.com/cdn/shop/files/strawberrykiwi_1_500x.png?v=1693970037",
+    "https://rysesupps.com/cdn/shop/files/ryse_2_1_white_314aca74-a2f6-42c8-a8c9-2ede17c87548_500x.png?v=1694017852",
+    "https://rysesupps.com/cdn/shop/files/baja_burst_1_500x.png?v=1694017852",
+    "https://rysesupps.com/cdn/shop/files/tigersblood_1_5ceceae2-977d-46b2-8b09-4e85dfb97182_500x.png?v=1694017852",
+    "https://rysesupps.com/cdn/shop/files/mangoextreme_1_500x.png?v=1694017852",
   ],
   displayimg: [
-    "https://rysesupps.com/cdn/shop/files/pbo_pp_1_500x.png?v=1693970696",
-    "https://rysesupps.com/cdn/shop/files/pbo_1_500x.png?v=1693970696",
-    "https://rysesupps.com/cdn/shop/files/blackberrylemonade_1_0a448f9c-3bd7-4789-be0c-a39df92d8b20_500x.png?v=1693970696",
-    "https://rysesupps.com/cdn/shop/files/strawberrykiwi_1_500x.png?v=1693970037",
-    "https://rysesupps.com/cdn/shop/files/ryse-godzillapre-sfp-sk.png?v=1660327032",
+    "https://rysesupps.com/cdn/shop/files/ryse_2_1_white_314aca74-a2f6-42c8-a8c9-2ede17c87548_500x.png?v=1694017852",
+    "https://rysesupps.com/cdn/shop/files/baja_burst_1_500x.png?v=1694017852",
+    "https://rysesupps.com/cdn/shop/files/tigersblood_1_5ceceae2-977d-46b2-8b09-4e85dfb97182_500x.png?v=1694017852",
+    "https://rysesupps.com/cdn/shop/files/mangoextreme_1_500x.png?v=1694017852",
+    "https://rysesupps.com/cdn/shop/files/nfp-pre-mango.jpg?v=1666310520",
   ],
   flavour: [
-    "Passion Pineapple",
-    "Godzilla Monsterberry Lime",
-    "Blackberry Lemonade",
-    "Strawberry Kiwi",
+    "SunnyD Tangy Original",
+    "Baja Burst",
+    "Tigers Blood",
+    "Mango Extreme",
   ],
   price: ["5000"],
-  desc: `Packing a massive 40g serving size, this giant delivers city-crushing pumps, razor sharp focus & long-lasting explosive energy. Loaded with 12 ingredients, 5 clinically studied trademarks and a delicious blast of flavor, your new favorite pre-workout is ready for battle.`,
+  desc: `Supercharge your most grueling workouts with the all new high performance PROJECT BLACKOUT PRE from RYSE. Packed with our high-stimulant performance matrix and patented pump formula, RYSE PROJECT BLACKOUT will satisfy even the most advanced hardcore athlete.`,
   quantity: 1,
   rating: 5,
   weight: ["500gm"],
@@ -96,15 +98,12 @@ const SingleProductPage = () => {
   const selectFlavour = (id, flavour) => {
     dispatch({ type: "SELECT_FLAVOUR", payload: { id, flavour } })
   }
-
   const selectWeight = (id, weight, price) => {
     dispatch({ type: "SELECT_WEIGHT", payload: { id, weight, price } })
   }
-
   const incrementItem = (id) => {
     dispatch({ type: "INCREMENT_ITEM", payload: id })
   }
-
   const decrementItem = (id) => {
     dispatch({ type: "DECREMENT_ITEM", payload: id })
   }
@@ -112,6 +111,13 @@ const SingleProductPage = () => {
   const initFlavour = state.readOnly[0].flavour
     ? state.readOnly[0].flavour[0]
     : ""
+
+  const [showMore, setShowMore] = useState(false)
+
+  const toggleShowMore = () => {
+    setShowMore(!showMore)
+  }
+
   const [flavour, setFlavour] = React.useState(initFlavour)
 
   const initWeight = state.readOnly[0].weight[0]
@@ -205,7 +211,7 @@ const SingleProductPage = () => {
           direction={"column"}
           sx={{
             border: "1px solid #2b2b2b",
-            padding: "10px 30px",
+            padding: "30px 50px",
             borderRadius: "5px",
           }}
         >
@@ -335,7 +341,18 @@ const SingleProductPage = () => {
                 sx={{ width: "200px", ml: "60px" }}
                 variant="contained"
                 onClick={() => {
-                  addToCart(state.productData[0])
+                  addToCart(
+                    state.productData[0].id,
+                    state.productData[0].name,
+                    state.productData[0].img[
+                      state.readOnly[0].flavour.indexOf(flavour)
+                    ],
+                    state.productData[0].flavour[0],
+                    state.readOnly[0].price[price],
+                    state.productData[0].quantity,
+                    state.productData[0].weight[0],
+                    state.productData[0].type
+                  )
                 }}
               >
                 Add To Cart
@@ -344,6 +361,19 @@ const SingleProductPage = () => {
           </Stack>
         </Stack>
       </Stack>
+      <Box>
+        <div className="product-description">
+          <h2>Description</h2>
+          <p className={showMore ? "show-more" : ""}>
+            {state.productData[0].desc}
+          </p>
+          {state.productData[0].desc.length > 100 && (
+            <button onClick={toggleShowMore}>
+              {showMore ? "Show less" : "Show more"}
+            </button>
+          )}
+        </div>
+      </Box>
     </div>
   )
 }

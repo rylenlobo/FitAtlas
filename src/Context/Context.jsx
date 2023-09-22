@@ -84,8 +84,31 @@ export const GlobalStateProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState)
 
   // add item to cart
-  const addToCart = (item) => {
-    dispatch({ type: "ADD_ITEM", payload: item })
+  const addToCart = (
+    id,
+    name,
+    img,
+    flavour,
+    price,
+    quantity,
+    weight,
+    type,
+    supplement
+  ) => {
+    dispatch({
+      type: "ADD_ITEM",
+      payload: {
+        id,
+        name,
+        img,
+        flavour,
+        price,
+        quantity,
+        weight,
+        type,
+        supplement,
+      },
+    })
   }
 
   //to remove item from cart
@@ -112,7 +135,6 @@ export const GlobalStateProvider = ({ children }) => {
   useEffect(() => {
     dispatch({ type: "TOTAL" })
     console.log(state.items)
-    console.log(state.readOnly)
   }, [state.items])
 
   return (

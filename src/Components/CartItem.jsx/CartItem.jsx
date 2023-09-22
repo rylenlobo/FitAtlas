@@ -38,7 +38,7 @@ export const CartItem = (props) => {
         }}
       >
         <div className="cart-img">
-          <img src={props.img[0]} />
+          <img src={props.img} />
         </div>
         <Stack
           direction="row"
@@ -48,8 +48,8 @@ export const CartItem = (props) => {
         >
           <div className="cart-items-details">
             <h2 style={{ width: "50px" }}>{props.name}</h2>
-            <p>{props.flavour[0]}</p>
-            <p>{props.weight[0]}</p>
+            <p>{props.flavour}</p>
+            <p>{props.weight}</p>
           </div>
           <Stack
             direction="row"
@@ -60,7 +60,7 @@ export const CartItem = (props) => {
             <div>
               <p className="price-cart">
                 <CurrencyRupeeIcon />
-                {props.price[0]}
+                {props.price}
               </p>
             </div>
 
