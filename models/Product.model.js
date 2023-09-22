@@ -5,34 +5,47 @@ const productSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    type: {
+    productType: {
       type: String,
       required: true,
     },
-    desc:{
-      type:String,
-    },
     img: {
+      type: [String],
+    },
+    displayimg: {
       type: [String],
     },
     brand: {
       type: String,
       required: true,
     },
+    flavour:{
+      type:[String]
+    },
     category:{
       type:String,
       required:true,
     },
     price: {
-      type: Number,
+      type: [Number],
       required: true,
     },
+    desc:{
+      type:String,
+    },
+    quantity:{
+      type:Number
+    },
+    rating:{
+      type:Number,
+      default:4
+    },
     weight: {
-      type: Number,
+      type: [String],
     },
     color: {
       type: String,
-    },
+    }
   },
   { timestamps: true }
 );

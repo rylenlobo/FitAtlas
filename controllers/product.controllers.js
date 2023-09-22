@@ -58,14 +58,12 @@ export const getProducts = async (req, res, next) => {
 };
 
 
-export const ByCategory = async (req,res,next)=>{
-  // const { category, type} = req.query;
+export const ByType = async (req,res,next)=>{
+  const type = req.query.type;
   try {
-    // const hotels = await Product.find({
-    //   type:type,
-    //   category:category
-    // }).limit(req.query.limit);
-    const products = await Product.find(req.query.type);
+    const products = await Product.find({
+      productType:type
+    }).limit(req.query.limit);
     res.status(200).json(products);
   } catch (err) {
     next(err);
