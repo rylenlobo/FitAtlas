@@ -7,8 +7,9 @@ import { useState } from "react"
 import { useParams } from "react-router-dom"
 import Drawer from "@mui/material/Drawer"
 import { GlobalStateContext } from "../../Context/Context"
-import { useContext } from "react"
+import { useContext, useEffect } from "react"
 import { preworkoutArr } from "../../utils/DummyData.jsx"
+import useFetch from "../../utils/useFetch.jsx"
 //pretteir-ignore
 
 const ProductsPage = () => {
@@ -16,6 +17,17 @@ const ProductsPage = () => {
   const { stateforCart, setStateforCart, addToCart } =
     useContext(GlobalStateContext)
   const category = useParams()
+
+  // const { data, loading, error, reFetch } = useFetch(
+  //   "http://localhost:8800/api/product/"
+  // )
+
+  // console.log(data)
+  useEffect(() => {
+    window.scroll({
+      top: 0,
+    })
+  }, [])
 
   return (
     <>
@@ -39,32 +51,15 @@ const ProductsPage = () => {
         category.category === "resistant-bands"
           ? preworkoutArr
               .filter((item) => item.category === category.category)
-              .map((item) => (
-                <ProductCard
-                  key={item.id}
-                  props={item}
-                 
-                />
-              ))
+              .map((item) => <ProductCard key={item.id} props={item} />)
           : category.category === "equipment"
           ? preworkoutArr
               .filter((item) => item.type === "equipment")
-              .map((item) => (
-                <ProductCard
-                  key={item.id}
-                  props={item}
-                  
-                />
-              ))
+              .map((item) => <ProductCard key={item.id} props={item} />)
           : category.category === "Supplement"
           ? preworkoutArr
               .filter((item) => item.type === "Supplement")
-              .map((item) => (
-                <ProductCard
-                  key={item.id}
-                  props={item}
-                />
-              ))
+              .map((item) => <ProductCard key={item.id} props={item} />)
           : null}
       </Stack>
     </>

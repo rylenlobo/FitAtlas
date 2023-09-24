@@ -17,32 +17,30 @@ import Button from "@mui/material/Button"
 import { SpReducer } from "../../utils/SpPageReducer.jsx"
 import { uid } from "uid"
 
-
-
 const phData = {
   id: uid(),
-  name: "Blackout: Pre-Workout",
+  name: "Godzilla Pre-Workout",
   img: [
-    "https://rysesupps.com/cdn/shop/files/ryse_2_1_white_314aca74-a2f6-42c8-a8c9-2ede17c87548_500x.png?v=1694017852",
-    "https://rysesupps.com/cdn/shop/files/baja_burst_1_500x.png?v=1694017852",
-    "https://rysesupps.com/cdn/shop/files/tigersblood_1_5ceceae2-977d-46b2-8b09-4e85dfb97182_500x.png?v=1694017852",
-    "https://rysesupps.com/cdn/shop/files/mangoextreme_1_500x.png?v=1694017852",
+    "https://rysesupps.com/cdn/shop/files/pbo_pp_1_500x.png?v=1693970696",
+    "https://rysesupps.com/cdn/shop/files/pbo_1_500x.png?v=1693970696",
+    "https://rysesupps.com/cdn/shop/files/blackberrylemonade_1_0a448f9c-3bd7-4789-be0c-a39df92d8b20_500x.png?v=1693970696",
+    "https://rysesupps.com/cdn/shop/files/strawberrykiwi_1_500x.png?v=1693970037",
   ],
   displayimg: [
-    "https://rysesupps.com/cdn/shop/files/ryse_2_1_white_314aca74-a2f6-42c8-a8c9-2ede17c87548_500x.png?v=1694017852",
-    "https://rysesupps.com/cdn/shop/files/baja_burst_1_500x.png?v=1694017852",
-    "https://rysesupps.com/cdn/shop/files/tigersblood_1_5ceceae2-977d-46b2-8b09-4e85dfb97182_500x.png?v=1694017852",
-    "https://rysesupps.com/cdn/shop/files/mangoextreme_1_500x.png?v=1694017852",
-    "https://rysesupps.com/cdn/shop/files/nfp-pre-mango.jpg?v=1666310520",
+    "https://rysesupps.com/cdn/shop/files/pbo_pp_1_500x.png?v=1693970696",
+    "https://rysesupps.com/cdn/shop/files/pbo_1_500x.png?v=1693970696",
+    "https://rysesupps.com/cdn/shop/files/blackberrylemonade_1_0a448f9c-3bd7-4789-be0c-a39df92d8b20_500x.png?v=1693970696",
+    "https://rysesupps.com/cdn/shop/files/strawberrykiwi_1_500x.png?v=1693970037",
+    "https://rysesupps.com/cdn/shop/files/ryse-godzillapre-sfp-sk.png?v=1660327032",
   ],
   flavour: [
-    "SunnyD Tangy Original",
-    "Baja Burst",
-    "Tigers Blood",
-    "Mango Extreme",
+    "Passion Pineapple",
+    "Godzilla Monsterberry Lime",
+    "Blackberry Lemonade",
+    "Strawberry Kiwi",
   ],
   price: ["5000"],
-  desc: `Supercharge your most grueling workouts with the all new high performance PROJECT BLACKOUT PRE from RYSE. Packed with our high-stimulant performance matrix and patented pump formula, RYSE PROJECT BLACKOUT will satisfy even the most advanced hardcore athlete.`,
+  desc: `Packing a massive 40g serving size, this giant delivers city-crushing pumps, razor sharp focus & long-lasting explosive energy. Loaded with 12 ingredients, 5 clinically studied trademarks and a delicious blast of flavor, your new favorite pre-workout is ready for battle.`,
   quantity: 1,
   rating: 5,
   weight: ["500gm"],
@@ -94,7 +92,7 @@ const SingleProductPage = () => {
   })
 
   const [state, dispatch] = useReducer(SpReducer, initialState)
-
+  const Fl = state.readOnly[0].flavour ? true : false
   const selectFlavour = (id, flavour) => {
     dispatch({ type: "SELECT_FLAVOUR", payload: { id, flavour } })
   }
@@ -157,6 +155,12 @@ const SingleProductPage = () => {
     emblaMainApi.on("reInit", onSelect)
   }, [emblaMainApi, onSelect])
 
+  useEffect(() => {
+    window.scroll({
+      top: 0,
+    })
+  }, [])
+
   return (
     <div>
       <Stack
@@ -166,7 +170,15 @@ const SingleProductPage = () => {
         spacing={8}
         sx={{ width: "100%", height: "100%", padding: "70px 50px 0 50px" }}
       >
-        <Stack direction={"row"} spacing={2} sx={{}}>
+        <Stack
+          direction={"row"}
+          spacing={2}
+          sx={{
+            padding: "30px ",
+            border: "1px solid #2b2b2b",
+            borderRadius: "5px",
+          }}
+        >
           <Stack direction={"column"} sx={{ height: "500px", width: "130px" }}>
             <div className="embla-thumbs">
               <div className="embla-thumbs__viewport" ref={emblaThumbsRef}>
@@ -208,10 +220,14 @@ const SingleProductPage = () => {
           </Stack>
         </Stack>
         <Stack
+          className="product-info"
           direction={"column"}
           sx={{
             border: "1px solid #2b2b2b",
+            width: "800px",
+            height: "560px",
             padding: "30px 50px",
+            overflow: "scroll",
             borderRadius: "5px",
           }}
         >
@@ -319,7 +335,7 @@ const SingleProductPage = () => {
             sx={{
               width: "100%",
               borderTop: "1px solid #2b2b2b",
-
+              borderBottom: "1px solid #2b2b2b",
               padding: "30px 0",
             }}
             alignItems={"center"}
@@ -341,13 +357,12 @@ const SingleProductPage = () => {
                 sx={{ width: "200px", ml: "60px" }}
                 variant="contained"
                 onClick={() => {
+                  //prettier-ignore
                   addToCart(
                     state.productData[0].id,
                     state.productData[0].name,
-                    state.productData[0].img[
-                      state.readOnly[0].flavour.indexOf(flavour)
-                    ],
-                    state.productData[0].flavour[0],
+                    Fl? state.productData[0].img[state.readOnly[0].flavour?.indexOf(flavour)]: state.productData[0].img[0],
+                    Fl ? state.productData[0].flavour[0] : " ",
                     state.readOnly[0].price[price],
                     state.productData[0].quantity,
                     state.productData[0].weight[0],
@@ -359,21 +374,21 @@ const SingleProductPage = () => {
               </Button>
             </div>
           </Stack>
+          <Box>
+            <div className="product-description">
+              <h2>Description</h2>
+              <p className={showMore ? "show-more" : ""}>
+                {state.productData[0].desc}
+              </p>
+              {state.productData[0].desc.length > 100 && (
+                <button onClick={toggleShowMore}>
+                  {showMore ? "Show less" : "Show more"}
+                </button>
+              )}
+            </div>
+          </Box>
         </Stack>
       </Stack>
-      <Box>
-        <div className="product-description">
-          <h2>Description</h2>
-          <p className={showMore ? "show-more" : ""}>
-            {state.productData[0].desc}
-          </p>
-          {state.productData[0].desc.length > 100 && (
-            <button onClick={toggleShowMore}>
-              {showMore ? "Show less" : "Show more"}
-            </button>
-          )}
-        </div>
-      </Box>
     </div>
   )
 }

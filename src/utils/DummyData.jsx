@@ -317,7 +317,7 @@ A mighty mix of Taurine, Tyrosine and Choline along with Caffeine for laser shar
       "https://m.media-amazon.com/images/I/71TI3ykigRL._SX679_.jpg",
     ],
     color: ["Crome Plated"],
-    price: [790],
+    price: ["790"],
 
     desc: `Kore 26 mm Crome Plated barbell (3 feet, 4 feet, 5 feet, 6 feet, 7 feet) Weight Lifting Bar with 2 Locks`,
     quantity: 1,

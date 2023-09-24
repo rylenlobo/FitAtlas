@@ -105,7 +105,8 @@ const SingleExercisePage = () => {
                         <div className="embla__slide-exercise" key={item.id}>
                           <ExerciseCards
                             onClick={() => {
-                              window.scroll({ top: 0, behavior: "smooth" })
+                              setExData(null)
+                              window.scroll({ top: 0 })
                               navigate(`/exercises/${item.id}`)
                             }}
                             key={item.id}

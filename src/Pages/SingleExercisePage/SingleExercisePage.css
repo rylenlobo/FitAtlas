@@ -137,8 +137,7 @@
   top: 170px;
   right: 100px;
   color: white;
-  list-style: none;
-  gap: 20px;
+  list-style:none;
   margin-top: 50px;
   margin-left: -500px;
   width: 500px;
@@ -147,6 +146,11 @@
   border-radius: 10px;
   padding: 20px;
   box-sizing: border-box;
+  word-spacing: 3px;
+}
+
+.reps li{
+  margin: 10px 0;
 }
 
 .load-container{

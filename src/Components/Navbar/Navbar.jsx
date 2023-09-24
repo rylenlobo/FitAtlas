@@ -88,7 +88,24 @@ const Navbar = () => {
             </Tooltip>
           </div> */}
 
-          <div>
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <Link
+              className="link"
+              to="/cart"
+              style={{ textDecoration: "none" }}
+            >
+              <Badge
+                badgeContent={state.items.length}
+                color="primary"
+                sx={{
+                  "& .MuiBadge-badge": {
+                    right: 26,
+                  },
+                }}
+              >
+                <ShoppingCartCheckoutIcon />
+              </Badge>
+            </Link>
             {currentUser ? (
               <div
                 className="profile"
@@ -133,28 +150,6 @@ const Navbar = () => {
                               style={{ textDecoration: "none" }}
                             >
                               <MenuLink text="Track" icon={<InsightsIcon />} />
-                            </Link>
-                            <Link
-                              className="link"
-                              to="/cart"
-                              style={{ textDecoration: "none" }}
-                            >
-                              <MenuLink
-                                text="Cart"
-                                icon={
-                                  <Badge
-                                    badgeContent={state.items.length}
-                                    color="primary"
-                                    sx={{
-                                      "& .MuiBadge-badge": {
-                                        right: 26,
-                                      },
-                                    }}
-                                  >
-                                    <ShoppingCartCheckoutIcon />
-                                  </Badge>
-                                }
-                              />
                             </Link>
                           </>
                         )}
