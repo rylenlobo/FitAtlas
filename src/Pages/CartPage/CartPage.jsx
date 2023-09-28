@@ -21,11 +21,11 @@ import MenuItem from "@mui/material/MenuItem"
 import FormControl from "@mui/material/FormControl"
 import Select from "@mui/material/Select"
 import { CartItem } from "../../Components/CartItem.jsx/CartItem.jsx"
+import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart"
+import { Link } from "react-router-dom"
 
 const CartPage = () => {
-  
-  const { state, removeEl, } =
-    useContext(GlobalStateContext)
+  const { state, removeEl } = useContext(GlobalStateContext)
 
   return (
     <div className="cart-page-container">
@@ -131,7 +131,24 @@ const CartPage = () => {
           </Stack>
         </Stack>
       ) : (
-        "Cart is Empty"
+        <>
+          <Stack
+            justifyContent={"center"}
+            alignItems={"center"}
+            sx={{ width: "100%", height: "120%",pt:"100px" }}
+          >
+            <AddShoppingCartIcon sx={{ fontSize: "300px" }} />
+           <Typography sx={{m:"20px"}}>Cart is Empty</Typography>
+            <Link to="/store">
+              <Button
+                variant="contained"
+                sx={{ width: "200px", height: "50px", marginTop: "20px" }}
+              >
+                Continue Shopping
+              </Button>
+            </Link>
+          </Stack>
+        </>
       )}
     </div>
   )

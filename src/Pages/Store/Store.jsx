@@ -15,6 +15,7 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight"
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft"
 import Button from "@mui/material-next/Button"
 import { useNavigate } from "react-router-dom"
+import Spline from "@splinetool/react-spline"
 
 const Store = () => {
   useEffect(() => {
