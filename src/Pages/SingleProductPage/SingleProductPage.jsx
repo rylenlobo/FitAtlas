@@ -19,8 +19,6 @@ import { useLocation, useParams } from "react-router-dom"
 import { uid } from "uid"
 import useFetch from "../../utils/useFetch"
 
-
-
 // const phData = {
 //   id: uid(),
 //   name: "Blackout: Pre-Workout",
@@ -85,7 +83,6 @@ const Thumb = (props) => {
 // };
 
 const SingleProductPage = () => {
-
   const { addToCart } = useContext(GlobalStateContext)
   const [selectedIndex, setSelectedIndex] = useState(0)
 
@@ -96,32 +93,27 @@ const SingleProductPage = () => {
     dragFree: true,
   })
 
-  const location = useLocation();
-  const productId = location.pathname.split("/")[3];
+  const location = useLocation()
+  const productId = location.pathname.split("/")[3]
 
-  const { data, loading, error } = useFetch(`http://localhost:8800/api/product/find/${productId}`);
-  console.log(data); 
+  const { data, loading, error } = useFetch(
+    `http://localhost:8800/api/product/find/${productId}`
+  )
+  console.log(data)
 
   const initialstate = {
     productData: data,
     readOnly: data,
-  };
+  }
 
-  console.log(initialstate);
-
-  // useEffect(() => {
-  //   if (data) {
-  //     const newData = [...initialstate.productData, data];
-  //     const newReadOnly = [...initialstate.readOnly, data];
-  //     const newState = { ...initialstate, productData: newData, readOnly: newReadOnly };
-  //     dispatch({ type: 'UPDATE_STATE', payload: newState });
-  //   }
-  // }, [data]);
-  
 
   const [state, dispatch] = useReducer(SpReducer, initialstate)
 
-  console.log(state);
+
+  useEffect(() => {
+    console.log(state)
+  }, [state])
+
 
   const selectFlavour = (id, flavour) => {
     dispatch({ type: "SELECT_FLAVOUR", payload: { id, flavour } })
@@ -145,6 +137,8 @@ const SingleProductPage = () => {
   const toggleShowMore = () => {
     setShowMore(!showMore)
   }
+
+  const Fl = state?.readOnly[0]?.flavour[0]
 
   const [flavour, setFlavour] = React.useState(initFlavour)
 
@@ -391,7 +385,7 @@ const SingleProductPage = () => {
                   addToCart(
                     state.productData[0].id,
                     state.productData[0].name,
-                    Fl? state.productData[0].img[state.readOnly[0].flavour?.indexOf(flavour)]: state.productData[0].img[0],
+                    Fl? state.productData[0].displayimg[state.readOnly[0].flavour?.indexOf(flavour)]: state.productData[0].displayimg[0],
                     Fl ? state.productData[0].flavour[0] : " ",
                     state.readOnly[0].price[price],
                     state.productData[0].quantity,
