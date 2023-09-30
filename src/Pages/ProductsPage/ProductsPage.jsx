@@ -22,6 +22,12 @@ const ProductsPage = () => {
   const { data, loading, error } = useFetch("http://localhost:8800/api/product/");
   console.log(data);
 
+  useEffect(() => {
+    window.scroll({
+      top: 0,
+    })
+  }, [])
+
   return (
     <>
       <Stack alignItems="center" sx={{ fontSize: "20px", color: "#4c7abb" }}>

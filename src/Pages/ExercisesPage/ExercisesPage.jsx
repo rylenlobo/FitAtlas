@@ -23,6 +23,12 @@ const ExercisesPage = () => {
     restDelta: 0.001,
   })
 
+   useEffect(() => {
+    window.scroll({
+    top: 0,
+  });
+  }, [])
+  
   const options = {
     method: "GET",
     url: `https://exercisedb.p.rapidapi.com/exercises/target/${muscle}`,

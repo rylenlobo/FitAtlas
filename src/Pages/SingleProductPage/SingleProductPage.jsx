@@ -185,6 +185,12 @@ const SingleProductPage = () => {
     emblaMainApi.on("reInit", onSelect)
   }, [emblaMainApi, onSelect])
 
+  useEffect(() => {
+    window.scroll({
+      top: 0,
+    })
+  }, [])
+
   return (
     <div>
       <Stack
@@ -194,7 +200,15 @@ const SingleProductPage = () => {
         spacing={8}
         sx={{ width: "100%", height: "100%", padding: "70px 50px 0 50px" }}
       >
-        <Stack direction={"row"} spacing={2} sx={{}}>
+        <Stack
+          direction={"row"}
+          spacing={2}
+          sx={{
+            padding: "30px ",
+            border: "1px solid #2b2b2b",
+            borderRadius: "5px",
+          }}
+        >
           <Stack direction={"column"} sx={{ height: "500px", width: "130px" }}>
             <div className="embla-thumbs">
               <div className="embla-thumbs__viewport" ref={emblaThumbsRef}>
@@ -236,10 +250,14 @@ const SingleProductPage = () => {
           </Stack>
         </Stack>
         <Stack
+          className="product-info"
           direction={"column"}
           sx={{
             border: "1px solid #2b2b2b",
+            width: "800px",
+            height: "560px",
             padding: "30px 50px",
+            overflow: "scroll",
             borderRadius: "5px",
           }}
         >
@@ -347,7 +365,7 @@ const SingleProductPage = () => {
             sx={{
               width: "100%",
               borderTop: "1px solid #2b2b2b",
-
+              borderBottom: "1px solid #2b2b2b",
               padding: "30px 0",
             }}
             alignItems={"center"}
@@ -369,13 +387,12 @@ const SingleProductPage = () => {
                 sx={{ width: "200px", ml: "60px" }}
                 variant="contained"
                 onClick={() => {
+                  //prettier-ignore
                   addToCart(
                     state.productData[0].id,
                     state.productData[0].name,
-                    state.productData[0].img[
-                      state.readOnly[0].flavour.indexOf(flavour)
-                    ],
-                    state.productData[0].flavour[0],
+                    Fl? state.productData[0].img[state.readOnly[0].flavour?.indexOf(flavour)]: state.productData[0].img[0],
+                    Fl ? state.productData[0].flavour[0] : " ",
                     state.readOnly[0].price[price],
                     state.productData[0].quantity,
                     state.productData[0].weight[0],

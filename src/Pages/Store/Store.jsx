@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react"
+import React, { useState, useCallback, useEffect } from "react"
 import ProductCard from "../../Components/ProductCard/ProductCard"
 import "./Store.css"
 import img from "../../../public/Fitness Gym Supplement - Ghost Burn Mango_copy.jpeg"
@@ -15,8 +15,15 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight"
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft"
 import Button from "@mui/material-next/Button"
 import { useNavigate } from "react-router-dom"
+import Spline from "@splinetool/react-spline"
 
 const Store = () => {
+  useEffect(() => {
+    window.scroll({
+      top: 0,
+    })
+  }, [])
+
   const navigate = useNavigate()
 
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true }, [

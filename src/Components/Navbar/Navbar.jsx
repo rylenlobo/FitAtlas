@@ -1,6 +1,7 @@
 // eslint-disable-next-line no-unused-vars
 import React from "react"
 import { useState, useContext } from "react"
+
 // import { GlobalStateContext } from "../../Context/Context.jsx"
 import { Link, useNavigate } from "react-router-dom"
 import "./Navbar.css"
@@ -88,7 +89,24 @@ const Navbar = () => {
             </Tooltip>
           </div> */}
 
-          <div>
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <Link
+              className="link"
+              to="/cart"
+              style={{ textDecoration: "none" }}
+            >
+              <Badge
+                badgeContent={state.items.length}
+                color="primary"
+                sx={{
+                  "& .MuiBadge-badge": {
+                    right: 26,
+                  },
+                }}
+              >
+                <ShoppingCartCheckoutIcon />
+              </Badge>
+            </Link>
             {currentUser ? (
               <div
                 className="profile"
@@ -141,28 +159,6 @@ const Navbar = () => {
                               style={{ textDecoration: "none" }}
                             >
                               <MenuLink text="Track" icon={<InsightsIcon />} />
-                            </Link>
-                            <Link
-                              className="link"
-                              to="/cart"
-                              style={{ textDecoration: "none" }}
-                            >
-                              <MenuLink
-                                text="Cart"
-                                icon={
-                                  <Badge
-                                    badgeContent={state.items.length}
-                                    color="primary"
-                                    sx={{
-                                      "& .MuiBadge-badge": {
-                                        right: 26,
-                                      },
-                                    }}
-                                  >
-                                    <ShoppingCartCheckoutIcon />
-                                  </Badge>
-                                }
-                              />
                             </Link>
                           </>
                         )}

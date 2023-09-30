@@ -14,7 +14,7 @@ export const reducer = (state, action) => {
       type: type,
       supplement: supplement,
     }
-    
+
     if (state.items.find((item) => item.id === cartProduct.id)) {
       return {
         ...state,
@@ -22,7 +22,12 @@ export const reducer = (state, action) => {
           if (item.id === cartProduct.id) {
             return {
               ...item,
-              quantity: item.quantity < 5 ? item.quantity + 1 : item.quantity,
+              quantity:
+                item.quantity < 5
+                  ? item.quantity + cartProduct.quantity > 5
+                    ? 5
+                    : item.quantity + cartProduct.quantity
+                  : item.quantity,
             }
           }
           return item
