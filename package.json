@@ -37,5 +37,6 @@
     "eslint-plugin-react-refresh": "^0.4.3",
     "prettier": "^3.0.2",
     "vite": "^4.4.5"
-  }
+  },
+  "proxy":"http://localhost:8800/api"
 }

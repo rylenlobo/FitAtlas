@@ -11,6 +11,7 @@ import SignUppage from "./Pages/SignUppage.jsx"
 import ExercisesPage from "./Pages/ExercisesPage/ExercisesPage.jsx"
 import SingleExercisePage from "./Pages/SingleExercisePage/SingleExercisePage.jsx"
 import CartPage from "./Pages/CartPage/CartPage.jsx"
+import Item from "./Pages/AllItems/Item.jsx"
 
 function App() {
   return (
@@ -73,6 +74,10 @@ const router = createBrowserRouter([
       {
         path: "/cart",
         element: <CartPage />,
+      },
+      {
+        path: "/items",
+        element: <Item />,
       },
     ],
   },

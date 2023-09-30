@@ -15,40 +15,42 @@ import Select from "@mui/material/Select"
 import { CartCounter } from "../../Components/CartItem.jsx/CartItem"
 import Button from "@mui/material/Button"
 import { SpReducer } from "../../utils/SpPageReducer.jsx"
+import { useLocation, useParams } from "react-router-dom"
 import { uid } from "uid"
+import useFetch from "../../utils/useFetch"
 
 
 
-const phData = {
-  id: uid(),
-  name: "Blackout: Pre-Workout",
-  img: [
-    "https://rysesupps.com/cdn/shop/files/ryse_2_1_white_314aca74-a2f6-42c8-a8c9-2ede17c87548_500x.png?v=1694017852",
-    "https://rysesupps.com/cdn/shop/files/baja_burst_1_500x.png?v=1694017852",
-    "https://rysesupps.com/cdn/shop/files/tigersblood_1_5ceceae2-977d-46b2-8b09-4e85dfb97182_500x.png?v=1694017852",
-    "https://rysesupps.com/cdn/shop/files/mangoextreme_1_500x.png?v=1694017852",
-  ],
-  displayimg: [
-    "https://rysesupps.com/cdn/shop/files/ryse_2_1_white_314aca74-a2f6-42c8-a8c9-2ede17c87548_500x.png?v=1694017852",
-    "https://rysesupps.com/cdn/shop/files/baja_burst_1_500x.png?v=1694017852",
-    "https://rysesupps.com/cdn/shop/files/tigersblood_1_5ceceae2-977d-46b2-8b09-4e85dfb97182_500x.png?v=1694017852",
-    "https://rysesupps.com/cdn/shop/files/mangoextreme_1_500x.png?v=1694017852",
-    "https://rysesupps.com/cdn/shop/files/nfp-pre-mango.jpg?v=1666310520",
-  ],
-  flavour: [
-    "SunnyD Tangy Original",
-    "Baja Burst",
-    "Tigers Blood",
-    "Mango Extreme",
-  ],
-  price: ["5000"],
-  desc: `Supercharge your most grueling workouts with the all new high performance PROJECT BLACKOUT PRE from RYSE. Packed with our high-stimulant performance matrix and patented pump formula, RYSE PROJECT BLACKOUT will satisfy even the most advanced hardcore athlete.`,
-  quantity: 1,
-  rating: 5,
-  weight: ["500gm"],
-  type: "Supplement",
-  category: "preworkout",
-}
+// const phData = {
+//   id: uid(),
+//   name: "Blackout: Pre-Workout",
+//   img: [
+//     "https://rysesupps.com/cdn/shop/files/ryse_2_1_white_314aca74-a2f6-42c8-a8c9-2ede17c87548_500x.png?v=1694017852",
+//     "https://rysesupps.com/cdn/shop/files/baja_burst_1_500x.png?v=1694017852",
+//     "https://rysesupps.com/cdn/shop/files/tigersblood_1_5ceceae2-977d-46b2-8b09-4e85dfb97182_500x.png?v=1694017852",
+//     "https://rysesupps.com/cdn/shop/files/mangoextreme_1_500x.png?v=1694017852",
+//   ],
+//   displayimg: [
+//     "https://rysesupps.com/cdn/shop/files/ryse_2_1_white_314aca74-a2f6-42c8-a8c9-2ede17c87548_500x.png?v=1694017852",
+//     "https://rysesupps.com/cdn/shop/files/baja_burst_1_500x.png?v=1694017852",
+//     "https://rysesupps.com/cdn/shop/files/tigersblood_1_5ceceae2-977d-46b2-8b09-4e85dfb97182_500x.png?v=1694017852",
+//     "https://rysesupps.com/cdn/shop/files/mangoextreme_1_500x.png?v=1694017852",
+//     "https://rysesupps.com/cdn/shop/files/nfp-pre-mango.jpg?v=1666310520",
+//   ],
+//   flavour: [
+//     "SunnyD Tangy Original",
+//     "Baja Burst",
+//     "Tigers Blood",
+//     "Mango Extreme",
+//   ],
+//   price: ["5000"],
+//   desc: `Supercharge your most grueling workouts with the all new high performance PROJECT BLACKOUT PRE from RYSE. Packed with our high-stimulant performance matrix and patented pump formula, RYSE PROJECT BLACKOUT will satisfy even the most advanced hardcore athlete.`,
+//   quantity: 1,
+//   rating: 5,
+//   weight: ["500gm"],
+//   type: "Supplement",
+//   category: "preworkout",
+// }
 
 const Thumb = (props) => {
   const { selected, imgSrc, index, onClick } = props
@@ -77,12 +79,13 @@ const Thumb = (props) => {
   )
 }
 
-const initialState = {
-  productData: [phData],
-  readOnly: [phData],
-}
+// const initialstate = {
+//   productData: [],
+//   readOnly: [],
+// };
 
 const SingleProductPage = () => {
+
   const { addToCart } = useContext(GlobalStateContext)
   const [selectedIndex, setSelectedIndex] = useState(0)
 
@@ -93,7 +96,32 @@ const SingleProductPage = () => {
     dragFree: true,
   })
 
-  const [state, dispatch] = useReducer(SpReducer, initialState)
+  const location = useLocation();
+  const productId = location.pathname.split("/")[3];
+
+  const { data, loading, error } = useFetch(`http://localhost:8800/api/product/find/${productId}`);
+  console.log(data); 
+
+  const initialstate = {
+    productData: data,
+    readOnly: data,
+  };
+
+  console.log(initialstate);
+
+  // useEffect(() => {
+  //   if (data) {
+  //     const newData = [...initialstate.productData, data];
+  //     const newReadOnly = [...initialstate.readOnly, data];
+  //     const newState = { ...initialstate, productData: newData, readOnly: newReadOnly };
+  //     dispatch({ type: 'UPDATE_STATE', payload: newState });
+  //   }
+  // }, [data]);
+  
+
+  const [state, dispatch] = useReducer(SpReducer, initialstate)
+
+  console.log(state);
 
   const selectFlavour = (id, flavour) => {
     dispatch({ type: "SELECT_FLAVOUR", payload: { id, flavour } })
@@ -108,8 +136,8 @@ const SingleProductPage = () => {
     dispatch({ type: "DECREMENT_ITEM", payload: id })
   }
 
-  const initFlavour = state.readOnly[0].flavour
-    ? state.readOnly[0].flavour[0]
+  const initFlavour = state?.readOnly[0]?.flavour[0]
+    ? state.readOnly[0].flavour[1]
     : ""
 
   const [showMore, setShowMore] = useState(false)
@@ -120,11 +148,11 @@ const SingleProductPage = () => {
 
   const [flavour, setFlavour] = React.useState(initFlavour)
 
-  const initWeight = state.readOnly[0].weight[0]
+  const initWeight = state?.readOnly[0]?.weight[0]
   const [weight, setWeight] = React.useState(initWeight)
 
-  const id = state.readOnly[0].id
-  const price = state.readOnly[0].weight.indexOf(weight)
+  const id = state?.readOnly[0]?._id
+  const price = state?.readOnly[0]?.weight.indexOf(weight)
 
   const handleChange = (event) => {
     setFlavour(event.target.value)
@@ -171,7 +199,7 @@ const SingleProductPage = () => {
             <div className="embla-thumbs">
               <div className="embla-thumbs__viewport" ref={emblaThumbsRef}>
                 <div className="embla-thumbs__container">
-                  {state.readOnly[0].displayimg.map((img, index) => (
+                  {state?.readOnly[0]?.displayimg?.map((img, index) => (
                     <Thumb
                       onClick={() => onThumbClick(index)}
                       selected={index === selectedIndex}
@@ -193,7 +221,7 @@ const SingleProductPage = () => {
             <div className="embla-sp">
               <div className="embla__viewport" ref={emblaMainRef}>
                 <div className="embla__container-sp">
-                  {state.readOnly[0].displayimg.map((img, index) => (
+                  {state?.readOnly[0]?.displayimg.map((img, index) => (
                     <div className="embla__slide-sp" key={index}>
                       <img
                         className="embla__slide__img"
@@ -217,17 +245,17 @@ const SingleProductPage = () => {
         >
           <div>
             <p style={{ fontSize: "50px", margin: 0 }}>
-              {state.readOnly[0].name.toUpperCase()}
+              {state.readOnly[0]?.name.toUpperCase()}
             </p>
             <Rating
               readOnly
-              defaultValue={state.readOnly[0].rating}
+              defaultValue={state.readOnly[0]?.rating}
               sx={{ color: "#4c7abb", margin: "15px 0" }}
             />
 
             <p style={{ fontSize: "30px" }}>
               <CurrencyRupee />
-              {state.readOnly[0].price[price]}
+              {state.readOnly[0]?.price[price]}
             </p>
           </div>
           <Stack
@@ -239,7 +267,7 @@ const SingleProductPage = () => {
               padding: "40px 0",
             }}
           >
-            {state.readOnly[0].flavour ? (
+            {state.readOnly[0]?.flavour ? (
               <div>
                 <p>Flavour</p>
                 <Box sx={{ minWidth: 120 }}>
@@ -276,7 +304,7 @@ const SingleProductPage = () => {
             ) : (
               ""
             )}
-            {state.readOnly[0].weight ? (
+            {state.readOnly[0]?.weight ? (
               <div>
                 <p>Weight</p>
                 <Box sx={{ minWidth: 120 }}>
@@ -327,7 +355,7 @@ const SingleProductPage = () => {
           >
             <div style={{}}>
               <CartCounter
-                count={state.readOnly[0].quantity}
+                count={state.readOnly[0]?.quantity}
                 incrementItem={() => {
                   incrementItem(id)
                 }}
@@ -364,10 +392,10 @@ const SingleProductPage = () => {
       <Box>
         <div className="product-description">
           <h2>Description</h2>
-          <p className={showMore ? "show-more" : ""}>
-            {state.productData[0].desc}
-          </p>
-          {state.productData[0].desc.length > 100 && (
+          {/* <p className={showMore ? "show-more" : ""}>
+            {state.productData[0]?.desc}
+          </p> */}
+          {state.productData[0]?.desc.length > 100 && (
             <button onClick={toggleShowMore}>
               {showMore ? "Show less" : "Show more"}
             </button>

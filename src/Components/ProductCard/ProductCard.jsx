@@ -21,9 +21,10 @@ const ProductCard = ({ props, onClick }) => {
     [emblaApi]
   )
   const scrollNext = useCallback(() => emblaApi && emblaApi.scrollNext())
+  // console.log(props);
 
   return (
-    <Link to={`/store/${param.category}/${props.id}`} className="link">
+    <Link to={`/store/${param.category}/${props._id}`} className="link">
       <div className="product-card">
         {props.img.length > 1 ? (
           <div className="embla-pc" ref={emblaRef}>
@@ -40,10 +41,10 @@ const ProductCard = ({ props, onClick }) => {
             </div>
           </div>
         ) : (
-          <img src={props.img[0]} alt={props.name} className="product-image" />
+          <img src={props?.img[0]} alt={props?.name} className="product-image" />
         )}
         <div className="product-details">
-          <h2 className="product-name">{props.name}</h2>
+          <h2 className="product-name">{props?.name}</h2>
           <div style={{ margin: "15px 0" }}>
             <Rating
               readOnly

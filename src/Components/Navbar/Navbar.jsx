@@ -124,6 +124,14 @@ const Navbar = () => {
                                 icon={<LocalMallIcon />}
                               />
                             </Link>
+
+                            <Link className="link" to="/items">
+                              <MenuLink
+                                text="Products"
+                                icon={<LocalMallIcon />}
+                              />
+                            </Link>
+
                           </>
                         ) : (
                           <>
