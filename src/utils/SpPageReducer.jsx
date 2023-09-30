@@ -1,4 +1,12 @@
 export const SpReducer = (state, action) => {
+  if (action.type === "SET_DATA") {
+    return {
+      ...state,
+      productData: [action.payload.data],
+      readOnly: [action.payload.data],
+    }
+  }
+
   if (action.type === "SELECT_FLAVOUR") {
     return {
       ...state,
@@ -7,12 +15,12 @@ export const SpReducer = (state, action) => {
           return {
             ...item,
             flavour: [action.payload.flavour],
-          };
+          }
         }
 
-        return item;
+        return item
       }),
-    };
+    }
   }
 
   if (action.type === "SELECT_WEIGHT") {
@@ -24,12 +32,12 @@ export const SpReducer = (state, action) => {
             ...item,
             weight: [action.payload.weight],
             price: [action.payload.price],
-          };
+          }
         }
 
-        return item;
+        return item
       }),
-    };
+    }
   }
 
   if (action.type === "INCREMENT_ITEM") {
@@ -40,20 +48,20 @@ export const SpReducer = (state, action) => {
           return {
             ...item,
             quantity: item.quantity + 1,
-          };
+          }
         }
-        return item;
+        return item
       }),
       readOnly: state.readOnly.map((item) => {
         if (item.id === action.payload) {
           return {
             ...item,
             quantity: item.quantity + 1,
-          };
+          }
         }
-        return item;
+        return item
       }),
-    };
+    }
   }
   if (action.type === "DECREMENT_ITEM") {
     return {
@@ -63,26 +71,25 @@ export const SpReducer = (state, action) => {
           return {
             ...item,
             quantity: item.quantity - 1,
-          };
+          }
         }
-        return item;
+        return item
       }),
       readOnly: state.readOnly.map((item) => {
         if (item.id === action.payload) {
           return {
             ...item,
             quantity: item.quantity - 1,
-          };
+          }
         }
-        return item;
+        return item
       }),
-    };
+    }
   }
 
-  if (action.type === 'UPDATE_STATE') {
-    return action.payload;
+  if (action.type === "UPDATE_STATE") {
+    return action.payload
   } else {
-    return state;
+    return state
   }
-  
-};
+}

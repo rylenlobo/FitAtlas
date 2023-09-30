@@ -22,13 +22,13 @@ const ProductsPage = () => {
   const { data, loading, error } = useFetch(
     "http://localhost:8800/api/product/"
   )
-  console.log(data)
 
   useEffect(() => {
+    console.log(data)
     window.scroll({
       top: 0,
     })
-  }, [])
+  }, [data])
 
   return (
     <>
@@ -51,15 +51,15 @@ const ProductsPage = () => {
         category.category === "dumbbells" ||
         category.category === "resistant-bands"
           ? data
-              .filter((item) => item.category === category.category)
+              ?.filter((item) => item.category === category.category)
               .map((item) => <ProductCard key={item.id} props={item} />)
           : category.category === "equipment"
           ? data
-              .filter((item) => item.type === "equipment")
+              ?.filter((item) => item.type === "equipment")
               .map((item) => <ProductCard key={item.id} props={item} />)
           : category.category === "Supplement"
           ? data
-              .filter((item) => item.type === "Supplement")
+              ?.filter((item) => item.type === "Supplement")
               .map((item) => <ProductCard key={item.id} props={item} />)
           : null}
       </Stack>

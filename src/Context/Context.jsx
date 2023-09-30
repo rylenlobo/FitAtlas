@@ -134,7 +134,7 @@ export const GlobalStateProvider = ({ children }) => {
 
   useEffect(() => {
     dispatch({ type: "TOTAL" })
-    console.log(state.items)
+    
   }, [state.items])
 
   return (
