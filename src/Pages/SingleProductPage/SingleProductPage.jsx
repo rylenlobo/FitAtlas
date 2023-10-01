@@ -21,7 +21,7 @@ import axios from "axios"
 
 const phData = {
   id: uid(),
-  name: "Blackout: Pre-Workout",
+  productName: "Blackout: Pre-Workout",
   img: [
     "https://rysesupps.com/cdn/shop/files/ryse_2_1_white_314aca74-a2f6-42c8-a8c9-2ede17c87548_500x.png?v=1694017852",
     "https://rysesupps.com/cdn/shop/files/baja_burst_1_500x.png?v=1694017852",
@@ -77,16 +77,18 @@ const Thumb = (props) => {
   )
 }
 
-// const initialstate = {
-//   productData: [],
-//   readOnly: [],
-// };
-
 const SingleProductPage = () => {
+  //add to cart dispatch function
   const { addToCart } = useContext(GlobalStateContext)
+
+  //state  for thumbnail
   const [selectedIndex, setSelectedIndex] = useState(0)
+
+  //for getting product id
   const location = useLocation()
   const productId = location.pathname.split("/")[3]
+
+  //api-state
   const url = `http://localhost:8800/api/product/find/${productId}`
   const [data, setData] = useState(null)
   const [error, setError] = useState(false)
@@ -102,7 +104,7 @@ const SingleProductPage = () => {
 
   useEffect(() => {
     fetchData(url)
-  }, [url])
+  }, [])
 
   const [emblaMainRef, emblaMainApi] = useEmblaCarousel()
   const [emblaThumbsRef, emblaThumbsApi] = useEmblaCarousel({
@@ -116,6 +118,10 @@ const SingleProductPage = () => {
     readOnly: [],
   })
   const setSpData = (data) => {
+    if (data) {
+      setFlavour(data.flavour[0] || "")
+      setWeight(data.weight[0] || "")
+    }
     dispatch({ type: "SET_DATA", payload: { data } })
   }
 
@@ -132,15 +138,6 @@ const SingleProductPage = () => {
     dispatch({ type: "DECREMENT_ITEM", payload: id })
   }
 
-  useEffect(() => {
-    setSpData(data)
-    console.log(data)
-  }, [data])
-
-  const initFlavour = state?.readOnly[0]?.flavour[0]
-    ? state.readOnly[0].flavour[1]
-    : ""
-
   const [showMore, setShowMore] = useState(false)
 
   const toggleShowMore = () => {
@@ -149,24 +146,28 @@ const SingleProductPage = () => {
 
   const Fl = state.readOnly[0]?.flavour ? true : false
 
-  const [flavour, setFlavour] = React.useState(initFlavour)
+  const [flavour, setFlavour] = React.useState(" ")
 
-  const initWeight = state?.readOnly[0]?.weight[0]
-  const [weight, setWeight] = React.useState(initWeight)
+  const [weight, setWeight] = React.useState(" ")
 
-  const id = state?.readOnly[0]?._id
-  const price = state?.readOnly[0]?.weight.indexOf(weight)
+  useEffect(() => {
+    setSpData(data)
+  }, [data])
+
+  // const id = state?.readOnly[0]?._id ?? " "
 
   const handleChange = (event) => {
     setFlavour(event.target.value)
-    selectFlavour(id, event.target.value)
+
+    selectFlavour(state.readOnly[0]._id, event.target.value)
   }
 
   const handleWeight = (event) => {
     setWeight(event.target.value)
-    selectWeight(id, event.target.value, price)
+    selectWeight(state.readOnly[0]._id, event.target.value, price)
   }
 
+  //prettier-ignore
   const onThumbClick = useCallback(
     (index) => {
       if (!emblaMainApi || !emblaThumbsApi) return
@@ -174,13 +175,11 @@ const SingleProductPage = () => {
     },
     [emblaMainApi, emblaThumbsApi]
   )
-
   const onSelect = useCallback(() => {
     if (!emblaMainApi || !emblaThumbsApi) return
     setSelectedIndex(emblaMainApi.selectedScrollSnap())
     emblaThumbsApi.scrollTo(emblaMainApi.selectedScrollSnap())
   }, [emblaMainApi, emblaThumbsApi, setSelectedIndex])
-
   useEffect(() => {
     if (!emblaMainApi) return
     onSelect()
@@ -189,210 +188,218 @@ const SingleProductPage = () => {
   }, [emblaMainApi, onSelect])
 
   useEffect(() => {
-    window.scroll({
-      top: 0,
-    })
-  }, [])
+    console.log(state.productData)
+  }, [state.productData])
+
+  const price = state?.readOnly[0]?.weight.indexOf(weight) ?? " "
 
   return (
-    <div>
-      <Stack
-        alignItems="center"
-        direction={"row"}
-        justifyContent="start"
-        spacing={8}
-        sx={{ width: "100%", height: "100%", padding: "70px 50px 0 50px" }}
-      >
-        <Stack
-          direction={"row"}
-          spacing={2}
-          sx={{
-            padding: "30px ",
-            border: "1px solid #2b2b2b",
-            borderRadius: "5px",
-          }}
-        >
-          <Stack direction={"column"} sx={{ height: "500px", width: "130px" }}>
-            <div className="embla-thumbs">
-              <div className="embla-thumbs__viewport" ref={emblaThumbsRef}>
-                <div className="embla-thumbs__container">
-                  {state.readOnly[0]?.displayimg.map((img, index) => (
-                    <Thumb
-                      onClick={() => onThumbClick(index)}
-                      selected={index === selectedIndex}
-                      index={index}
-                      imgSrc={img}
-                      key={index}
-                    />
-                  ))}
-                </div>
-              </div>
-            </div>
-          </Stack>
+    <>
+      {data ? (
+        <div>
           <Stack
-            direction="row"
-            spacing={10}
             alignItems="center"
-            sx={{ width: "450px", height: "500px" }}
+            direction={"row"}
+            justifyContent="start"
+            spacing={8}
+            sx={{ width: "100%", height: "100%", padding: "70px 50px 0 50px" }}
           >
-            <div className="embla-sp">
-              <div className="embla__viewport" ref={emblaMainRef}>
-                <div className="embla__container-sp">
-                  {state.readOnly[0]?.displayimg.map((img, index) => (
-                    <div className="embla__slide-sp" key={index}>
-                      <img
-                        className="embla__slide__img"
-                        src={img}
-                        alt="Your alt text"
-                      />
+            <Stack
+              direction={"row"}
+              spacing={2}
+              sx={{
+                padding: "30px ",
+                border: "1px solid #2b2b2b",
+                borderRadius: "5px",
+              }}
+            >
+              <Stack
+                direction={"column"}
+                sx={{ height: "500px", width: "130px" }}
+              >
+                <div className="embla-thumbs">
+                  <div className="embla-thumbs__viewport" ref={emblaThumbsRef}>
+                    <div className="embla-thumbs__container">
+                      {state.readOnly[0]?.displayimg.map((img, index) => (
+                        <Thumb
+                          onClick={() => onThumbClick(index)}
+                          selected={index === selectedIndex}
+                          index={index}
+                          imgSrc={img}
+                          key={index}
+                        />
+                      ))}
                     </div>
-                  ))}
+                  </div>
                 </div>
-              </div>
-            </div>
-          </Stack>
-        </Stack>
-        <Stack
-          className="product-info"
-          direction={"column"}
-          sx={{
-            border: "1px solid #2b2b2b",
-            width: "800px",
-            height: "560px",
-            padding: "30px 50px",
-            overflow: "scroll",
-            borderRadius: "5px",
-          }}
-        >
-          <div>
-            <p style={{ fontSize: "50px", margin: 0 }}>
-              {state.readOnly[0]?.productName.toUpperCase()}
-            </p>
-            <Rating
-              readOnly
-              defaultValue={state.readOnly[0]?.rating}
-              sx={{ color: "#4c7abb", margin: "15px 0" }}
-            />
-
-            <p style={{ fontSize: "30px" }}>
-              <CurrencyRupee />
-              {state.readOnly[0]?.price[price]}
-            </p>
-          </div>
-          <Stack
-            direction={"row"}
-            spacing={10}
-            sx={{
-              borderTop: "1px solid #2b2b2b",
-
-              padding: "40px 0",
-            }}
-          >
-            {state.readOnly[0]?.flavour ? (
-              <div>
-                <p>Flavour</p>
-                <Box sx={{ minWidth: 120 }}>
-                  <FormControl fullWidth>
-                    <InputLabel id="demo-simple-select-label"></InputLabel>
-                    <Select
-                      labelId="demo-simple-select-label"
-                      id="demo-simple-select"
-                      value={flavour}
-                      onChange={(e) => {
-                        handleChange(e)
-                      }}
-                      sx={{
-                        width: "200px",
-                        height: "40px",
-                        color: "white",
-                        border: "1px solid grey",
-                        marginTop: "0",
-                        marginBottom: "10px",
-                        "& .MuiSvgIcon-root": {
-                          color: "white",
-                        },
-                      }}
-                    >
-                      {state.readOnly[0]?.flavour?.map((item, index) => (
-                        <MenuItem key={index} value={item}>
-                          {item}
-                        </MenuItem>
+              </Stack>
+              <Stack
+                direction="row"
+                spacing={10}
+                alignItems="center"
+                sx={{ width: "450px", height: "500px" }}
+              >
+                <div className="embla-sp">
+                  <div className="embla__viewport" ref={emblaMainRef}>
+                    <div className="embla__container-sp">
+                      {state.readOnly[0]?.displayimg.map((img, index) => (
+                        <div className="embla__slide-sp" key={index}>
+                          <img
+                            className="embla__slide__img"
+                            src={img}
+                            alt="Your alt text"
+                          />
+                        </div>
                       ))}
-                    </Select>
-                  </FormControl>
-                </Box>
-              </div>
-            ) : (
-              ""
-            )}
-            {state.readOnly[0]?.weight ? (
+                    </div>
+                  </div>
+                </div>
+              </Stack>
+            </Stack>
+            <Stack
+              className="product-info"
+              direction={"column"}
+              sx={{
+                border: "1px solid #2b2b2b",
+                width: "800px",
+                height: "560px",
+                padding: "30px 50px",
+                overflow: "scroll",
+                borderRadius: "5px",
+              }}
+            >
               <div>
-                <p>Weight</p>
-                <Box sx={{ minWidth: 120 }}>
-                  <FormControl fullWidth>
-                    <InputLabel id="demo-simple-select-label"></InputLabel>
-                    <Select
-                      labelId="demo-simple-select-label"
-                      id="demo-simple-select"
-                      value={weight}
-                      onChange={(e) => {
-                        handleWeight(e)
-                      }}
-                      sx={{
-                        width: "200px",
-                        height: "40px",
-                        color: "white",
-                        border: "1px solid grey",
-                        marginTop: "0",
-                        marginBottom: "10px",
-                        "& .MuiSvgIcon-root": {
-                          color: "white",
-                        },
-                      }}
-                    >
-                      {state.readOnly[0]?.weight?.map((item, index) => (
-                        <MenuItem key={index} value={item}>
-                          {item}
-                        </MenuItem>
-                      ))}
-                    </Select>
-                  </FormControl>
-                </Box>
+                <p style={{ fontSize: "50px", margin: 0 }}>
+                  {state.readOnly[0]?.productName.toUpperCase()}
+                </p>
+
+                <Rating
+                  readOnly
+                  value={
+                    state.readOnly[0]?.rating ? state.readOnly[0]?.rating : 0
+                  }
+                  sx={{ color: "#4c7abb", margin: "15px 0" }}
+                />
+
+                <p style={{ fontSize: "30px" }}>
+                  <CurrencyRupee />
+                  {state.readOnly[0]?.price[price]}
+                </p>
               </div>
-            ) : (
-              ""
-            )}
-          </Stack>
-          <Stack
-            direction={"row"}
-            sx={{
-              width: "100%",
-              borderTop: "1px solid #2b2b2b",
-              borderBottom: "1px solid #2b2b2b",
-              padding: "30px 0",
-            }}
-            alignItems={"center"}
-            justifyContent={"start"}
-          >
-            <div style={{}}>
-              <CartCounter
-                count={state.readOnly[0]?.quantity}
-                incrementItem={() => {
-                  incrementItem(id)
+              <Stack
+                direction={"row"}
+                spacing={10}
+                sx={{
+                  borderTop: "1px solid #2b2b2b",
+
+                  padding: "40px 0",
                 }}
-                decrementItem={() => {
-                  decrementItem(id)
+              >
+                {state.readOnly[0]?.flavour ? (
+                  <div>
+                    <p>Flavour</p>
+                    <Box sx={{ minWidth: 120 }}>
+                      <FormControl fullWidth>
+                        <InputLabel id="demo-simple-select-label"></InputLabel>
+                        <Select
+                          labelId="demo-simple-select-label"
+                          id="demo-simple-select"
+                          value={flavour}
+                          onChange={(e) => {
+                            handleChange(e)
+                          }}
+                          sx={{
+                            width: "200px",
+                            height: "40px",
+                            color: "white",
+                            border: "1px solid grey",
+                            marginTop: "0",
+                            marginBottom: "10px",
+                            "& .MuiSvgIcon-root": {
+                              color: "white",
+                            },
+                          }}
+                        >
+                          {state.readOnly[0]?.flavour?.map((item, index) => (
+                            <MenuItem key={index} value={item}>
+                              {item}
+                            </MenuItem>
+                          ))}
+                        </Select>
+                      </FormControl>
+                    </Box>
+                  </div>
+                ) : (
+                  ""
+                )}
+                {state.readOnly[0]?.weight ? (
+                  <div>
+                    <p>Weight</p>
+                    <Box sx={{ minWidth: 120 }}>
+                      <FormControl fullWidth>
+                        <InputLabel id="demo-simple-select-label"></InputLabel>
+                        <Select
+                          labelId="demo-simple-select-label"
+                          id="demo-simple-select"
+                          value={weight}
+                          onChange={(e) => {
+                            handleWeight(e)
+                          }}
+                          sx={{
+                            width: "200px",
+                            height: "40px",
+                            color: "white",
+                            border: "1px solid grey",
+                            marginTop: "0",
+                            marginBottom: "10px",
+                            "& .MuiSvgIcon-root": {
+                              color: "white",
+                            },
+                          }}
+                        >
+                          {state.readOnly[0]?.weight?.map((item, index) => (
+                            <MenuItem key={index} value={item}>
+                              {item}
+                            </MenuItem>
+                          ))}
+                        </Select>
+                      </FormControl>
+                    </Box>
+                  </div>
+                ) : (
+                  ""
+                )}
+              </Stack>
+              <Stack
+                direction={"row"}
+                sx={{
+                  width: "100%",
+                  borderTop: "1px solid #2b2b2b",
+                  borderBottom: "1px solid #2b2b2b",
+                  padding: "30px 0",
                 }}
-              />
-            </div>
-            <div>
-              <Button
-                sx={{ width: "200px", ml: "60px" }}
-                variant="contained"
-                onClick={() => {
-                  //prettier-ignore
-                  addToCart(
-                    state.productData[0].id,
+                alignItems={"center"}
+                justifyContent={"start"}
+              >
+                <div style={{}}>
+                  <CartCounter
+                    count={state.readOnly[0]?.quantity}
+                    incrementItem={() => {
+                      incrementItem(data ? data._id : " ")
+                    }}
+                    decrementItem={() => {
+                      decrementItem(data ? data._id : " ")
+                    }}
+                  />
+                </div>
+                <div>
+                  <Button
+                    sx={{ width: "200px", ml: "60px" }}
+                    variant="contained"
+                    onClick={() => {
+                      //prettier-ignore
+                      addToCart(
+                    state.productData[0]._id,
                     state.productData[0].productName,
                     Fl? state.productData[0].img[state.readOnly[0].flavour?.indexOf(flavour)]: state.productData[0].img[0],
                     Fl ? state.productData[0].flavour[0] : " ",
@@ -401,28 +408,32 @@ const SingleProductPage = () => {
                     state.productData[0].weight[0],
                     state.productData[0].type
                   )
-                }}
-              >
-                Add To Cart
-              </Button>
-            </div>
+                    }}
+                  >
+                    Add To Cart
+                  </Button>
+                </div>
+              </Stack>
+              <Box>
+                <div className="product-description">
+                  <h2>Description</h2>
+                  <p className={showMore ? "show-more" : ""}>
+                    {state.readOnly[0]?.desc}
+                  </p>
+                  {state.readOnly[0]?.desc.length > 100 && (
+                    <button onClick={toggleShowMore}>
+                      {showMore ? "Show less" : "Show more"}
+                    </button>
+                  )}
+                </div>
+              </Box>
+            </Stack>
           </Stack>
-          <Box>
-            <div className="product-description">
-              <h2>Description</h2>
-              <p className={showMore ? "show-more" : ""}>
-                {state.readOnly[0]?.desc}
-              </p>
-              {state.readOnly[0]?.desc.length > 100 && (
-                <button onClick={toggleShowMore}>
-                  {showMore ? "Show less" : "Show more"}
-                </button>
-              )}
-            </div>
-          </Box>
-        </Stack>
-      </Stack>
-    </div>
+        </div>
+      ) : (
+        <>loading</>
+      )}
+    </>
   )
 }
 
