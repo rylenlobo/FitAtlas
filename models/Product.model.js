@@ -17,7 +17,6 @@ const productSchema = new mongoose.Schema(
     },
     brand: {
       type: String,
-      required: true,
     },
     flavour:{
       type:[String]
@@ -34,7 +33,8 @@ const productSchema = new mongoose.Schema(
       type:String,
     },
     quantity:{
-      type:Number
+      type:Number,
+      default:1
     },
     rating:{
       type:Number,

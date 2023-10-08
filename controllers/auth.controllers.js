@@ -1,4 +1,4 @@
-import User from "../models/User.model.js"
+import User from "../models/User.model.js";
 import bcrypt from "bcryptjs";
 import { createError } from "../utils/error.js";
 import jwt from "jsonwebtoken";
@@ -29,7 +29,7 @@ export const login = async (req, res, next) => {
       req.body.password,
       user.password
     );
-    
+
     if (!isPasswordCorrect)
       return next(createError(400, "Invalid username or password!"));
 
@@ -39,23 +39,24 @@ export const login = async (req, res, next) => {
     );
 
     const { password, isAdmin, ...otherDetails } = user._doc;
-    
-    res.cookie("access_token", token, {
+
+    res
+      .cookie("Authorization", token, {
         httpOnly: true,
       })
       .status(200)
-      .json({ details: { ...otherDetails }, isAdmin });
+      .json({ details: { ...otherDetails }, isAdmin, token } );
   } catch (err) {
     next(err);
   }
 };
 
 export const logout = async (req, res) => {
-    res
-        .clearCookie("access_token", {
-            sameSite: "none",
-            secure: true,
-        })
-        .status(200)
-        .send("Logout Successfully");
+  res
+    .clearCookie("Authorization", {
+      sameSite: "none",
+      secure: true,
+    })
+    .status(200)
+    .send("Logout Successfully");
 };
