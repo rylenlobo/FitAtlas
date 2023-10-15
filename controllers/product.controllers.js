@@ -1,7 +1,7 @@
 import Product from "../models/Product.model.js";
 import stripe from "stripe";
 
-const stripeInstance = stripe("sk_test_51NxgIVSAQCRpKHx3DVLE9IgjCtqAgODk4FaS6C5bZS4csS7ikNUpEZaFMZna4mDALySVZdiwac1VGNk0zwceu3wx0067nOydlW");
+const stripeInstance = stripe(process.env.STRIPE);
 
 export const createProduct = async (req, res, next) => {
   try {
