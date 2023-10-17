@@ -81,7 +81,7 @@ export const CartItem = (props) => {
             <CurrencyRupeeIcon />
             {props.price[props.weight.indexOf(weight)]*props.quantity}
           </div> */}
-          <div style={{ margin: "0px" }} onClick={props.onClick}>
+          <div style={{ margin: "0px", cursor:"pointer" }} onClick={props.onClick}>
             <DeleteIcon color="error" />
           </div>
         </Stack>

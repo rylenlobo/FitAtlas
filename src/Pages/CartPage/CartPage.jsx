@@ -1,34 +1,95 @@
-import React, { useState, useEffect, useReducer } from "react"
-import { GlobalStateContext } from "../../Context/Context.jsx"
-import { useContext } from "react"
-import "./CartPage.css"
-import { uid } from "uid"
-import Stack from "@mui/material/Stack"
-import Grid from "@mui/material/Grid"
-import AddIcon from "@mui/icons-material/Add"
-import RemoveIcon from "@mui/icons-material/Remove"
-import CloseIcon from "@mui/icons-material/Close"
-import Button from "@mui/material/Button"
-import ButtonGroup from "@mui/material/ButtonGroup"
-import DeleteIcon from "@mui/icons-material/Delete"
-import Badge from "@mui/material/Badge"
-import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee"
-import { phcartItems } from "../../Context/Context.jsx"
-import Typography from "@mui/material/Typography"
-import Box from "@mui/material/Box"
-import InputLabel from "@mui/material/InputLabel"
-import MenuItem from "@mui/material/MenuItem"
-import FormControl from "@mui/material/FormControl"
-import Select from "@mui/material/Select"
-import { CartItem } from "../../Components/CartItem.jsx/CartItem.jsx"
-import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart"
-import { Link } from "react-router-dom"
+import React, { useState, useEffect, useReducer } from "react";
+import { GlobalStateContext } from "../../Context/Context.jsx";
+import { useContext } from "react";
+import "./CartPage.css";
+import { uid } from "uid";
+import Stack from "@mui/material/Stack";
+import Grid from "@mui/material/Grid";
+import AddIcon from "@mui/icons-material/Add";
+import RemoveIcon from "@mui/icons-material/Remove";
+import CloseIcon from "@mui/icons-material/Close";
+import Button from "@mui/material/Button";
+import ButtonGroup from "@mui/material/ButtonGroup";
+import DeleteIcon from "@mui/icons-material/Delete";
+import Badge from "@mui/material/Badge";
+import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
+import { phcartItems } from "../../Context/Context.jsx";
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
+import { CartItem } from "../../Components/CartItem.jsx/CartItem.jsx";
+import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
+import { Link } from "react-router-dom";
+import { loadStripe } from "@stripe/stripe-js";
+import axios from "axios";
+import Toast from "../../Components/Toast/Toast.jsx";
 
 const CartPage = () => {
-  const { state, removeEl } = useContext(GlobalStateContext)
+  const { state, removeEl } = useContext(GlobalStateContext);
+
+  const [message, setMessage] = useState("");
+  const [open, setOpen] = useState(false)
+
+  // console.log(state);
+  const handleCheckout = async () => {
+    const user = JSON.parse(localStorage.getItem("currentUser"));
+    if (user) {
+      const stripe = await loadStripe(
+        "pk_test_51NxgIVSAQCRpKHx36bDIFoQeLsQHWNZoJJmydz5p3RFUMkGbbZ08gOzPv9yvOUoCSXtFeC0T7TrksM3vqDO2IvUU00OhdesLCE"
+      );
+
+      const response = await fetch(
+        "http://localhost:8800/api/product/checkout-payment",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ state }),
+        }
+      );
+
+      const session = await response.json();
+
+      const expirationTime = 2 * 60 * 1000;
+      sessionStorage.setItem("sessionId", session.id);      
+      const sessionTimer = setTimeout(function() {
+        sessionStorage.removeItem("sessionId");
+        console.log("Session ID has expired and has been removed from sessionStorage.");
+    }, expirationTime);
+      // console.log(session);
+
+      const result = await stripe.redirectToCheckout({
+        sessionId: session.id,
+      });
+
+      if (result.error) {
+        console.log(result.error);
+      }
+    } else{
+      // console.log("Please login first..");
+      setMessage("Welcome back! Just log in to finalize your order.")
+      setOpen(true);
+    }
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return 
+    }
+    setOpen(false)
+  }
+
+  // console.log(message)
 
   return (
     <div className="cart-page-container">
+      <Toast open={open} close={handleClose} type="info">
+        {message}
+      </Toast>
       {state.items.length !== 0 ? (
         <Stack direction="row" justifyContent="flex-start">
           <Stack
@@ -89,10 +150,10 @@ const CartPage = () => {
                   price={val.price}
                   quantity={val.quantity}
                   onClick={() => {
-                    removeEl(val.id)
+                    removeEl(val.id);
                   }}
                 />
-              )
+              );
             })}
           </Stack>
           <Stack
@@ -124,6 +185,7 @@ const CartPage = () => {
               <Button
                 variant="contained"
                 sx={{ width: "400px", height: "50px", marginTop: "40px" }}
+                onClick={handleCheckout}
               >
                 PROCEED TO CHECKOUT
               </Button>
@@ -135,10 +197,10 @@ const CartPage = () => {
           <Stack
             justifyContent={"center"}
             alignItems={"center"}
-            sx={{ width: "100%", height: "120%",pt:"100px" }}
+            sx={{ width: "100%", height: "120%", pt: "100px" }}
           >
             <AddShoppingCartIcon sx={{ fontSize: "300px" }} />
-           <Typography sx={{m:"20px"}}>Cart is Empty</Typography>
+            <Typography sx={{ m: "20px" }}>Cart is Empty</Typography>
             <Link to="/store">
               <Button
                 variant="contained"
@@ -151,7 +213,7 @@ const CartPage = () => {
         </>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default CartPage
+export default CartPage;

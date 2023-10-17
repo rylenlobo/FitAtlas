@@ -1,5 +1,5 @@
 "use client";
-import "./table.scss";
+import "./table.css";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -9,120 +9,125 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
+import useFetch from "../../utils/useFetch.jsx";
+import { Link } from "react-router-dom";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import Toast from "../Toast/Toast";
 
-const List = ({item}) => {
-  const rows = [
-    {
-      id: 1143155,
-      product: "Acer Nitro 5",
-      img: "https://m.media-amazon.com/images/I/81bc8mA3nKL._AC_UY327_FMwebp_QL65_.jpg",
-      category:"Hardware",
-      customer: "John Smith",
-      date: "1 March",
-      amount: 785,
-    },
-    {
-      id: 2235235,
-      product: "Playstation 5",
-      img: "https://m.media-amazon.com/images/I/31JaiPXYI8L._AC_UY327_FMwebp_QL65_.jpg",
-      category:"Software",
-      customer: "Michael Doe",
-      date: "1 March",
-      amount: 900,
-    },
-    {
-      id: 2342353,
-      product: "Redragon S101",
-      img: "https://m.media-amazon.com/images/I/71kr3WAj1FL._AC_UY327_FMwebp_QL65_.jpg",
-      category:"Furniture",
-      customer: "John Smith",
-      date: "1 March",
-      amount: 35,
-    },
-    {
-      id: 2357741,
-      product: "Razer Blade 15",
-      img: "https://m.media-amazon.com/images/I/71wF7YDIQkL._AC_UY327_FMwebp_QL65_.jpg",
-      category:"Consumable",
-      customer: "Jane Smith",
-      date: "1 March",
-      amount: 920,
-    },
-    {
-      id: 2342355,
-      product: "ASUS ROG Strix",
-      img: "https://m.media-amazon.com/images/I/81hH5vK-MCL._AC_UY327_FMwebp_QL65_.jpg",
-      category:"Hardware",
-      customer: "Harold Carol",
-      date: "1 March",
-      amount: 2000,
-    },
-  ];
+const List = () => {
+  // console.log(data);
 
-  // console.log(inventoryColumns);
+  const { data, reFetch } = useFetch("http://localhost:8800/api/product/");
+
+  const [message, setMessage] = useState("")
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+  const [open, setOpen] = useState(null);
+
+  const handleclick = async (id) => {
+    setLoading(true);
+    try {
+      const user = JSON.parse(localStorage.getItem("currentUser"));
+      const authToken = user.token;
+
+      const headers = {
+        Authorization: `${authToken}`, // Use 'Bearer' if it's a token-based authentication
+        "Content-Type": "application/json", // Set the content type according to your API requirements
+      };
+
+      const res = await axios.delete(
+        `http://localhost:8800/api/product/${id}`,
+        { headers }
+      );
+      setMessage(res.data)
+      console.log(res);
+      console.log(message);
+      reFetch();
+    } catch (err) {
+      setError(err);
+    }
+    setLoading(false);
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpen(false);
+  };
+
   return (
-    <TableContainer component={Paper} className="table">
-      <Table sx={{ minWidth: 650 , color:"white"}} aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell className="tableCell">{item[0].col1}</TableCell>
-            <TableCell className="tableCell">{item[1].col2}</TableCell>
-            <TableCell className="tableCell">{item[2].col3}</TableCell>
-            <TableCell className="tableCell">{item[3].col4}</TableCell>
-            <TableCell className="tableCell">{item[4].col5}</TableCell>
-            <TableCell className="tableCell">{item[5].col6}</TableCell>
-            <TableCell className="tableCell">Edit</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows.map((row) => (
-            <TableRow key={row.id}>
-              <TableCell className="tableCell">{row.id}</TableCell>
-              <TableCell className="tableCell">
-                <div className="cellWrapper">
-                  <img src={row.img} alt="" className="image" />
-                  {row.product}
-                </div>
-              </TableCell>
-              <TableCell className="tableCell">{row.customer}</TableCell>
-              <TableCell className="tableCell">
-                {row.category}
-              </TableCell>
-              <TableCell className="tableCell">{row.date}</TableCell>
-              <TableCell className="tableCell">{row.amount}</TableCell>
-              <TableCell className="tableCell">
-                <div className="icons">
-                  <EditOutlinedIcon
-                    sx={{
-                      fontSize: "20px",
-                      cursor: "pointer",
-                      color: "green",
-                      backgroundColor: "rgba(0, 128, 0, 0.151)",
-                      height:"30px",
-                      width:"30px",
-                      borderRadius:"50%",
-                      padding:"5px"
-                    }}
-                  />
-                  <DeleteOutlineOutlinedIcon
-                    sx={{ 
-                      fontSize: "20px", 
-                      cursor: "pointer",
-                      color:"red",
-                      backgroundColor: "rgba(0, 128, 0, 0.151)",
-                      height:"30px",
-                      width:"30px",
-                      borderRadius:"50%",
-                      padding:"5px"
-                     }}
-                  />
-                </div>
-              </TableCell>
+    <>
+      <Toast open={open} close={handleClose} type="success">
+        {message}
+      </Toast>
+      <TableContainer component={Paper} className="table">
+        <Table sx={{ minWidth: 650, color: "black" }} aria-label="simple table">
+          <TableHead>
+            <TableRow>
+              <TableCell className="tableCell">Id</TableCell>
+              <TableCell className="tableCell">Product</TableCell>
+              <TableCell className="tableCell">Name</TableCell>
+              <TableCell className="tableCell">Type</TableCell>
+              <TableCell className="tableCell">Category</TableCell>
+              <TableCell className="tableCell">Price</TableCell>
+              <TableCell className="tableCell">Edit</TableCell>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+          </TableHead>
+          <TableBody>
+            {data.map((row) => (
+              <TableRow key={row.id}>
+                <TableCell className="tableCell">
+                  {row._id.slice(0, 8)}..
+                </TableCell>
+                <TableCell className="tableCell">
+                  <div className="cellWrapper">
+                    <img src={row.displayimg[0]} alt="" className="image" />
+                    {row.productName.slice(0, 15)}
+                  </div>
+                </TableCell>
+                <TableCell className="tableCell">{row.productType}</TableCell>
+                <TableCell className="tableCell">{row.category}</TableCell>
+                <TableCell className="tableCell">{row.price[0]}</TableCell>
+                <TableCell className="tableCell">{row.weight[0]}</TableCell>
+                <TableCell className="tableCell">
+                  <div className="icons">
+                    <Link to={`/update/${row._id}`}>
+                      <EditOutlinedIcon
+                        sx={{
+                          fontSize: "20px",
+                          cursor: "pointer",
+                          color: "green",
+                          backgroundColor: "rgba(0, 128, 0, 0.151)",
+                          height: "30px",
+                          width: "30px",
+                          borderRadius: "50%",
+                          padding: "5px",
+                        }}
+                      />
+                    </Link>
+                    <DeleteOutlineOutlinedIcon
+                      sx={{
+                        fontSize: "20px",
+                        cursor: "pointer",
+                        color: "red",
+                        backgroundColor: "rgba(0, 128, 0, 0.151)",
+                        height: "30px",
+                        width: "30px",
+                        borderRadius: "50%",
+                        padding: "5px",
+                      }}
+                      onClick={() => handleclick(row._id)}
+                    />
+                  </div>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </>
   );
 };
 

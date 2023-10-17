@@ -83,12 +83,8 @@ const SingleProductPage = () => {
 
   //state  for thumbnail
   const [selectedIndex, setSelectedIndex] = useState(0)
-
-  //for getting product id
   const location = useLocation()
   const productId = location.pathname.split("/")[3]
-
-  //api-state
   const url = `http://localhost:8800/api/product/find/${productId}`
   const [data, setData] = useState(null)
   const [error, setError] = useState(false)
@@ -104,7 +100,7 @@ const SingleProductPage = () => {
 
   useEffect(() => {
     fetchData(url)
-  }, [])
+  }, [url])
 
   const [emblaMainRef, emblaMainApi] = useEmblaCarousel()
   const [emblaThumbsRef, emblaThumbsApi] = useEmblaCarousel({
@@ -170,8 +166,7 @@ const SingleProductPage = () => {
   //prettier-ignore
   const onThumbClick = useCallback(
     (index) => {
-      if (!emblaMainApi || !emblaThumbsApi) return
-      emblaMainApi.scrollTo(index)
+      if (!emblaMainApi || !emblaThumbsApi) return emblaMainApi.scrollTo(index)
     },
     [emblaMainApi, emblaThumbsApi]
   )
@@ -191,7 +186,7 @@ const SingleProductPage = () => {
     console.log(state.productData)
   }, [state.productData])
 
-  const price = state?.readOnly[0]?.weight.indexOf(weight) ?? " "
+  const price = state?.readOnly[0]?.weight.indexOf(weight);
 
   return (
     <>

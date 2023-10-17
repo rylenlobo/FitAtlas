@@ -1,0 +1,76 @@
+.cancel-wrapper {
+  /* background-color: white; */
+  min-height: 30vh;
+}
+
+.cancel {
+  width: 600px;
+  margin: auto;
+  margin-top: 100px;
+  background-color: #d4bebe;
+  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  position: relative;
+}
+
+.cancel-btn {
+  padding: 10px 20px;
+  margin: 1rem auto;
+  background-color: #004600;
+  color: #f7f7f7;
+  border: 0;
+  transition: 0.2s;
+  outline: none;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+
+.cancel-btn:hover {
+  background-color: #003200;
+}
+
+.cancel .icon {
+  position: absolute;
+  top: -30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: red;
+  height: 80px;
+  width: 80px;
+  border-radius: 50%;
+  background-color: #d4bebe;
+  box-shadow: 0 .5rem 1rem rgba(0,0,0,.1);
+}
+
+.cancel h2 {
+  text-transform: capitalize;
+  font-weight: 900;
+  font-size: 25px;
+  margin-top: 6rem;
+  font-style: italic;
+  color: #111;
+}
+.cancel .email-msg {
+  font-size: 16px;
+  font-weight: 600;
+  text-align: center;
+  color: #444;
+  opacity: 0.8;
+}
+
+.cancel p {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.cancel .description {
+  font-size: 16px;
+  font-weight: normal;
+  text-align: center;
+  margin: 10px;
+  color: grey;
+}

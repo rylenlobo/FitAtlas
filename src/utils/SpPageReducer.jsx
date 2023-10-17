@@ -6,7 +6,6 @@ export const SpReducer = (state, action) => {
       readOnly: [action.payload.data],
     }
   }
-
   if (action.type === "SELECT_FLAVOUR") {
     return {
       ...state,

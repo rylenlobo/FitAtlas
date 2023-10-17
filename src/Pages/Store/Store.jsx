@@ -15,7 +15,6 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight"
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft"
 import Button from "@mui/material-next/Button"
 import { useNavigate } from "react-router-dom"
-import Spline from "@splinetool/react-spline"
 
 const Store = () => {
   useEffect(() => {
@@ -173,7 +172,7 @@ const Store = () => {
               <div className="category-container-top-right">
                 <div
                   className="sv"
-                  onClick={() => navigate("/store/Supplement")}
+                  onClick={() => navigate("/store/supplement")}
                 >
                   <button className="btn">Supplements & Vitamins</button>
                   <img

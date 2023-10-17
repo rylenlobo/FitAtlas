@@ -1,9 +1,9 @@
-import React, { useState, useReducer, useEffect } from "react"
-import { uid } from "uid"
-import img0100 from "../../public/btl_creatine_1_400x400.png"
-import { reducer } from "../utils/Reducer"
-export const GlobalStateContext = React.createContext()
-import cloneDeep from "lodash/cloneDeep"
+import React, { useState, useReducer, useEffect } from "react";
+import { uid } from "uid";
+import img0100 from "../../public/btl_creatine_1_400x400.png";
+import { reducer } from "../utils/Reducer";
+export const GlobalStateContext = React.createContext();
+import cloneDeep from "lodash/cloneDeep";
 
 //prettier-ignore
 export const phcartItems = [
@@ -72,16 +72,25 @@ export const phcartItems = [
 ]
 
 export const GlobalStateProvider = ({ children }) => {
-  const [muscle, setMuscle] = useState(" ")
+  const [muscle, setMuscle] = useState(" ");
+
+  const getCartData = ()=>{
+    let localCart = localStorage.getItem("cartItem");
+    if (localCart == []) {
+      return []; 
+    } else {
+      return JSON.parse(localCart);
+    }
+  }
 
   let initialState = {
-    items: [],
-    readOnly: [],
+    items: getCartData(),
+    readOnly: getCartData(),
     totalAmount: 0,
     totalItems: 0,
-  }
+  };
   //reducer for cart
-  const [state, dispatch] = useReducer(reducer, initialState)
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   // add item to cart
   const addToCart = (
@@ -108,34 +117,42 @@ export const GlobalStateProvider = ({ children }) => {
         type,
         supplement,
       },
-    })
-  }
+    });
+  };
+
+  useEffect(() => {
+    localStorage.setItem("cartItem", JSON.stringify(state.items));
+  }, [state.items])
+  
 
   //to remove item from cart
   const removeEl = (id) => {
-    dispatch({ type: "REMOVE_ITEM", payload: id })
-  }
+    dispatch({ type: "REMOVE_ITEM", payload: id });
+  };
 
   const incrementItem = (id) => {
-    dispatch({ type: "INCREMENT_ITEM", payload: id })
-  }
+    dispatch({ type: "INCREMENT_ITEM", payload: id });
+  };
 
   const decrementItem = (id) => {
-    dispatch({ type: "DECREMENT_ITEM", payload: id })
-  }
+    dispatch({ type: "DECREMENT_ITEM", payload: id });
+  };
 
   const selectFlavour = (id, flavour) => {
-    dispatch({ type: "SELECT_FLAVOUR", payload: { id, flavour } })
-  }
+    dispatch({ type: "SELECT_FLAVOUR", payload: { id, flavour } });
+  };
 
   const selectWeight = (id, weight, price) => {
-    dispatch({ type: "SELECT_WEIGHT", payload: { id, weight, price } })
-  }
+    dispatch({ type: "SELECT_WEIGHT", payload: { id, weight, price } });
+  };
 
   useEffect(() => {
-    dispatch({ type: "TOTAL" })
-    
-  }, [state.items])
+    dispatch({ type: "TOTAL" });
+  }, [state.items]);
+
+  const clearCart = () =>{
+    dispatch({type:"CLEAR_CART"})
+  }
 
   return (
     <GlobalStateContext.Provider
@@ -149,9 +166,10 @@ export const GlobalStateProvider = ({ children }) => {
         selectFlavour,
         selectWeight,
         addToCart,
+        clearCart,
       }}
     >
       {children}
     </GlobalStateContext.Provider>
-  )
-}
+  );
+};

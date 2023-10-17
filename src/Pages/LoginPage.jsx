@@ -50,6 +50,7 @@ export default function SignIn() {
         password,
       })
       localStorage.setItem("currentUser", JSON.stringify(res.data))
+      // console.log(res);
       navigate("/store")
     } catch (error) {
       setError(error.response.data)
